@@ -128,6 +128,8 @@
     <ClCompile Include="ModelComponent.cpp" />
     <ClCompile Include="MoveToComponent.cpp" />
     <ClCompile Include="ObjModel.cpp" />
+    <ClCompile Include="ObstacleComponent.cpp" />
+    <ClCompile Include="ObstacleGenerator.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimerComponent.cpp" />
@@ -141,6 +143,8 @@
     <ClInclude Include="ModelComponent.h" />
     <ClInclude Include="MoveToComponent.h" />
     <ClInclude Include="ObjModel.h" />
+    <ClInclude Include="ObstacleComponent.h" />
+    <ClInclude Include="ObstacleGenerator.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />

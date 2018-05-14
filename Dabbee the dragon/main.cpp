@@ -5,6 +5,8 @@
 #include <math.h>
 #include "GameObject.h"
 #include "MoveToComponent.h"
+#include "ObstacleComponent.h"
+#include "ObstacleGenerator.h"
 #include "ModelComponent.h"
 #include "CubeComponent.h"
 #include "PlayerComponent.h"
@@ -49,6 +51,23 @@ void init()
 	o->addComponent(new ModelComponent("models/Dragon/Luxion.obj"));
 	o->addComponent(new MoveToComponent());
 	objects.push_back(o);
+	ObstacleGenerator* obstacleGenerator = new ObstacleGenerator();
+	for (int i = -10; i < 10; i++)
+	{
+		
+		obstacleGenerator->getNextObstacle();
+		GameObject* o = new GameObject();
+		o->addComponent(obstacleGenerator->bottomObstacle);
+		o->position = Vec3f(i * 10, 0, 0);
+		objects.push_back(o);
+
+		GameObject* o2 = new GameObject();
+		o2->addComponent(obstacleGenerator->topObstacle);
+		o2->position = Vec3f(i * 10, 0, 0);
+		objects.push_back(o2);
+	}
+
+	
 
 	{
 		GameObject* o = new GameObject();
