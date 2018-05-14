@@ -5,9 +5,14 @@
 #include <math.h>
 #include "GameObject.h"
 #include "MoveToComponent.h"
+#include "CubeComponent.h"
+#include "PlayerComponent.h"
+#include "TimerComponent.h"
+
 
 int height = 800;
 int width = 1200;
+GameObject* player;
 
 
 bool keys[256];
@@ -39,6 +44,32 @@ void init()
 	glEnable(GL_DEPTH_TEST);
 	ZeroMemory(keys, sizeof(keys));
 
+	{
+		GameObject* o = new GameObject();
+		o->addComponent(new CubeComponent(0.5));
+		o->position = Vec3f(2, 0, 5);
+		objects.push_back(o);
+	}
+	{
+		GameObject* o = new GameObject();
+		o->addComponent(new CubeComponent(0.5));
+		o->position = Vec3f(-3, 0, 5);
+		objects.push_back(o);
+	}
+
+	{
+		GameObject* o = new GameObject();
+		o->addComponent(new CubeComponent(0.5));
+		o->addComponent(new PlayerComponent());
+		o->addComponent(new TimerComponent());
+		o->addComponent(new MoveToComponent());
+
+		o->position = Vec3f(0, 0, 0);
+		objects.push_back(o);
+
+		player = o;
+	}
+
 }
 
 void display()
@@ -52,8 +83,8 @@ void display()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(0, -5, 5,
-		0, 0, 0,
+	gluLookAt(player->position.x, player->position.y + 1, player->position.z + 0.125,
+		player->position.x, player->position.y + 0.5, player->position.z + 1.5,
 		0, 1, 0);
 
 
