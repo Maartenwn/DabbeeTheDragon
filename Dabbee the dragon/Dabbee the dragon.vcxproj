@@ -124,14 +124,21 @@
     <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelComponent.cpp" />
     <ClCompile Include="MoveToComponent.cpp" />
+    <ClCompile Include="ObjModel.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vec.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="ModelComponent.h" />
     <ClInclude Include="MoveToComponent.h" />
+    <ClInclude Include="ObjModel.h" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Vec.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

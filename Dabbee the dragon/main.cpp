@@ -1,4 +1,6 @@
 #include <GL/freeglut.h>
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 #include <opencv2/opencv.hpp>
 #include <math.h>
 #include "GameObject.h"
