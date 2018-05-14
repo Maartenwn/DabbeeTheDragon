@@ -1,24 +1,11 @@
 #pragma once
-#include "ObjModel.h"
-#include "DrawComponent.h"
-
-#ifndef HMODELCOMPONENT
-#define HMODELCOMPONENT
-
-class ModelComponent : public DrawComponent
+class ModelComponent
 {
 public:
-	ModelComponent(const string filenameAndDir);
+	ModelComponent();
 	~ModelComponent();
-	void draw();
-private :
-	ObjModel *model;
+
 };
-
-#endif // !HMODELCOMPONENT
-
-
-
 
 void initModels();
 	
