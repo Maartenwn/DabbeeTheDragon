@@ -1,16 +1,36 @@
 #include "ModelComponent.h"
 #include <vector>
+#include "ObjModel.h"
+
+using namespace std;
+
+vector<ObjModel*> models;
 
 
-ModelComponent::ModelComponent()
-{
+static ObjModel* findModel(const string input) {
+	for (ObjModel* model : models)
+	{
+		if (model->getName() == input) return model;
+	}
 }
+
+void initModels() {
+	models.push_back(new ObjModel("models/steve/steve.obj"));
+	models.push_back(new ObjModel("models/Dragon/Luxion.obj"));
+}
+
+ModelComponent::ModelComponent(const string nameModel)
+{
+	model = findModel(nameModel);
+}
+
 
 
 ModelComponent::~ModelComponent()
 {
 }
 
-void initModels() {
-
+void ModelComponent::draw() {
+	model->draw();
 }
+

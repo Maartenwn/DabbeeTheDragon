@@ -78,6 +78,7 @@ static inline std::string cleanLine(std::string line)
 */
 ObjModel::ObjModel(const std::string &fileName)
 {
+	name = fileName;
 	std::cout << "Loading " << fileName << std::endl;
 	std::string dirName = fileName;
 	if(dirName.rfind("/") != std::string::npos)
@@ -86,7 +87,6 @@ ObjModel::ObjModel(const std::string &fileName)
 		dirName = dirName.substr(0, dirName.rfind("\\"));
 	if(fileName == dirName)
 		dirName = "";
-
 
 	std::ifstream pFile(fileName.c_str());
 
@@ -289,12 +289,16 @@ void ObjModel::loadMaterialFile( const std::string &fileName, const std::string 
 	}
 	if(currentMaterial != NULL)
 		materials.push_back(currentMaterial);
-
 }
 
 ObjModel::MaterialInfo::MaterialInfo()
 {
 	texture = NULL;
 }
+
+string ObjModel::getName() {
+	return name;
+}
+
 
 
