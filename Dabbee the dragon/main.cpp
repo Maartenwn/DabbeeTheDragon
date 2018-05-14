@@ -5,6 +5,7 @@
 #include <math.h>
 #include "GameObject.h"
 #include "MoveToComponent.h"
+#include "ModelComponent.h"
 
 int height = 800;
 int width = 1200;
@@ -37,7 +38,12 @@ void keyboardup(unsigned char key, int x, int y)
 void init()
 {
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
 	ZeroMemory(keys, sizeof(keys));
+	GameObject *o = new GameObject();
+	o->addComponent(new ModelComponent("models/Dragon/Luxion.obj"));
+	o->addComponent(new MoveToComponent());
+	objects.push_back(o);
 
 }
 
@@ -52,10 +58,20 @@ void display()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(0, -5, 5,
-		0, 0, 0,
+	gluLookAt(0, 2.5, -3,
+		0, 2, 100000000000000,
 		0, 1, 0);
 
+	glPushMatrix();
+	glTranslated(0, 1, 0);
+	GLfloat diffuse[] = { 1, 1, 1, 1 };
+	glLightfv(GL_LIGHT0, GL_POSITION, diffuse);
+	GLfloat pos[] = { 1, 0, 0, 1 };
+	glLightfv(GL_LIGHT0, GL_POSITION, pos);
+	glPopMatrix();
+
+
+	glEnable(GL_LIGHT0);
 
 	for (auto &o : objects)
 		o->draw();
@@ -92,6 +108,7 @@ int main(int argc, char* argv[])
 	glutKeyboardUpFunc(keyboardup);
 
 	//opengl init
+	initModels();
 	init();
 
 	glutMainLoop();

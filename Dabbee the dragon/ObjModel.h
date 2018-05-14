@@ -46,11 +46,13 @@ private:
 	std::vector<Vec2f>	texcoords;
 	std::vector<ObjGroup*> groups;
 	std::vector<MaterialInfo*> materials;
+	std::string name;
 
 	void loadMaterialFile(const std::string &fileName, const std::string &dirName);
 public:
 	ObjModel(const std::string &filename);
 	~ObjModel(void);
+	string getName();
 
 	void draw();
 };
