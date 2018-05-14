@@ -4,7 +4,8 @@
 
 class PlayerComponent : public Component
 {
-	float speed = 5;
+	float speed = 15;
+	float rotation = 0;
 public:
 	PlayerComponent();
 	~PlayerComponent();

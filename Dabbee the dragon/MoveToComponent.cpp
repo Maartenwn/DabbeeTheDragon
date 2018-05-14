@@ -1,7 +1,6 @@
 #include "MoveToComponent.h"
 #include "GameObject.h"
 
-
 MoveToComponent::MoveToComponent()
 {
 }
@@ -13,7 +12,8 @@ MoveToComponent::~MoveToComponent()
 
 void MoveToComponent::update(float elapsedTime)
 {
-	gameObject->position.x = (1 - speed) * gameObject->position.x + speed * target.x;
-	gameObject->position.y = (1 - speed) * gameObject->position.y + speed * target.y;
-	gameObject->position.z = (1 - speed) * gameObject->position.z + speed * target.z;
+	gameObject->position.x += speed * target.x * speedcounter;
+	gameObject->position.y += speed * target.y * speedcounter;
+	gameObject->position.z += speed * target.z * speedcounter;
+	speedcounter += 0.02f;	//speedcounter schould be set to 0 when w(or flap detected) is pressed 
 }
