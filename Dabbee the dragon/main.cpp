@@ -1,4 +1,5 @@
 #include <GL/freeglut.h>
+#include <opencv2/opencv.hpp>
 #include <math.h>
 #include "GameObject.h"
 #include "MoveToComponent.h"
@@ -8,7 +9,6 @@ int width = 1200;
 
 
 bool keys[256];
-
 
 std::list<GameObject*> objects;
 
