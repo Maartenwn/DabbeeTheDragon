@@ -76,11 +76,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\opencv\build\include;freeglut/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:/opencv/build/include;freeglut/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>opencv_world341d.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\opencv\build\x64\vc14\lib;freeglut/lib/x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:/opencv/build/x64/vc14/lib;freeglut/lib/x64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
