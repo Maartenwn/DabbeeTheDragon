@@ -5,6 +5,8 @@
 #include <math.h>
 #include "GameObject.h"
 #include "MoveToComponent.h"
+#include "ObstacleComponent.h"
+#include "ObstacleGenerator.h"
 
 int height = 800;
 int width = 1200;
@@ -18,7 +20,7 @@ void reshape(int w, int h)
 {
 	width = w;
 	height = h;
-	glViewport(0, 0, w, h);
+	glViewport(-100, -100, w, h);
 }
 
 void keyboard(unsigned char key, int x, int  y)
@@ -38,6 +40,23 @@ void init()
 {
 	glEnable(GL_DEPTH_TEST);
 	ZeroMemory(keys, sizeof(keys));
+	ObstacleGenerator* obstacleGenerator = new ObstacleGenerator();
+	for (int i = -10; i < 10; i++)
+	{
+		
+		obstacleGenerator->getNextObstacle();
+		GameObject* o = new GameObject();
+		o->addComponent(obstacleGenerator->bottomObstacle);
+		o->position = Vec3f(i * 10, 0, 0);
+		objects.push_back(o);
+
+		GameObject* o2 = new GameObject();
+		o2->addComponent(obstacleGenerator->topObstacle);
+		o2->position = Vec3f(i * 10, 0, 0);
+		objects.push_back(o2);
+	}
+
+	
 
 }
 
