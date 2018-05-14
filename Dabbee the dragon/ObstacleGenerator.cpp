@@ -1,5 +1,6 @@
 #include "ObstacleGenerator.h"
 #include <stdlib.h>
+#include <iostream>
 
 
 ObstacleGenerator::ObstacleGenerator()
@@ -15,20 +16,21 @@ ObstacleGenerator::~ObstacleGenerator()
 
 void ObstacleGenerator::getNextObstacle() {
 	ObstacleComponent* topTemp;
-	ObstacleComponent* bottomTemp;
+	ObstacleComponent* bottemTemp;
 	do
 	{
-		int randomHeight = rand() % 10 + 1; //random number between 1 and 10
-		topTemp = new ObstacleComponent(randomHeight);
-		topTemp->y = -MARGIN;
-		bottomTemp = new ObstacleComponent(randomHeight);
-		bottomTemp->y = MARGIN;
+		int randomHeight = rand() % 3 + 0; //random number between 1 and 10
+		std::cout << randomHeight << std::endl;
+		topTemp = new ObstacleComponent(4);
+		topTemp->y = (MARGIN / 2) + randomHeight;
+		bottemTemp = new ObstacleComponent(1);
+		bottemTemp->y = (-MARGIN / 2) + randomHeight;
 		
 
-	} while (checkWithPreviousBottem(bottomTemp) && checkWithPreviousBottem(topTemp));
+	} while (checkWithPreviousBottem(bottemTemp) && checkWithPreviousBottem(topTemp));
 	
 	topObstacle = topTemp;
-	bottomObstacle = bottomTemp;
+	bottomObstacle = bottemTemp;
 
 }
 

@@ -46,34 +46,19 @@ void init()
 	glEnable(GL_DEPTH_TEST);
 	ZeroMemory(keys, sizeof(keys));
 	ObstacleGenerator* obstacleGenerator = new ObstacleGenerator();
-	for (int i = -10; i < 10; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		
 		obstacleGenerator->getNextObstacle();
 		GameObject* o = new GameObject();
 		o->addComponent(obstacleGenerator->bottomObstacle);
-		o->position = Vec3f(i * 10, 0, 0);
+		o->position = Vec3f(0, 0, i * 5);
 		objects.push_back(o);
 
 		GameObject* o2 = new GameObject();
 		o2->addComponent(obstacleGenerator->topObstacle);
-		o2->position = Vec3f(i * 10, 0, 0);
+		o2->position = Vec3f(0, 0, i * 5);
 		objects.push_back(o2);
-	}
-
-	
-
-	{
-		GameObject* o = new GameObject();
-		o->addComponent(new CubeComponent(0.5));
-		o->position = Vec3f(2, 0, 5);
-		objects.push_back(o);
-	}
-	{
-		GameObject* o = new GameObject();
-		o->addComponent(new CubeComponent(0.5));
-		o->position = Vec3f(-3, 0, 5);
-		objects.push_back(o);
 	}
 
 	{
@@ -93,6 +78,7 @@ void init()
 
 void display()
 {
+
 	glClearColor(0.9f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -103,10 +89,12 @@ void display()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(player->position.x, player->position.y + 1, player->position.z + 0.125,
+		0, 0, 20,
+		0, player->position.y, 0);
+	/*
+	gluLookAt(player->position.x, player->position.y + 1, player->position.z + 0.125,
 		player->position.x, player->position.y + 0.5, player->position.z + 1.5,
-		0, 1, 0);
-
-
+		0, 1, 0);*/
 	for (auto &o : objects)
 		o->draw();
 
