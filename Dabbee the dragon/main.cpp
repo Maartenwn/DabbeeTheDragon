@@ -12,6 +12,7 @@
 #include "PlayerComponent.h"
 #include "TimerComponent.h"
 #include "SkyboxComponent.h"
+#include "CollisionComponent.h"
 
 
 int height = 800;
@@ -49,12 +50,27 @@ void addObstacle(void) {
 	float position = obstacleGenerator->getNextObstacle();
 	GameObject* o = new GameObject();
 	o->addComponent(obstacleGenerator->bottomObstacle);
-	o->position = Vec3f(0, 0, position);
+	auto collision = new CollisionComponent();
+
+	vector<Cube*> hitboxes;
+	ObstacleComponent* obstacle = o->getComponent<ObstacleComponent>();
+	hitboxes.push_back(new Cube(o->position, {obstacle->width + 0.01f,obstacle->height + 0.01f,obstacle->depth + 0.01f }));
+	collision->updateHitboxes(hitboxes);
+	o->addComponent(collision);
+	o->position = Vec3f(-obstacle->width/2, obstacle->gapY, position);
+
 	objects.push_back(o);
 
 	GameObject* o2 = new GameObject();
 	o2->addComponent(obstacleGenerator->topObstacle);
-	o2->position = Vec3f(0, 0, position);
+
+	vector<Cube*> hitboxes2;
+	ObstacleComponent* obstacle2 = o2->getComponent<ObstacleComponent>();
+	hitboxes2.push_back(new Cube(o2->position, { obstacle2->width + 0.01f,obstacle2->height+0.01f,obstacle2->depth + 0.01f }));
+	collision->updateHitboxes(hitboxes2);
+	o2->addComponent(collision);
+	o2->position = Vec3f(-obstacle2->width/2, obstacle2->gapY, position);
+
 	objects.push_back(o2);
 }
 
@@ -65,10 +81,15 @@ void init()
 	//glEnable(GL_LIGHTING);
 	ZeroMemory(keys, sizeof(keys));
 	GameObject *o = new GameObject();
-	o->addComponent(new ModelComponent("models/steve/steve.obj"));
 	o->addComponent(new PlayerComponent());
 	o->addComponent(new TimerComponent());
 	o->addComponent(new MoveToComponent());
+	o->addComponent(new ModelComponent("models/steve/steve.obj"));
+	auto collision = new CollisionComponent();
+	vector<Cube*> cubes;
+	cubes.push_back(new Cube({ -0.5,-0.5,1.5 }, { 1,1,1 }));
+	collision->updateHitboxes(cubes);
+	o->addComponent(collision);
 	o->rotation = { 90,270,0 };
 	objects.push_back(o);
 	player = o;
@@ -132,7 +153,6 @@ void display()
 	
 
 
-
 	glutSwapBuffers();
 }
 
@@ -149,6 +169,12 @@ void idle()
 
 	for (auto &o : objects)
 		o->update(deltaTime);
+
+	auto collision = player->getComponent<CollisionComponent>();
+	if (!collision->checkCollision(objects)) {
+		cout << "False" << endl;
+	}
+	else cout << "True" << endl;
 
 	skybox->position = { player->position.x - 0.5f, player->position.y + .5f,
 		player->position.z - 2.5f };

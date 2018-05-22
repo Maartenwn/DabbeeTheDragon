@@ -5,19 +5,18 @@
 
 class ObstacleComponent : public DrawComponent
 {
+public:
 
 	float width;
 	float height;
 	float depth;
-	
-
-public:
 
 	float gapY;
 
 	ObstacleComponent();
 	~ObstacleComponent();
+	GameObject* getGameObject();
 
-	virtual void draw() override;
+	void draw();
 };
 

@@ -120,7 +120,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="CubeComponent.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -137,7 +139,9 @@
     <ClCompile Include="Vec.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="CubeComponent.h" />
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="GameObject.h" />

@@ -19,12 +19,13 @@ PlayerComponent::~PlayerComponent()
 
 void PlayerComponent::update(float elapsedTime)
 {
+
+
 	if (keys['w']) {
 		gameObject->position.y += elapsedTime * pc_speed;
 
 		MoveToComponent* moveto = gameObject->getComponent<MoveToComponent>();
 		moveto->mt_speedcounter = 1;		//gravitation reset
-		//cout << moveto->mt_speedcounter << endl;
 
 		if (0 == pc_timer) {
 			PlayerComponent* player = gameObject->getComponent<PlayerComponent>();

@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "DrawComponent.h"
+#include "CollisionComponent.h"
 #include <GL/freeglut.h>
 
 GameObject::GameObject()
@@ -16,6 +17,9 @@ void GameObject::addComponent(Component * component)
 	component->setGameObject(this);
 	components.push_back(component);
 
+	if (!collisionComponent) {
+		collisionComponent = dynamic_cast<CollisionComponent*>(component);
+	}
 	if (!drawComponent)
 		drawComponent = dynamic_cast<DrawComponent*>(component);
 }
@@ -30,9 +34,14 @@ void GameObject::draw()
 {
 	if (!drawComponent)
 		return;
+	
+
 
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
+	if (collisionComponent) {
+		collisionComponent->draw();
+	}
 	glRotatef(rotation.x, 1, 0, 0);
 	glRotatef(rotation.y, 0, 1, 0);
 	glRotatef(rotation.z, 0, 0, 1);
