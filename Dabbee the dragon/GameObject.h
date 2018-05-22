@@ -3,12 +3,15 @@
 #include <list>
 #include "Vec.h"
 
+
 class Component;
 class DrawComponent;
+class CollisionComponent;
 
 class GameObject
 {
 	DrawComponent* drawComponent = nullptr;
+	CollisionComponent* collisionComponent = nullptr;
 	
 	std::list<Component*> components;
 public:

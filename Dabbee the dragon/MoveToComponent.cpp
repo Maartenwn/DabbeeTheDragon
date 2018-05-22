@@ -1,5 +1,6 @@
 #include "MoveToComponent.h"
 #include "GameObject.h"
+#include "CollisionComponent.h"
 
 MoveToComponent::MoveToComponent()
 {
