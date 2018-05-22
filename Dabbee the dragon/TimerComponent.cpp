@@ -15,6 +15,6 @@ TimerComponent::~TimerComponent()
 void TimerComponent::update(float elapsedTime)
 {
 		MoveToComponent* moveTo = gameObject->getComponent<MoveToComponent>();
-		moveTo->target = Vec3f(0,- 1, 0);
+		moveTo->target = Vec3f(0,- 1, 0.5f);
 
 }
