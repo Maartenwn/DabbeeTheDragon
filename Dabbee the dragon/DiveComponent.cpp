@@ -23,7 +23,7 @@ void DiveComponent::dive() {
 	float rot = 90;
 	float speed = moveTo->mt_speedcounter;
 
-	float top = -(MAX_FLAP_SPEED * 1.25) / MAX_FLAP_SPEED; // -1.25
+	float top = -(MAX_FLAP_SPEED * PLAYER_SPEED_MOD) / MAX_FLAP_SPEED;
 	const float bot = 2; 
 
 	if (speed < top) {

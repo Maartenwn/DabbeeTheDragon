@@ -4,8 +4,12 @@
 #include "MotionInput.h"
 #include <iostream>
 
+#define TICKS_TO_RISE 40
+
 extern bool keys[256];
 extern float flapspeed;
+
+float cur, top, avg;
 
 using namespace std;
 
@@ -22,14 +26,21 @@ void PlayerComponent::update(float elapsedTime)
 	MoveToComponent* moveto = gameObject->getComponent<MoveToComponent>();
 
 	if (flapspeed != 0.0f) {
-		moveto->mt_speedcounter = -(flapspeed * 1.25) / MAX_FLAP_SPEED;
-		cout << "human flap" << endl;
+		top = -(flapspeed * PLAYER_SPEED_MOD) / MAX_FLAP_SPEED;
+		cur = moveto->mt_speedcounter;
+		avg = (top - cur) / TICKS_TO_RISE;
 	}
 
 	if (keys['w']) {
-		moveto->mt_speedcounter = -0.8f;
+		top = -1.0f;
+		cur = moveto->mt_speedcounter;
+		avg = (top - cur) / TICKS_TO_RISE;
 		keys['w'] = false;
-		cout << "computer flap" << endl;
+	}
+
+	if (cur > top) {
+		moveto->mt_speedcounter += avg;
+		cur += avg;
 	}
 
 	flapspeed = 0.0f;

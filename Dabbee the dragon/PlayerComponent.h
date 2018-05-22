@@ -2,6 +2,8 @@
 
 #include "Component.h"
 
+#define PLAYER_SPEED_MOD 2
+
 class PlayerComponent : public Component
 {
 			
