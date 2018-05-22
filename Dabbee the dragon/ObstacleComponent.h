@@ -13,10 +13,9 @@ class ObstacleComponent : public DrawComponent
 
 public:
 
-	float y;
+	float gapY;
 
 	ObstacleComponent();
-	ObstacleComponent(float height);
 	~ObstacleComponent();
 
 	virtual void draw() override;
