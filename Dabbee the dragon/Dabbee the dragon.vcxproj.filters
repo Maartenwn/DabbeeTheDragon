@@ -60,11 +60,11 @@
     <ClCompile Include="ModelComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="SkyboxComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="ModelComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -89,9 +89,6 @@
     <ClInclude Include="stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ObstacleComponent.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="ObstacleGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -102,6 +99,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TimerComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObstacleComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyboxComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
