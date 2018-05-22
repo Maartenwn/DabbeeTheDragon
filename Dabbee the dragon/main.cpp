@@ -13,11 +13,13 @@
 #include "PlayerComponent.h"
 #include "TimerComponent.h"
 #include "MotionInput.h"
+#include "SkyboxComponent.h"
 
 
 int height = 800;
 int width = 1200;
 GameObject* player;
+GameObject* skybox;
 
 float flapspeed;
 bool keys[256];
@@ -54,7 +56,7 @@ void init()
 	o->addComponent(new PlayerComponent());
 	o->addComponent(new TimerComponent());
 	o->addComponent(new MoveToComponent());
-	o->rotation = { 0,270,0 };
+	o->rotation = { 90,270,0 };
 	objects.push_back(o);
 	player = o;
 	ObstacleGenerator* obstacleGenerator = new ObstacleGenerator();
@@ -72,6 +74,10 @@ void init()
 		o2->position = Vec3f(0, 0, i * 5);
 		objects.push_back(o2);
 	}
+
+	skybox = new GameObject();
+	skybox->addComponent(new SkyboxComponent());
+
 }
 
 void display()
@@ -90,19 +96,24 @@ void display()
 		player->position.x, player->position.y + 0.5, player->position.z,
 		0, 1, 0);
 
+
 	glPushMatrix();
-	//glTranslated(player->position.x, player->position.y + 1, player->position.z);
-	GLfloat diffuse[] = { 1, 1, 1, 1 };
-	glLightfv(GL_LIGHT0, GL_POSITION, diffuse);
-	GLfloat pos[] = { 1, 0, 0, 0 };
+	//GLfloat diffuse[] = { 1, 1, 1, 1 };
+	//glLightfv(GL_LIGHT0, GL_POSITION, diffuse);
+	glTranslatef(-5,0,0);
+	GLfloat pos[] = { 0, 0, 1, 1 };
 	glLightfv(GL_LIGHT0, GL_POSITION, pos);
 	glPopMatrix();
 
-
+	glColor3f(1.0, 1.0, 1.0);
+	skybox->draw();
+	
 	glEnable(GL_LIGHT0);
+
 
 	for (auto &o : objects)
 		o->draw();
+
 
 
 	glutSwapBuffers();
@@ -116,8 +127,14 @@ void idle()
 	float deltaTime = (currentTime - lastTime) / 1000.0f;
 	lastTime = currentTime;
 
+	
+
+
 	for (auto &o : objects)
 		o->update(deltaTime);
+
+	skybox->position = { player->position.x - 0.5f, player->position.y + 1.5f,
+		player->position.z - 2.5f };
 
 	glutPostRedisplay();
 }

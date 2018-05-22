@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{8C48BD49-5490-4CD6-BC26-D53144D54365}</ProjectGuid>
     <RootNamespace>Dabbeethedragon</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -76,11 +76,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:/opencv/build/include;freeglut/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Software\libs\opencv\opencv\build\include;freeglut\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>opencv_world341d.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/opencv/build/x64/vc14/lib;freeglut/lib/x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>freeglut\lib\x64;D:\Software\libs\opencv\opencv\build\x64\vc15\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -113,10 +113,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>freeglut/include;D:\Software\libs\opencv\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>freeglut\lib\x64;D:\Software\libs\opencv\opencv\build\x64\vc15\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;opencv_world341d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -126,6 +129,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelComponent.cpp" />
+    <ClCompile Include="MotionInput.cpp" />
     <ClCompile Include="MoveToComponent.cpp" />
     <ClCompile Include="ObjModel.cpp" />
     <ClCompile Include="ObstacleComponent.cpp" />
@@ -142,6 +146,7 @@
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ModelComponent.h" />
+    <ClInclude Include="MotionInput.h" />
     <ClInclude Include="MoveToComponent.h" />
     <ClInclude Include="ObjModel.h" />
     <ClInclude Include="ObstacleComponent.h" />

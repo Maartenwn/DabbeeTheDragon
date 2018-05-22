@@ -22,14 +22,15 @@ PlayerComponent::~PlayerComponent()
 void PlayerComponent::update(float elapsedTime)
 {
 	if (flapspeed != 0.0f) {
-		cout << "Human flap" << endl;
-		
-		//float pos = elapsedTime * (((flapspeed * speed) / MAX_FLAP_SPEED));
-		//gameObject->position.y += pos;
-
 		MoveToComponent* moveto = gameObject->getComponent<MoveToComponent>();
 		moveto->speedcounter = -(flapspeed * 2) / MAX_FLAP_SPEED;
 	}
+
+	if (keys['w']) {
+		MoveToComponent* moveto = gameObject->getComponent<MoveToComponent>();
+		moveto->speedcounter = -0.8f;
+	}
+
 
 	flapspeed = 0.0f;
 }
