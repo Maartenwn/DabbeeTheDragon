@@ -52,27 +52,29 @@ void init()
 	o->addComponent(new PlayerComponent());
 	o->addComponent(new TimerComponent());
 	o->addComponent(new MoveToComponent());
+	o->rotation = { 0,270,0 };
 	objects.push_back(o);
 	player = o;
 	ObstacleGenerator* obstacleGenerator = new ObstacleGenerator();
-	for (int i = -10; i < 10; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		
 		obstacleGenerator->getNextObstacle();
 		GameObject* o = new GameObject();
 		o->addComponent(obstacleGenerator->bottomObstacle);
-		o->position = Vec3f(i * 10, 0, 0);
+		o->position = Vec3f(0, 0, i * 5);
 		objects.push_back(o);
 
 		GameObject* o2 = new GameObject();
 		o2->addComponent(obstacleGenerator->topObstacle);
-		o2->position = Vec3f(i * 10, 0, 0);
+		o2->position = Vec3f(0, 0, i * 5);
 		objects.push_back(o2);
 	}
 }
 
 void display()
 {
+
 	glClearColor(0.9f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -82,7 +84,7 @@ void display()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(player->position.x - 3, player->position.y + 2, player->position.z,
+	gluLookAt(player->position.x , player->position.y + 2, player->position.z - 3,
 		player->position.x, player->position.y + 0.5, player->position.z,
 		0, 1, 0);
 
