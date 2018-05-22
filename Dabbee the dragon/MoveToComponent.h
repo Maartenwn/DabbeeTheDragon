@@ -2,17 +2,22 @@
 
 #include "Component.h"
 #include "Vec.h"
+#define FALLINGTIMER 7
 
 class MoveToComponent : public Component
 {
 public:
-	float speedcounter = 1;	//used for fall animation
-	float speed = 0.005f;
+	float mt_speedcounter = 1;	//used for fall animation
+	float mt_speed = 0.005f;
+	int	  mt_amountLeftToRotate = 45;
+
 	Vec3f target;
 
 	MoveToComponent();
 	~MoveToComponent();
 
 	virtual void update(float elapsedTime) override;
+	void rotate(void);
+
 };
 

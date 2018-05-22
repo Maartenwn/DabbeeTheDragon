@@ -23,6 +23,8 @@ GameObject* skybox;
 
 bool keys[256];
 
+ObstacleGenerator* obstacleGenerator = new ObstacleGenerator();
+
 std::list<GameObject*> objects;
 
 void reshape(int w, int h)
@@ -44,6 +46,19 @@ void keyboardup(unsigned char key, int x, int y)
 	keys[key] = false;
 }
 
+void addObstacle(void) {
+	float position = obstacleGenerator->getNextObstacle();
+	GameObject* o = new GameObject();
+	o->addComponent(obstacleGenerator->bottomObstacle);
+	o->position = Vec3f(0, 0, position);
+	objects.push_back(o);
+
+	GameObject* o2 = new GameObject();
+	o2->addComponent(obstacleGenerator->topObstacle);
+	o2->position = Vec3f(0, 0, position);
+	objects.push_back(o2);
+}
+
 
 void init()
 {
@@ -63,21 +78,9 @@ void init()
 	o->rotation = { 90,270,0 };
 	objects.push_back(o);
 	player = o;
-	ObstacleGenerator* obstacleGenerator = new ObstacleGenerator();
-	for (int i = 0; i < 10; i++)
-	{
-		
-		obstacleGenerator->getNextObstacle();
-		GameObject* o = new GameObject();
-		o->addComponent(obstacleGenerator->bottomObstacle);
-		o->position = Vec3f(0, 0, i * 5);
-		objects.push_back(o);
-
-		GameObject* o2 = new GameObject();
-		o2->addComponent(obstacleGenerator->topObstacle);
-		o2->position = Vec3f(0, 0, i * 5);
-		objects.push_back(o2);
-	}
+	
+	for (int i = 0; i < 5; i++)
+		addObstacle();
 
 	skybox = new GameObject();
 	skybox->addComponent(new SkyboxComponent());
@@ -96,7 +99,7 @@ void display()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(player->position.x , player->position.y + 2, player->position.z - 3,
+	gluLookAt(player->position.x , player->position.y + 1, player->position.z - 3,
 		player->position.x, player->position.y + 0.5, player->position.z,
 		0, 1, 0);
 
@@ -114,9 +117,25 @@ void display()
 	
 	glEnable(GL_LIGHT0);
 
-
-	for (auto &o : objects)
+	std::list<GameObject*> removableObjects;
+	for (auto &o : objects) {
+		if (o->getComponent<ObstacleComponent>() != nullptr) {
+			if (o->position.z < player->position.z - 1) {
+				removableObjects.push_back(o);
+				continue;
+			}
+		}
 		o->draw();
+	}
+
+	if (removableObjects.size() > 0) {
+		for (auto &o : removableObjects)
+			objects.remove(o);
+
+		addObstacle();
+	}
+	
+	
 
 
 	glutSwapBuffers();
@@ -136,7 +155,7 @@ void idle()
 	for (auto &o : objects)
 		o->update(deltaTime);
 
-	skybox->position = { player->position.x - 0.5f, player->position.y + 1.5f,
+	skybox->position = { player->position.x - 0.5f, player->position.y + .5f,
 		player->position.z - 2.5f };
 
 	glutPostRedisplay();
