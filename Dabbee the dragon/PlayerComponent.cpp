@@ -23,7 +23,7 @@ void PlayerComponent::update(float elapsedTime)
 {
 	if (flapspeed != 0.0f) {
 		MoveToComponent* moveto = gameObject->getComponent<MoveToComponent>();
-		moveto->speedcounter = -(flapspeed * 1.5) / MAX_FLAP_SPEED;
+		moveto->speedcounter = -(flapspeed * 1.25) / MAX_FLAP_SPEED;
 	}
 
 	if (keys['w']) {

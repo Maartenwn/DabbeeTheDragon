@@ -6,8 +6,8 @@
 class MoveToComponent : public Component
 {
 public:
-	float speedcounter = 1;	//used for fall animation
-	float speed = 0.005f;
+	float speedcounter = 0;	//used for fall animation
+	float speed = 0.008f;
 	Vec3f target;
 
 	MoveToComponent();
