@@ -3,6 +3,7 @@
 #include "stb_image.h"
 #include <opencv2/opencv.hpp>
 #include <math.h>
+
 #include "GameObject.h"
 #include "MoveToComponent.h"
 #include "ObstacleComponent.h"
@@ -11,6 +12,7 @@
 #include "CubeComponent.h"
 #include "PlayerComponent.h"
 #include "TimerComponent.h"
+#include "MotionInput.h"
 
 
 int height = 800;
@@ -120,6 +122,9 @@ void idle()
 	glutPostRedisplay();
 }
 
+void motion(const double& speed) {
+	cout << "Nice flap bro XD" << endl;
+}
 
 int main(int argc, char* argv[])
 {
@@ -136,6 +141,10 @@ int main(int argc, char* argv[])
 	//opengl init
 	initModels();
 	init();
+
+	//Init motion
+	MotionInput m( &motion);
+	m.Start(0);
 
 	glutMainLoop();
 
