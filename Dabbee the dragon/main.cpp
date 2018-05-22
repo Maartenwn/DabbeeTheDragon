@@ -22,6 +22,8 @@ GameObject* skybox;
 
 bool keys[256];
 
+ObstacleGenerator* obstacleGenerator = new ObstacleGenerator();
+
 std::list<GameObject*> objects;
 
 void reshape(int w, int h)
@@ -43,6 +45,19 @@ void keyboardup(unsigned char key, int x, int y)
 	keys[key] = false;
 }
 
+void addObstacle(void) {
+	float position = obstacleGenerator->getNextObstacle();
+	GameObject* o = new GameObject();
+	o->addComponent(obstacleGenerator->bottomObstacle);
+	o->position = Vec3f(0, 0, position);
+	objects.push_back(o);
+
+	GameObject* o2 = new GameObject();
+	o2->addComponent(obstacleGenerator->topObstacle);
+	o2->position = Vec3f(0, 0, position);
+	objects.push_back(o2);
+}
+
 
 void init()
 {
@@ -57,21 +72,9 @@ void init()
 	o->rotation = { 90,270,0 };
 	objects.push_back(o);
 	player = o;
-	ObstacleGenerator* obstacleGenerator = new ObstacleGenerator();
-	for (int i = 0; i < 10; i++)
-	{
-		
-		obstacleGenerator->getNextObstacle();
-		GameObject* o = new GameObject();
-		o->addComponent(obstacleGenerator->bottomObstacle);
-		o->position = Vec3f(0, 0, i * 7.5f);
-		objects.push_back(o);
-
-		GameObject* o2 = new GameObject();
-		o2->addComponent(obstacleGenerator->topObstacle);
-		o2->position = Vec3f(0, 0, i * 7.5f);
-		objects.push_back(o2);
-	}
+	
+	for (int i = 0; i < 5; i++)
+		addObstacle();
 
 	skybox = new GameObject();
 	skybox->addComponent(new SkyboxComponent());
@@ -108,9 +111,25 @@ void display()
 	
 	glEnable(GL_LIGHT0);
 
-
-	for (auto &o : objects)
+	std::list<GameObject*> removableObjects;
+	for (auto &o : objects) {
+		if (o->getComponent<ObstacleComponent>() != nullptr) {
+			if (o->position.z < player->position.z - 1) {
+				removableObjects.push_back(o);
+				continue;
+			}
+		}
 		o->draw();
+	}
+
+	if (removableObjects.size() > 0) {
+		for (auto &o : removableObjects)
+			objects.remove(o);
+
+		addObstacle();
+	}
+	
+	
 
 
 

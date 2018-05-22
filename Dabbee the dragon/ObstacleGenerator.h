@@ -14,7 +14,7 @@ public:
 	ObstacleGenerator();
 	~ObstacleGenerator();
 
-	void getNextObstacle();
+	float getNextObstacle();
 
 private:
 	bool checkWithPreviousBottem(ObstacleComponent* obstacle);

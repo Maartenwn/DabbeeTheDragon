@@ -2,11 +2,14 @@
 #include <stdlib.h>
 #include <iostream>
 
+int obstacleCount;
 
 ObstacleGenerator::ObstacleGenerator()
 {
 	this->bottomObstacle = new ObstacleComponent();
 	this->topObstacle = new ObstacleComponent();
+
+	obstacleCount = 0;
 }
 
 
@@ -14,7 +17,7 @@ ObstacleGenerator::~ObstacleGenerator()
 {
 }
 
-void ObstacleGenerator::getNextObstacle() {
+float ObstacleGenerator::getNextObstacle() {
 	ObstacleComponent* topTemp;
 	ObstacleComponent* bottemTemp;
 	do
@@ -32,7 +35,13 @@ void ObstacleGenerator::getNextObstacle() {
 	topObstacle = topTemp;
 	bottomObstacle = bottemTemp;
 
+	obstacleCount++;
+	return (obstacleCount - 1) * 7.5;
 }
+
+//float* ObstacleGenerator::getPosition() {
+	//return (float)obstacleCount * 7.5;
+//}
 
 bool ObstacleGenerator::checkWithPreviousBottem(ObstacleComponent* obstacle){
 	return false;
