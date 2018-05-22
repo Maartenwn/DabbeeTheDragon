@@ -1,5 +1,6 @@
 #pragma once
 
+#define MAX_FLAP_SPEED 500
 #include <opencv2/opencv.hpp>
 
 class MotionInput {

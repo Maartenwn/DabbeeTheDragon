@@ -10,8 +10,6 @@
 #include <ctime>
 #include <cstdlib>
 
-#define MAX_FLAP_SPEED 500
-
 using namespace cv;
 using namespace std;
 

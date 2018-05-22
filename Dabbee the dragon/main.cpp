@@ -19,7 +19,7 @@ int height = 800;
 int width = 1200;
 GameObject* player;
 
-
+float flapspeed;
 bool keys[256];
 
 std::list<GameObject*> objects;
@@ -123,7 +123,7 @@ void idle()
 }
 
 void motion(const double& speed) {
-	cout << "Nice flap bro XD" << endl;
+	flapspeed = speed;
 }
 
 int main(int argc, char* argv[])
@@ -131,7 +131,7 @@ int main(int argc, char* argv[])
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
 	glutInitWindowSize(width, height);
 	glutInit(&argc, argv);
-	glutCreateWindow("Dabbe the dragon");
+	glutCreateWindow("Dabbee the dragon");
 	glutDisplayFunc(display);
 	glutIdleFunc(idle);
 	glutReshapeFunc(reshape);
@@ -143,7 +143,7 @@ int main(int argc, char* argv[])
 	init();
 
 	//Init motion
-	MotionInput m( &motion);
+	MotionInput m(&motion);
 	m.Start(0);
 
 	glutMainLoop();
