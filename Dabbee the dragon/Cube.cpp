@@ -6,6 +6,7 @@ Cube::Cube(Vec3f newPosition,Vec3f size)
 	this->position = newPosition;
 	this->maxPosition = { position.x + size.x , position.y + size.y ,
 	position.z + size.z };
+	this->size = size;
 }
 
 

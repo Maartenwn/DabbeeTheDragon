@@ -87,7 +87,7 @@ void init()
 	o->addComponent(new ModelComponent("models/steve/steve.obj"));
 	auto collision = new CollisionComponent();
 	vector<Cube*> cubes;
-	cubes.push_back(new Cube({ -0.5,-0.5,1.5 }, { 1,1,1 }));
+	cubes.push_back(new Cube({ -0.35f,-0.5,1.5 }, { 0.7f,0.7f,0.7f }));
 	collision->updateHitboxes(cubes);
 	o->addComponent(collision);
 	o->rotation = { 90,270,0 };
@@ -114,16 +114,21 @@ void display()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	/*gluLookAt(-10, player->position.y, player->position.z,
+		0, player->position.y, player->position.z,
+		0, 1, 0);*/
+
 	gluLookAt(player->position.x , player->position.y + 1, player->position.z - 3,
 		player->position.x, player->position.y + 0.5, player->position.z,
 		0, 1, 0);
 
 
 	glPushMatrix();
-	//GLfloat diffuse[] = { 1, 1, 1, 1 };
-	//glLightfv(GL_LIGHT0, GL_POSITION, diffuse);
-	glTranslatef(-5,0,0);
-	GLfloat pos[] = { 0, 0, 1, 1 };
+	GLfloat diffuse[] = { 1, 0, 1, 0 };
+	glLightfv(GL_LIGHT0, GL_POSITION, diffuse);
+	glTranslatef(player->position.x - 3,player->position.y + 1,player->position.z);
+	GLfloat pos[] = { 1, 0, 0, 1 };
 	glLightfv(GL_LIGHT0, GL_POSITION, pos);
 	glPopMatrix();
 

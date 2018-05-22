@@ -8,6 +8,8 @@ public:
 	~Cube();
 	Vec3f position;
 	Vec3f maxPosition;
+	Vec3f size;
+
 	void draw();
 	bool collide(Vec3f pos1, Vec3f pos2, Cube toCheckCube);
 };
