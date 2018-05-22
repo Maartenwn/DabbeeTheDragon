@@ -12,6 +12,7 @@
 #include "CubeComponent.h"
 #include "PlayerComponent.h"
 #include "TimerComponent.h"
+#include "DiveComponent.h"
 #include "MotionInput.h"
 #include "SkyboxComponent.h"
 
@@ -56,6 +57,7 @@ void init()
 	o->addComponent(new PlayerComponent());
 	o->addComponent(new TimerComponent());
 	o->addComponent(new MoveToComponent());
+	o->addComponent(new DiveComponent());
 	o->rotation = { 90,270,0 };
 	objects.push_back(o);
 	player = o;

@@ -7,7 +7,6 @@ class PlayerComponent : public Component
 			
 public:
 	float pc_speed = 15;
-	int   pc_rotation = 90;
 
 	PlayerComponent();
 	~PlayerComponent();

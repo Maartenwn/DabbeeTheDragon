@@ -2,7 +2,6 @@
 
 #include "Component.h"
 #include "Vec.h"
-#define FALLINGTIMER 7
 
 class MoveToComponent : public Component
 {
@@ -18,7 +17,6 @@ public:
 	~MoveToComponent();
 
 	virtual void update(float elapsedTime) override;
-	void rotate(void);
 
 };
 
