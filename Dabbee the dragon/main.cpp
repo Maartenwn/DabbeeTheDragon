@@ -57,7 +57,7 @@ void addObstacle(void) {
 	hitboxes.push_back(new Cube(o->position, {obstacle->width + 0.01f,obstacle->height + 0.01f,obstacle->depth + 0.01f }));
 	collision->updateHitboxes(hitboxes);
 	o->addComponent(collision);
-	o->position = Vec3f(obstacle->width/2, obstacle->gapY, position);
+	o->position = Vec3f(-obstacle->width/2, obstacle->gapY, position);
 
 	objects.push_back(o);
 
@@ -69,7 +69,7 @@ void addObstacle(void) {
 	hitboxes2.push_back(new Cube(o2->position, { obstacle2->width + 0.01f,obstacle2->height+0.01f,obstacle2->depth + 0.01f }));
 	collision->updateHitboxes(hitboxes2);
 	o2->addComponent(collision);
-	o2->position = Vec3f(obstacle2->width/2, obstacle2->gapY, position);
+	o2->position = Vec3f(-obstacle2->width/2, obstacle2->gapY, position);
 
 	objects.push_back(o2);
 }
