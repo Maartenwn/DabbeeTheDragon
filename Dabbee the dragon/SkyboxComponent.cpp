@@ -59,7 +59,7 @@ void SkyboxComponent::draw() {
 	//glutSolidCube(1);
 	glEnable(GL_TEXTURE_2D);
 	textureSkybox->bind();
-	glShadeModel(GL_SMOOTH);
+	//glShadeModel(GL_SMOOTH);
 	//glutSolidTeapot(2);
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
