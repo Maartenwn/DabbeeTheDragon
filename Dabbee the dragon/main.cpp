@@ -64,12 +64,12 @@ void init()
 		obstacleGenerator->getNextObstacle();
 		GameObject* o = new GameObject();
 		o->addComponent(obstacleGenerator->bottomObstacle);
-		o->position = Vec3f(0, 0, i * 5);
+		o->position = Vec3f(0, 0, i * 7.5f);
 		objects.push_back(o);
 
 		GameObject* o2 = new GameObject();
 		o2->addComponent(obstacleGenerator->topObstacle);
-		o2->position = Vec3f(0, 0, i * 5);
+		o2->position = Vec3f(0, 0, i * 7.5f);
 		objects.push_back(o2);
 	}
 
@@ -90,7 +90,7 @@ void display()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(player->position.x , player->position.y + 2, player->position.z - 3,
+	gluLookAt(player->position.x , player->position.y + 1, player->position.z - 3,
 		player->position.x, player->position.y + 0.5, player->position.z,
 		0, 1, 0);
 
@@ -131,7 +131,7 @@ void idle()
 	for (auto &o : objects)
 		o->update(deltaTime);
 
-	skybox->position = { player->position.x - 0.5f, player->position.y + 1.5f,
+	skybox->position = { player->position.x - 0.5f, player->position.y + .5f,
 		player->position.z - 2.5f };
 
 	glutPostRedisplay();

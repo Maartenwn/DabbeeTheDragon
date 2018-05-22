@@ -2,6 +2,7 @@
 
 #include "Component.h"
 #include "Vec.h"
+#define FALLINGTIMER 7
 
 class MoveToComponent : public Component
 {
