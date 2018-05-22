@@ -12,6 +12,7 @@
 #include "PlayerComponent.h"
 #include "TimerComponent.h"
 #include "SkyboxComponent.h"
+#include "Audioplayer.h"
 
 
 int height = 800;
@@ -154,8 +155,11 @@ int main(int argc, char* argv[])
 	initModels();
 	init();
 
+	PlayAudioFile();
 	glutMainLoop();
+	
 
+	
 	return 0;
 }
 
