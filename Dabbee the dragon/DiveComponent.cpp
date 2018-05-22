@@ -26,17 +26,14 @@ void DiveComponent::dive() {
 	float top = -(MAX_FLAP_SPEED * 1.25) / MAX_FLAP_SPEED; // -1.25
 	const float bot = 2; 
 
-	const float angleTop = 10;
-	const float angleMid = 90;
-	const float angleBot = 135;
-
 	if (speed < top) {
-		rot = angleTop;
+		rot = PLAYER_ANGLE_TOP;
 	}
 	else if (speed > bot) {
-		rot = angleBot;
+		rot = PLAYER_ANGLE_BOT;
 	}else {
-		rot = ((speed - top) / (bot - top) * (angleBot - angleTop)) + angleTop;
+		float temp = PLAYER_ANGLE_BOT - PLAYER_ANGLE_TOP;
+		rot = ((speed - top) / (bot - top) * (temp)) + PLAYER_ANGLE_TOP;
 	}
 
 	gameObject->rotation = { rot ,270,0 };

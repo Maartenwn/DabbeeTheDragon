@@ -66,6 +66,9 @@
     <ClCompile Include="MotionInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DiveComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModelComponent.h">
@@ -117,6 +120,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MotionInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DiveComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

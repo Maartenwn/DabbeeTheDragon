@@ -76,11 +76,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Software\libs\opencv\opencv\build\include;freeglut\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\opencv\build\include;freeglut\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>opencv_world341d.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>freeglut\lib\x64;D:\Software\libs\opencv\opencv\build\x64\vc15\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>freeglut\lib\x64;C:\opencv\build\x64\vc15\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="CubeComponent.cpp" />
+    <ClCompile Include="DiveComponent.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
@@ -143,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="Component.h" />
     <ClInclude Include="CubeComponent.h" />
+    <ClInclude Include="DiveComponent.h" />
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ModelComponent.h" />
