@@ -132,26 +132,10 @@ void display()
 	
 	glEnable(GL_LIGHT0);
 
-	std::list<GameObject*> removableObjects;
 	for (auto &o : objects) {
-		if (o->getComponent<ObstacleComponent>() != nullptr) {
-			if (o->position.z < player->position.z - 1) {
-				removableObjects.push_back(o);
-				continue;
-			}
-		}
+		
 		o->draw();
 	}
-
-	if (removableObjects.size() > 0) {
-		for (auto &o : removableObjects)
-			objects.remove(o);
-
-		addObstacle();
-	}
-	
-	
-
 
 	glutSwapBuffers();
 }
@@ -164,11 +148,24 @@ void idle()
 	float deltaTime = (currentTime - lastTime) / 1000.0f;
 	lastTime = currentTime;
 
-	
+	std::list<GameObject*> removableObjects;
 
-
-	for (auto &o : objects)
+	for (auto &o : objects) {
+		if (o->getComponent<ObstacleComponent>() != nullptr) {
+			if (o->position.z < player->position.z - 3) {
+				removableObjects.push_back(o);
+				continue;
+			}
+		}
 		o->update(deltaTime);
+	}
+
+	if (removableObjects.size() > 0) {
+		for (auto &o : removableObjects)
+			objects.remove(o);
+
+		addObstacle();
+	}
 
 	auto collision = player->getComponent<CollisionComponent>();
 	if (!collision->checkCollision(objects)) {
