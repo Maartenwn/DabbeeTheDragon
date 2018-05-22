@@ -19,7 +19,7 @@ void ObstacleGenerator::getNextObstacle() {
 	ObstacleComponent* bottemTemp;
 	do
 	{
-		int randomHeight = rand() % MARGIN_GAP_DISTANCE + 0; //random number between 0 and gap distance
+		int randomHeight = rand() % MAX_GAP_DISTANCE + 0; //random number between 0 and gap distance
 		std::cout << randomHeight << std::endl;
 		topTemp = new ObstacleComponent();
 		topTemp->gapY = (MARGIN_GAP_HEIGHT / 2) + randomHeight;
