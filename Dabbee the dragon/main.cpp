@@ -12,6 +12,7 @@
 #include "PlayerComponent.h"
 #include "TimerComponent.h"
 #include "SkyboxComponent.h"
+#include "CollisionComponent.h"
 
 
 int height = 800;
@@ -50,10 +51,15 @@ void init()
 	//glEnable(GL_LIGHTING);
 	ZeroMemory(keys, sizeof(keys));
 	GameObject *o = new GameObject();
-	o->addComponent(new ModelComponent("models/steve/steve.obj"));
 	o->addComponent(new PlayerComponent());
 	o->addComponent(new TimerComponent());
 	o->addComponent(new MoveToComponent());
+	o->addComponent(new ModelComponent("models/steve/steve.obj"));
+	auto collision = new CollisionComponent();
+	vector<Cube*> cubes;
+	cubes.push_back(new Cube({ -0.5,-0.5,1.5 }, { 1,1,1 }));
+	collision->updateHitboxes(cubes);
+	o->addComponent(collision);
 	o->rotation = { 90,270,0 };
 	objects.push_back(o);
 	player = o;
@@ -111,7 +117,6 @@ void display()
 
 	for (auto &o : objects)
 		o->draw();
-
 
 
 	glutSwapBuffers();
