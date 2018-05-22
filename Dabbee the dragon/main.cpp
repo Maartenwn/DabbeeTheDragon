@@ -15,6 +15,7 @@
 #include "DiveComponent.h"
 #include "MotionInput.h"
 #include "SkyboxComponent.h"
+#include "CollisionComponent.h"
 
 
 int height = 800;
@@ -24,6 +25,8 @@ GameObject* skybox;
 
 float flapspeed;
 bool keys[256];
+
+ObstacleGenerator* obstacleGenerator = new ObstacleGenerator();
 
 std::list<GameObject*> objects;
 
@@ -46,6 +49,34 @@ void keyboardup(unsigned char key, int x, int y)
 	keys[key] = false;
 }
 
+void addObstacle(void) {
+	float position = obstacleGenerator->getNextObstacle();
+	GameObject* o = new GameObject();
+	o->addComponent(obstacleGenerator->bottomObstacle);
+	auto collision = new CollisionComponent();
+
+	vector<Cube*> hitboxes;
+	ObstacleComponent* obstacle = o->getComponent<ObstacleComponent>();
+	hitboxes.push_back(new Cube(o->position, {obstacle->width + 0.01f,obstacle->height + 0.01f,obstacle->depth + 0.01f }));
+	collision->updateHitboxes(hitboxes);
+	o->addComponent(collision);
+	o->position = Vec3f(-obstacle->width/2, obstacle->gapY, position);
+
+	objects.push_back(o);
+
+	GameObject* o2 = new GameObject();
+	o2->addComponent(obstacleGenerator->topObstacle);
+
+	vector<Cube*> hitboxes2;
+	ObstacleComponent* obstacle2 = o2->getComponent<ObstacleComponent>();
+	hitboxes2.push_back(new Cube(o2->position, { obstacle2->width + 0.01f,obstacle2->height+0.01f,obstacle2->depth + 0.01f }));
+	collision->updateHitboxes(hitboxes2);
+	o2->addComponent(collision);
+	o2->position = Vec3f(-obstacle2->width/2, obstacle2->gapY, position);
+
+	objects.push_back(o2);
+}
+
 
 void init()
 {
@@ -53,29 +84,22 @@ void init()
 	//glEnable(GL_LIGHTING);
 	ZeroMemory(keys, sizeof(keys));
 	GameObject *o = new GameObject();
-	o->addComponent(new ModelComponent("models/steve/steve.obj"));
 	o->addComponent(new PlayerComponent());
 	o->addComponent(new TimerComponent());
 	o->addComponent(new MoveToComponent());
 	o->addComponent(new DiveComponent());
+	o->addComponent(new ModelComponent("models/steve/steve.obj"));
+	auto collision = new CollisionComponent();
+	vector<Cube*> cubes;
+	cubes.push_back(new Cube({ -0.35f,-0.5,1.5 }, { 0.7f,0.7f,0.7f }));
+	collision->updateHitboxes(cubes);
+	o->addComponent(collision);
 	o->rotation = { 90,270,0 };
 	objects.push_back(o);
 	player = o;
-	ObstacleGenerator* obstacleGenerator = new ObstacleGenerator();
-	for (int i = 0; i < 10; i++)
-	{
-		
-		obstacleGenerator->getNextObstacle();
-		GameObject* o = new GameObject();
-		o->addComponent(obstacleGenerator->bottomObstacle);
-		o->position = Vec3f(0, 0, i * 7.5f);
-		objects.push_back(o);
-
-		GameObject* o2 = new GameObject();
-		o2->addComponent(obstacleGenerator->topObstacle);
-		o2->position = Vec3f(0, 0, i * 7.5f);
-		objects.push_back(o2);
-	}
+	
+	for (int i = 0; i < 5; i++)
+		addObstacle();
 
 	skybox = new GameObject();
 	skybox->addComponent(new SkyboxComponent());
@@ -94,16 +118,21 @@ void display()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	/*gluLookAt(-10, player->position.y, player->position.z,
+		0, player->position.y, player->position.z,
+		0, 1, 0);*/
+
 	gluLookAt(player->position.x , player->position.y + 1, player->position.z - 3,
 		player->position.x, player->position.y + 0.5, player->position.z,
 		0, 1, 0);
 
 
 	glPushMatrix();
-	//GLfloat diffuse[] = { 1, 1, 1, 1 };
-	//glLightfv(GL_LIGHT0, GL_POSITION, diffuse);
-	glTranslatef(-5,0,0);
-	GLfloat pos[] = { 0, 0, 1, 1 };
+	GLfloat diffuse[] = { 1, 0, 1, 0 };
+	glLightfv(GL_LIGHT0, GL_POSITION, diffuse);
+	glTranslatef(player->position.x - 3,player->position.y + 1,player->position.z);
+	GLfloat pos[] = { 1, 0, 0, 1 };
 	glLightfv(GL_LIGHT0, GL_POSITION, pos);
 	glPopMatrix();
 
@@ -112,10 +141,25 @@ void display()
 	
 	glEnable(GL_LIGHT0);
 
-
-	for (auto &o : objects)
+	std::list<GameObject*> removableObjects;
+	for (auto &o : objects) {
+		if (o->getComponent<ObstacleComponent>() != nullptr) {
+			if (o->position.z < player->position.z - 1) {
+				removableObjects.push_back(o);
+				continue;
+			}
+		}
 		o->draw();
+	}
 
+	if (removableObjects.size() > 0) {
+		for (auto &o : removableObjects)
+			objects.remove(o);
+
+		addObstacle();
+	}
+	
+	
 
 
 	glutSwapBuffers();
@@ -134,6 +178,12 @@ void idle()
 
 	for (auto &o : objects)
 		o->update(deltaTime);
+
+	auto collision = player->getComponent<CollisionComponent>();
+	if (!collision->checkCollision(objects)) {
+		cout << "False" << endl;
+	}
+	else cout << "True" << endl;
 
 	skybox->position = { player->position.x - 0.5f, player->position.y + .5f,
 		player->position.z - 2.5f };

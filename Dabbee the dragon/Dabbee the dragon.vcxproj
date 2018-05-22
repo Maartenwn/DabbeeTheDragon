@@ -123,11 +123,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="CubeComponent.cpp" />
     <ClCompile Include="DiveComponent.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelComponent.cpp" />
     <ClCompile Include="MotionInput.cpp" />
@@ -136,17 +140,22 @@
     <ClCompile Include="ObstacleComponent.cpp" />
     <ClCompile Include="ObstacleGenerator.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
+    <ClCompile Include="PlayingState.cpp" />
     <ClCompile Include="SkyboxComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimerComponent.cpp" />
     <ClCompile Include="Vec.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CollisionComponent.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="CubeComponent.h" />
     <ClInclude Include="DiveComponent.h" />
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="ModelComponent.h" />
     <ClInclude Include="MotionInput.h" />
     <ClInclude Include="MoveToComponent.h" />
@@ -154,6 +163,7 @@
     <ClInclude Include="ObstacleComponent.h" />
     <ClInclude Include="ObstacleGenerator.h" />
     <ClInclude Include="PlayerComponent.h" />
+    <ClInclude Include="PlayingState.h" />
     <ClInclude Include="SkyboxComponent.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
