@@ -150,6 +150,7 @@
     <ClInclude Include="SkyboxComponent.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureVertex.h" />
     <ClInclude Include="TimerComponent.h" />
     <ClInclude Include="Vec.h" />
   </ItemGroup>
