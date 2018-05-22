@@ -16,7 +16,7 @@ static ObjModel* findModel(const string input) {
 
 void initModels() {
 	models.push_back(new ObjModel("models/steve/steve.obj"));
-	models.push_back(new ObjModel("models/Dragon/Luxion.obj"));
+	//models.push_back(new ObjModel("models/Dragon/Luxion.obj"));
 }
 
 ModelComponent::ModelComponent(const string nameModel)

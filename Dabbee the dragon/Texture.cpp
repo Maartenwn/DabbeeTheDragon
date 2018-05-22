@@ -24,9 +24,13 @@ Texture::Texture(std::string input){
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 }
 
+static int prevId = -1;
 
 void Texture::bind() {
-	glBindTexture(GL_TEXTURE_2D, id);
+	if (prevId == -1 || prevId != id) {
+		glBindTexture(GL_TEXTURE_2D, id);
+		prevId = id;
+	}
 }
 
 GLuint Texture::getId() {

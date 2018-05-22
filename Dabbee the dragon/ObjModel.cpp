@@ -189,30 +189,27 @@ void ObjModel::draw()
 	//  foreach face in group
 	//    foreach vertex in face
 	//      emit vertex
-
 	for(ObjGroup* group : groups) {
 		glEnable(GL_TEXTURE_2D);
 		for(MaterialInfo* material : materials) {
+			materials[group->materialIndex]->texture->bind();
 		}
-		materials[group->materialIndex]->texture->bind();
+		
+		glPushMatrix();
+		glScalef(0.25f, 0.25f, 0.25f);
+		glBegin(GL_TRIANGLES);
+		glColor3f(1.0, 1.0, 1.0);
 		for(Face face : group->faces) {
-			glPushMatrix();
 			//glColor3f(1.0, 0.5, 0.3);
-			glScalef(0.25f, 0.25f, 0.25f);
-			
-
-			glBegin(GL_TRIANGLES);
-			
 
 			for (Vertex vertex : face.vertices)
 			{
 				glTexCoord2fv(texcoords[vertex.texcoord].v);
 				glVertex3fv(vertices[vertex.position].v);
-			}
-
-			glEnd();
-			glPopMatrix();
+			}	
 		}
+		glEnd();
+		glPopMatrix();
 	}
 }
 
