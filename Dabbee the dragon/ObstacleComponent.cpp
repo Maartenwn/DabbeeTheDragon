@@ -4,16 +4,10 @@
 
 ObstacleComponent::ObstacleComponent()
 {
-	//this->size = 10;
-
-}
-
-ObstacleComponent::ObstacleComponent(float height)
-{
-	y = 0;
+	gapY = 0;
 
 	this->width = 2;
-	this->height = 1;
+	this->height = 2;
 	this->depth = 0.75;
 }
 
@@ -25,7 +19,7 @@ ObstacleComponent::~ObstacleComponent()
 void ObstacleComponent::draw() {
 	
 	glPushMatrix();
-	glTranslatef(0, y, -7.0f);
+	glTranslatef(0, gapY, 0);
 	//glTranslatef(0, 0, 20);
 	glBegin(GL_QUADS);
 	

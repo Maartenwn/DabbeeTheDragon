@@ -4,7 +4,7 @@
 
 class ObstacleGenerator
 {
-	static const int MARGIN = 5;
+	static const int MARGIN = 8;
 	
 public:
 	ObstacleComponent * topObstacle;
