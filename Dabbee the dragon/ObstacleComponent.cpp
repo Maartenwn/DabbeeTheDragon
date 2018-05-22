@@ -1,5 +1,6 @@
 #include "ObstacleComponent.h"
 #include <GL/freeglut.h>
+#include "GameObject.h"
 
 
 ObstacleComponent::ObstacleComponent()
@@ -17,7 +18,10 @@ ObstacleComponent::~ObstacleComponent()
 }
 
 void ObstacleComponent::draw() {
-	
+	if (gameObject->position.z < 0) {
+		return;
+	}
+
 	glPushMatrix();
 	glTranslatef(0, gapY, 0);
 	//glTranslatef(0, 0, 20);

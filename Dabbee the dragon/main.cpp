@@ -7,6 +7,7 @@
 #include "MoveToComponent.h"
 #include "ObstacleComponent.h"
 #include "ObstacleGenerator.h"
+#include "ModelComponent.h"
 #include "CubeComponent.h"
 #include "PlayerComponent.h"
 #include "TimerComponent.h"
@@ -44,7 +45,16 @@ void keyboardup(unsigned char key, int x, int y)
 void init()
 {
 	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_LIGHTING);
 	ZeroMemory(keys, sizeof(keys));
+	GameObject *o = new GameObject();
+	o->addComponent(new ModelComponent("models/steve/steve.obj"));
+	o->addComponent(new PlayerComponent());
+	o->addComponent(new TimerComponent());
+	o->addComponent(new MoveToComponent());
+	o->rotation = { 0,270,0 };
+	objects.push_back(o);
+	player = o;
 	ObstacleGenerator* obstacleGenerator = new ObstacleGenerator();
 	for (int i = 0; i < 10; i++)
 	{
@@ -60,20 +70,6 @@ void init()
 		o2->position = Vec3f(0, 0, i * 5);
 		objects.push_back(o2);
 	}
-
-	{
-		GameObject* o = new GameObject();
-		o->addComponent(new CubeComponent(0.5));
-		o->addComponent(new PlayerComponent());
-		o->addComponent(new TimerComponent());
-		o->addComponent(new MoveToComponent());
-
-		o->position = Vec3f(0, 0, 0);
-		objects.push_back(o);
-
-		player = o;
-	}
-
 }
 
 void display()
@@ -88,13 +84,21 @@ void display()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(player->position.x, player->position.y + 1, player->position.z + 0.125,
-		0, 0, 20,
-		0, player->position.y, 0);
-	/*
-	gluLookAt(player->position.x, player->position.y + 1, player->position.z + 0.125,
-		player->position.x, player->position.y + 0.5, player->position.z + 1.5,
-		0, 1, 0);*/
+	gluLookAt(player->position.x , player->position.y + 2, player->position.z - 3,
+		player->position.x, player->position.y + 0.5, player->position.z,
+		0, 1, 0);
+
+	glPushMatrix();
+	//glTranslated(player->position.x, player->position.y + 1, player->position.z);
+	GLfloat diffuse[] = { 1, 1, 1, 1 };
+	glLightfv(GL_LIGHT0, GL_POSITION, diffuse);
+	GLfloat pos[] = { 1, 0, 0, 0 };
+	glLightfv(GL_LIGHT0, GL_POSITION, pos);
+	glPopMatrix();
+
+
+	glEnable(GL_LIGHT0);
+
 	for (auto &o : objects)
 		o->draw();
 
@@ -130,6 +134,7 @@ int main(int argc, char* argv[])
 	glutKeyboardUpFunc(keyboardup);
 
 	//opengl init
+	initModels();
 	init();
 
 	glutMainLoop();
