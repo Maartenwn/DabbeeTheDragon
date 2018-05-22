@@ -17,13 +17,18 @@ ObstacleComponent::~ObstacleComponent()
 
 }
 
+GameObject * ObstacleComponent::getGameObject()
+{
+	return gameObject;
+}
+
 void ObstacleComponent::draw() {
 	if (gameObject->position.z < 0) {
 		return;
 	}
 
 	glPushMatrix();
-	glTranslatef(0, gapY, 0);
+	//glTranslatef(0, gapY, 0);
 	//glTranslatef(0, 0, 20);
 	glBegin(GL_QUADS);
 	

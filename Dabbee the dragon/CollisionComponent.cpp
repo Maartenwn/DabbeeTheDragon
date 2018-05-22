@@ -1,5 +1,6 @@
 #include "CollisionComponent.h"
 #include "GameObject.h"
+#include <iostream>
 
 
 
@@ -33,13 +34,15 @@ void CollisionComponent::update()
 
 GameObject* CollisionComponent::checkCollision(std::list<GameObject*> objects)
 {
-	for(auto &object : objects)
+	for (auto &object : objects)
 	{
-		CollisionComponent* collision = object->getComponent<CollisionComponent>();
-		for (Cube* &cube : hitboxes) {
-			for (Cube* &cube2 : collision->hitboxes) {
-				if (cube->collide(gameObject->position, object->position, *cube2)) {
-					return object;
+		if (object != gameObject) {
+			CollisionComponent* collision = object->getComponent<CollisionComponent>();
+			for (Cube* &cube : hitboxes) {
+				for (Cube* &cube2 : collision->hitboxes) {
+					if (cube->collide(gameObject->position, object->position, *cube2)) {
+						return object;
+					}
 				}
 			}
 		}

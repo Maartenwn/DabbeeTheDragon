@@ -28,8 +28,6 @@ float ObstacleGenerator::getNextObstacle() {
 		topTemp->gapY = (MARGIN_GAP_HEIGHT / 2) + randomHeight;
 		bottemTemp = new ObstacleComponent();
 		bottemTemp->gapY = (-MARGIN_GAP_HEIGHT / 2) + randomHeight;
-		
-
 	} while (checkWithPreviousBottem(bottemTemp) && checkWithPreviousBottem(topTemp));
 	
 	topObstacle = topTemp;
