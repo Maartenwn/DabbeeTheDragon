@@ -5,7 +5,6 @@
 #include "stb_image.h"
 #include "MotionInput.h"
 
-
 int height = 800;
 int width = 1200;
 
