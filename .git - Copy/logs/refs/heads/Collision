@@ -1,0 +1,10 @@
+0000000000000000000000000000000000000000 81ec15a97da1f16b56fa4d685cf719337bd77a0c Maartenwn <maartenwn@gmail.com> 1526985644 +0200	Branch: Collision created @ 81ec15a97da1f16b56fa4d685cf719337bd77a0c
+81ec15a97da1f16b56fa4d685cf719337bd77a0c dcee9c73719a8bc9320b0f55c374bfeebb14fb8e Unknown <maartenwn@gmail.com> 1526985677 +0200	commit: Added collision
+dcee9c73719a8bc9320b0f55c374bfeebb14fb8e 050bcbbddc06c34c8640ac16a7caf436c0285f11 Unknown <maartenwn@gmail.com> 1526985702 +0200	commit (merge): Merge remote-tracking branch 'origin/Develop' into Collision
+050bcbbddc06c34c8640ac16a7caf436c0285f11 9b1fd676f133dc96b43e10b978bc59bb7834ebcf Unknown <maartenwn@gmail.com> 1526985830 +0200	commit (merge): Merge remote-tracking branch 'origin/ObstacleBranch' into Collision
+9b1fd676f133dc96b43e10b978bc59bb7834ebcf 8a20c4af09ea9bd1fa77e56a6fd7fff85c399b4d Unknown <maartenwn@gmail.com> 1526988919 +0200	commit: Collision should work
+8a20c4af09ea9bd1fa77e56a6fd7fff85c399b4d ae0ac6ad4d421f0a1d01f6e166d02c341800d7c1 Unknown <maartenwn@gmail.com> 1526988930 +0200	commit (merge): Merge remote-tracking branch 'origin/Collision' into Collision
+ae0ac6ad4d421f0a1d01f6e166d02c341800d7c1 57f3ee0ffb81aa8b9eb3f99e33d202d12766463a Unknown <maartenwn@gmail.com> 1526989649 +0200	commit: Collision now works
+57f3ee0ffb81aa8b9eb3f99e33d202d12766463a 520d5d559955ab694e4376a53b372eb71a78f230 Unknown <maartenwn@gmail.com> 1526994686 +0200	commit: Collison works perfectly and starting for menu structur
+520d5d559955ab694e4376a53b372eb71a78f230 343f362d2592aba654a0c7558a80a551f9a84bbb Unknown <maartenwn@gmail.com> 1526994707 +0200	commit: Unsaved Items
+343f362d2592aba654a0c7558a80a551f9a84bbb 45bf6cc6533843967df1d4c711272c0f373b771a Unknown <maartenwn@gmail.com> 1527057807 +0200	commit: Added the gamestate manager

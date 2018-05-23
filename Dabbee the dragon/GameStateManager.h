@@ -1,10 +1,11 @@
 #pragma once
-
 #ifndef HGAMESTATEMANAGER
 #define HGAMESTATEMANAGER
 
 #include <vector>
+#include <iostream>
 #include "GameState.h"
+
 
 using namespace std;
 
@@ -19,9 +20,9 @@ public:
 	void draw();
 	void update(float deltaTime);
 	void deInit();
+	void changeState(int state);
 };
 
 #endif // !HGAMESTATEMANAGER
-
 
 

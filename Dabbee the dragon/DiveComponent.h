@@ -12,7 +12,7 @@ public:
 	DiveComponent();
 	~DiveComponent();
 
-	void dive();
+	void dive(float elapsedTime);
 
 	virtual void update(float elapsedTime) override;
 

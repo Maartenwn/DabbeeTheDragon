@@ -16,7 +16,7 @@ DiveComponent::~DiveComponent()
 {
 }
 
-void DiveComponent::dive() {
+void DiveComponent::dive(float elapsedTime) {
 	PlayerComponent* player = gameObject->getComponent<PlayerComponent>();
 	MoveToComponent* moveTo = gameObject->getComponent<MoveToComponent>();
 
@@ -33,12 +33,12 @@ void DiveComponent::dive() {
 		rot = PLAYER_ANGLE_BOT;
 	}else {
 		float temp = PLAYER_ANGLE_BOT - PLAYER_ANGLE_TOP;
-		rot = ((speed - top) / (bot - top) * (temp)) + PLAYER_ANGLE_TOP;
+		rot = ((speed - top) / (bot - top) * (temp))  + PLAYER_ANGLE_TOP;
 	}
 
 	gameObject->rotation = { rot ,270,0 };
 }
 
 void DiveComponent::update(float elapsedTime) {
-	dive();
+	dive(elapsedTime);
 };

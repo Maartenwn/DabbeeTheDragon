@@ -1,10 +1,13 @@
 #pragma once
 #include "GameState.h"
+#include "GameStateManager.h"
 class PlayingState :
 	public GameState
 {
 public:
-	PlayingState();
+	GameStateManager * manager;
+
+	PlayingState(GameStateManager* manager);
 	~PlayingState();
 	void draw();
 	void update(float deltaTime);

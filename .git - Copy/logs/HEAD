@@ -1,0 +1,39 @@
+0000000000000000000000000000000000000000 bf8d0c9ee525c58f2562011309b51160778bba54 Unknown <maartenwn@gmail.com> 1526287939 +0200	commit (initial): Initial commit
+bf8d0c9ee525c58f2562011309b51160778bba54 43b1a184b2f58257564a8511815f6a6e8aac475d Unknown <maartenwn@gmail.com> 1526288021 +0200	commit: Added gitignore
+43b1a184b2f58257564a8511815f6a6e8aac475d e3bf81d2b2f80d94c90bfb6e32a07596f4f433fa Unknown <maartenwn@gmail.com> 1526288055 +0200	commit: Added stuff
+e3bf81d2b2f80d94c90bfb6e32a07596f4f433fa c256897165a2bae2c8d2686858e2b39765d4771c Unknown <maartenwn@gmail.com> 1526288793 +0200	commit: Updated everything
+c256897165a2bae2c8d2686858e2b39765d4771c aae429c7520df61244e58fee22c5c11fa3ca315e Unknown <maartenwn@gmail.com> 1526293380 +0200	commit: Finaly done
+aae429c7520df61244e58fee22c5c11fa3ca315e f946a159f2fed8799d429af7cd94346b8febce7a Unknown <maartenwn@gmail.com> 1526295686 +0200	commit: Added model and texture classses not done!!!!
+f946a159f2fed8799d429af7cd94346b8febce7a f946a159f2fed8799d429af7cd94346b8febce7a Maartenwn <maartenwn@gmail.com> 1526295716 +0200	checkout: moving from master to TextureandModel
+f946a159f2fed8799d429af7cd94346b8febce7a 03e22dfa1026b7bbd5a6cc43d3d74de726c26bda Unknown <maartenwn@gmail.com> 1526309458 +0200	commit: Added model and texture classes
+03e22dfa1026b7bbd5a6cc43d3d74de726c26bda c9afac9575040f79079e323db2e757e47f830fd6 Maartenwn <maartenwn@gmail.com> 1526309529 +0200	rebase: checkout refs/remotes/origin/ObstacleBranch
+c9afac9575040f79079e323db2e757e47f830fd6 03e22dfa1026b7bbd5a6cc43d3d74de726c26bda Maartenwn <maartenwn@gmail.com> 1526309536 +0200	rebase: aborting
+03e22dfa1026b7bbd5a6cc43d3d74de726c26bda d13c9fda1c67c6acea88f371fba52b68fcf39e43 Unknown <maartenwn@gmail.com> 1526309553 +0200	commit: Wat
+d13c9fda1c67c6acea88f371fba52b68fcf39e43 7642b0a9498cb9a3712ad3170f03f681b37ec302 Unknown <maartenwn@gmail.com> 1526309698 +0200	commit (merge): Merge remote-tracking branch 'origin/ObstacleBranch' into TextureandModel
+7642b0a9498cb9a3712ad3170f03f681b37ec302 03e22dfa1026b7bbd5a6cc43d3d74de726c26bda Maartenwn <maartenwn@gmail.com> 1526310112 +0200	reset: moving to 03e22dfa1026b7bbd5a6cc43d3d74de726c26bda [37df541a131cd16a1613ce3addc2d8c5542c45cb]
+03e22dfa1026b7bbd5a6cc43d3d74de726c26bda a8a36bc21e86b16a319dc384d2c938ab1fa8bf1f Maartenwn <maartenwn@gmail.com> 1526310121 +0200	rebase: checkout refs/remotes/origin/PlayerCameraBranch
+a8a36bc21e86b16a319dc384d2c938ab1fa8bf1f 246a531d10d4f941cfb47e6dfba6845cebab9974 Maartenwn <maartenwn@gmail.com> 1526310151 +0200	rebase: Added model and texture classes
+246a531d10d4f941cfb47e6dfba6845cebab9974 246a531d10d4f941cfb47e6dfba6845cebab9974 Maartenwn <maartenwn@gmail.com> 1526310152 +0200	rebase finished: returning to refs/heads/TextureandModel
+246a531d10d4f941cfb47e6dfba6845cebab9974 53519dc5240751bd00b4e3dc4d3069e4963beb8a Unknown <maartenwn@gmail.com> 1526310188 +0200	commit (merge): Merge remote-tracking branch 'origin/TextureandModel' into TextureandModel
+53519dc5240751bd00b4e3dc4d3069e4963beb8a 474b2808cd9ffd1f6025456822e101e5b9bcfb5f Unknown <maartenwn@gmail.com> 1526975167 +0200	commit: Finished merge but modelload doesn't work perfectliy
+474b2808cd9ffd1f6025456822e101e5b9bcfb5f a0ab48585f885853453bcefa194aad3cdb4fbd3f Unknown <maartenwn@gmail.com> 1526976512 +0200	commit: Made some fixes
+a0ab48585f885853453bcefa194aad3cdb4fbd3f 32e2e2a3d645a2174ab91cd430cbaf3f109279c2 Unknown <maartenwn@gmail.com> 1526976568 +0200	commit (merge): Merge remote-tracking branch 'origin/ObstacleBranch' into TextureandModel
+32e2e2a3d645a2174ab91cd430cbaf3f109279c2 32e2e2a3d645a2174ab91cd430cbaf3f109279c2 Maartenwn <maartenwn@gmail.com> 1526976664 +0200	checkout: moving from TextureandModel to Develop
+32e2e2a3d645a2174ab91cd430cbaf3f109279c2 637fd834fba89ec0bb148314b9ad82635111abbd Unknown <maartenwn@gmail.com> 1526976797 +0200	commit: Added skybox
+637fd834fba89ec0bb148314b9ad82635111abbd 5329935e4279cc6431e9297f124e02b0f3180c43 Unknown <maartenwn@gmail.com> 1526976836 +0200	commit: changed some folders
+5329935e4279cc6431e9297f124e02b0f3180c43 2ed3e29cdddbc67675f51cd3fb856b780df5cfd3 Maartenwn <maartenwn@gmail.com> 1526976856 +0200	commit (amend): Moved files to header folder
+2ed3e29cdddbc67675f51cd3fb856b780df5cfd3 a6374f223a39de8d4203461160c1cf307484828a Unknown <maartenwn@gmail.com> 1526976862 +0200	commit (merge): Merge remote-tracking branch 'origin/Develop' into Develop
+a6374f223a39de8d4203461160c1cf307484828a b3bb9f42d9f03fac0f8803d29f7d1a8a96067755 Unknown <maartenwn@gmail.com> 1526976982 +0200	commit: Fixed the build erros
+b3bb9f42d9f03fac0f8803d29f7d1a8a96067755 81ec15a97da1f16b56fa4d685cf719337bd77a0c Unknown <maartenwn@gmail.com> 1526979143 +0200	commit: Added skybox component and models
+81ec15a97da1f16b56fa4d685cf719337bd77a0c 24a65dd18ecb9396f760a75597ecc3b6b4859ec0 Unknown <maartenwn@gmail.com> 1526985605 +0200	commit: Added collision
+24a65dd18ecb9396f760a75597ecc3b6b4859ec0 81ec15a97da1f16b56fa4d685cf719337bd77a0c Maartenwn <maartenwn@gmail.com> 1526985622 +0200	undo: commit: Added collision
+81ec15a97da1f16b56fa4d685cf719337bd77a0c 81ec15a97da1f16b56fa4d685cf719337bd77a0c Maartenwn <maartenwn@gmail.com> 1526985645 +0200	checkout: moving from Develop to Collision
+81ec15a97da1f16b56fa4d685cf719337bd77a0c dcee9c73719a8bc9320b0f55c374bfeebb14fb8e Unknown <maartenwn@gmail.com> 1526985677 +0200	commit: Added collision
+dcee9c73719a8bc9320b0f55c374bfeebb14fb8e 050bcbbddc06c34c8640ac16a7caf436c0285f11 Unknown <maartenwn@gmail.com> 1526985702 +0200	commit (merge): Merge remote-tracking branch 'origin/Develop' into Collision
+050bcbbddc06c34c8640ac16a7caf436c0285f11 9b1fd676f133dc96b43e10b978bc59bb7834ebcf Unknown <maartenwn@gmail.com> 1526985830 +0200	commit (merge): Merge remote-tracking branch 'origin/ObstacleBranch' into Collision
+9b1fd676f133dc96b43e10b978bc59bb7834ebcf 8a20c4af09ea9bd1fa77e56a6fd7fff85c399b4d Unknown <maartenwn@gmail.com> 1526988919 +0200	commit: Collision should work
+8a20c4af09ea9bd1fa77e56a6fd7fff85c399b4d ae0ac6ad4d421f0a1d01f6e166d02c341800d7c1 Unknown <maartenwn@gmail.com> 1526988930 +0200	commit (merge): Merge remote-tracking branch 'origin/Collision' into Collision
+ae0ac6ad4d421f0a1d01f6e166d02c341800d7c1 57f3ee0ffb81aa8b9eb3f99e33d202d12766463a Unknown <maartenwn@gmail.com> 1526989649 +0200	commit: Collision now works
+57f3ee0ffb81aa8b9eb3f99e33d202d12766463a 520d5d559955ab694e4376a53b372eb71a78f230 Unknown <maartenwn@gmail.com> 1526994686 +0200	commit: Collison works perfectly and starting for menu structur
+520d5d559955ab694e4376a53b372eb71a78f230 343f362d2592aba654a0c7558a80a551f9a84bbb Unknown <maartenwn@gmail.com> 1526994707 +0200	commit: Unsaved Items
+343f362d2592aba654a0c7558a80a551f9a84bbb 45bf6cc6533843967df1d4c711272c0f373b771a Unknown <maartenwn@gmail.com> 1527057807 +0200	commit: Added the gamestate manager
