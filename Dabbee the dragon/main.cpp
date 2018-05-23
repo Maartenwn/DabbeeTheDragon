@@ -37,7 +37,6 @@ void display()
 	manager->draw();
 }
 
-
 int lastTime = 0;
 void idle()
 {
@@ -54,7 +53,7 @@ void motion(const double& speed) {
 }
 
 void movement(const cv::Point& lp, const cv::Point& rp, const cv::Point& mp) {
-	cout << "left hand: (x: " << lp.x << ", y: " << lp.y << ") right hand: (x: " << rp.x << ", y: " << rp.y << ")" << endl;
+	//cout << "left hand: (x: " << lp.x << ", y: " << lp.y << ") right hand: (x: " << rp.x << ", y: " << rp.y << ")" << endl;
 	//TODO add low alpha sprites/models to scene
 	
 	//Scene max: height width

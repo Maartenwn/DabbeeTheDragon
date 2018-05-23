@@ -4,8 +4,8 @@
 
 class ObstacleGenerator
 {
-	static const int MARGIN_GAP_HEIGHT = 8;
-	static const int MAX_GAP_DISTANCE = 3;
+	static const int MARGIN_GAP_HEIGHT = 10;
+	static const int MAX_GAP_DISTANCE = 8;
 	
 public:
 	ObstacleComponent * topObstacle;
