@@ -1,0 +1,10 @@
+0000000000000000000000000000000000000000 f946a159f2fed8799d429af7cd94346b8febce7a Maartenwn <maartenwn@gmail.com> 1526295716 +0200	Branch: TextureandModel created @ f946a159f2fed8799d429af7cd94346b8febce7a
+f946a159f2fed8799d429af7cd94346b8febce7a 03e22dfa1026b7bbd5a6cc43d3d74de726c26bda Unknown <maartenwn@gmail.com> 1526309458 +0200	commit: Added model and texture classes
+03e22dfa1026b7bbd5a6cc43d3d74de726c26bda d13c9fda1c67c6acea88f371fba52b68fcf39e43 Unknown <maartenwn@gmail.com> 1526309553 +0200	commit: Wat
+d13c9fda1c67c6acea88f371fba52b68fcf39e43 7642b0a9498cb9a3712ad3170f03f681b37ec302 Unknown <maartenwn@gmail.com> 1526309698 +0200	commit (merge): Merge remote-tracking branch 'origin/ObstacleBranch' into TextureandModel
+7642b0a9498cb9a3712ad3170f03f681b37ec302 03e22dfa1026b7bbd5a6cc43d3d74de726c26bda Maartenwn <maartenwn@gmail.com> 1526310112 +0200	reset: moving to 03e22dfa1026b7bbd5a6cc43d3d74de726c26bda
+03e22dfa1026b7bbd5a6cc43d3d74de726c26bda 246a531d10d4f941cfb47e6dfba6845cebab9974 Maartenwn <maartenwn@gmail.com> 1526310152 +0200	rebase finished: refs/heads/TextureandModel onto a8a36bc21e86b16a319dc384d2c938ab1fa8bf1f
+246a531d10d4f941cfb47e6dfba6845cebab9974 53519dc5240751bd00b4e3dc4d3069e4963beb8a Unknown <maartenwn@gmail.com> 1526310188 +0200	commit (merge): Merge remote-tracking branch 'origin/TextureandModel' into TextureandModel
+53519dc5240751bd00b4e3dc4d3069e4963beb8a 474b2808cd9ffd1f6025456822e101e5b9bcfb5f Unknown <maartenwn@gmail.com> 1526975167 +0200	commit: Finished merge but modelload doesn't work perfectliy
+474b2808cd9ffd1f6025456822e101e5b9bcfb5f a0ab48585f885853453bcefa194aad3cdb4fbd3f Unknown <maartenwn@gmail.com> 1526976512 +0200	commit: Made some fixes
+a0ab48585f885853453bcefa194aad3cdb4fbd3f 32e2e2a3d645a2174ab91cd430cbaf3f109279c2 Unknown <maartenwn@gmail.com> 1526976568 +0200	commit (merge): Merge remote-tracking branch 'origin/ObstacleBranch' into TextureandModel

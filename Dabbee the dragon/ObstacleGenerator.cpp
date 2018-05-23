@@ -9,7 +9,7 @@ ObstacleGenerator::ObstacleGenerator()
 	this->bottomObstacle = new ObstacleComponent();
 	this->topObstacle = new ObstacleComponent();
 
-	obstacleCount = 0;
+	obstacleCount = 1;
 }
 
 

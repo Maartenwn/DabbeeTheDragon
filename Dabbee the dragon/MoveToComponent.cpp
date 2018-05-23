@@ -17,11 +17,11 @@ MoveToComponent::~MoveToComponent()
 
 void MoveToComponent::update(float elapsedTime)
 {
-	//gravitation
 	gameObject->position.x += mt_speed * target.x * elapsedTime;
 	gameObject->position.y += mt_speed * target.y * mt_speedcounter * elapsedTime;
 	gameObject->position.z += mt_speed * target.z * elapsedTime;
 	mt_speedcounter += G * elapsedTime;
+
 }
 
 
