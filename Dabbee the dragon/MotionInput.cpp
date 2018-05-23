@@ -62,6 +62,8 @@ void MotionInput::LocateHands(const Mat& input, double dWidth, double dHeight) {
 	// y = hor, x = vert;
 	rp.y += (int)(dWidth - sWidth);
 
+	movementFun(lp, rp, Point(dWidth, dHeight));
+
 	if (lp.x != -1 && lp.y != -1 && rp.x != -1 && rp.y != -1) {
 		if (lp.x < (dHeight / 3) && rp.x < (dHeight / 3)) {
 			up = true; inFlappingMotion = true;
@@ -104,9 +106,10 @@ void MotionInput::LocateHands(const Mat& input, double dWidth, double dHeight) {
 	cv::imshow("Body_Detect", frame);
 }
 
-MotionInput::MotionInput(onMotionReceived fun)
+MotionInput::MotionInput(onMotionReceived fun, onMovementMotionReceived fun2)
 {
 	motionFun = fun;
+	movementFun = fun2;
 }
 
 void MotionInput::Run(cv::VideoCapture cap, cv::Mat out) {

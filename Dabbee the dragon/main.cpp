@@ -181,9 +181,9 @@ void idle()
 
 	auto collision = player->getComponent<CollisionComponent>();
 	if (!collision->checkCollision(objects)) {
-		cout << "False" << endl;
+		//cout << "False" << endl;
 	}
-	else cout << "True" << endl;
+	//else cout << "True" << endl;
 
 	skybox->position = { player->position.x - 0.5f, player->position.y + .5f,
 		player->position.z - 2.5f };
@@ -193,6 +193,16 @@ void idle()
 
 void motion(const double& speed) {
 	flapspeed = speed;
+}
+
+void movement(const cv::Point& lp, const cv::Point& rp, const cv::Point& mp) {
+	cout << "left hand: (x: " << lp.x << ", y: " << lp.y << ") right hand: (x: " << rp.x << ", y: " << rp.y << ")" << endl;
+	//TODO add low alpha sprites/models to scene
+	
+	//Scene max: height width
+	//CV max:  mp.y mp.x
+
+	//float .... = ((... - mp.y) / mp.x - mp.y) * (height - width) + height;
 }
 
 int main(int argc, char* argv[])
@@ -212,7 +222,7 @@ int main(int argc, char* argv[])
 	init();
 
 	//Init motion
-	MotionInput m(&motion);
+	MotionInput m(&motion, &movement);
 	m.Start(0);
 
 	glutMainLoop();

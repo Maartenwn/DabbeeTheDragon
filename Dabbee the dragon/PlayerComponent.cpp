@@ -38,7 +38,7 @@ void PlayerComponent::update(float elapsedTime)
 	}
 
 	if (keys['w']) {
-		top = -1.0f;
+		top = -((MAX_FLAP_SPEED/2) * PLAYER_SPEED_MOD) / MAX_FLAP_SPEED;
 		cur = moveto->mt_speedcounter;
 		avg = (top - cur) / TICKS_TO_RISE;
 		keys['w'] = false;

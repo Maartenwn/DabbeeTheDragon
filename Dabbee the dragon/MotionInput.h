@@ -3,12 +3,15 @@
 #define MAX_FLAP_SPEED 500
 #include <opencv2/opencv.hpp>
 
+
 class MotionInput {
 public:
 	typedef void(*onMotionReceived)(const double&);
+	typedef void(*onMovementMotionReceived)(const cv::Point&, const cv::Point&, const cv::Point&);
 
 	onMotionReceived motionFun;
-	MotionInput(onMotionReceived fun);
+	onMovementMotionReceived movementFun;
+	MotionInput(onMotionReceived, onMovementMotionReceived);
 	void Start(const int&);
 private:
 	cv::Point FirstPix(const cv::Mat&, bool);

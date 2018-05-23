@@ -4,7 +4,7 @@
 
 
 #define PLAYER_ANGLE_TOP  10;
-#define PLAYER_ANGLE_BOT  135;
+#define PLAYER_ANGLE_BOT  145;
 
 class DiveComponent : public Component{
 public:
