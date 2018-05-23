@@ -54,8 +54,8 @@ void motion(const double& speed) {
 }
 
 void movement(const cv::Point& lp, const cv::Point& rp, const cv::Point& mp) {
-	leftHandPoint = cv::Point((lp.y / (float)mp.y) * height, (lp.x / (float)mp.x) * width);
-	rightHandPoint = cv::Point((rp.y / (float)mp.y) * height, (rp.x / (float)mp.x) * width);
+	leftHandPoint = cv::Point((lp.x / (float)mp.x) * width, (lp.y / (float)mp.y) * height);
+	rightHandPoint = cv::Point((rp.x / (float)mp.x) * width, (rp.y / (float)mp.y) * height);
 }
 
 int main(int argc, char* argv[])

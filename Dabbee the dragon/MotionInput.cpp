@@ -32,7 +32,7 @@ cv::Point MotionInput::FirstPix(const Mat& input, bool left) {
 			for (int row = 0; row < input.size().height; row++)
 			{
 				if (input.at<uchar>(row, col) != 0) {
-					return Point(row, col);
+					return Point(col, row);
 				}
 			}
 		}
@@ -43,7 +43,7 @@ cv::Point MotionInput::FirstPix(const Mat& input, bool left) {
 			for (int row = 0; row < input.size().height; row++)
 			{
 				if (input.at<uchar>(row, col) != 0) {
-					return Point(row, col);
+					return Point(col, row);
 				}
 			}
 		}
@@ -59,17 +59,16 @@ void MotionInput::LocateHands(const Mat& input, double dWidth, double dHeight) {
 	Point lp = FirstPix(left, true);
 	Point rp = FirstPix(right, false);
 
-	// y = hor, x = vert;
-	rp.y += (int)(dWidth - sWidth);
+	rp.x += (int)(dWidth - sWidth);
 
 	movementFun(lp, rp, Point(dWidth, dHeight));
 
 	if (lp.x != -1 && lp.y != -1 && rp.x != -1 && rp.y != -1) {
-		if (lp.x < (dHeight / 3) && rp.x < (dHeight / 3)) {
+		if (lp.y < (dHeight / 3) && rp.y < (dHeight / 3)) {
 			up = true; inFlappingMotion = true;
 			down = false;
 		}
-		else if (lp.x > dHeight - (dHeight / 3) && rp.x > dHeight - (dHeight / 3)) {
+		else if (lp.y > dHeight - (dHeight / 3) && rp.y > dHeight - (dHeight / 3)) {
 			up = false;
 			down = true;
 		}
@@ -97,11 +96,11 @@ void MotionInput::LocateHands(const Mat& input, double dWidth, double dHeight) {
 		}
 	}
 
-	cv::line(frame, Point(lp.y - 10, lp.x), Point(lp.y + 10, lp.x), Scalar(0, 255, 0), 2);
-	cv::line(frame, Point(lp.y, lp.x - 10), Point(lp.y, lp.x + 10), Scalar(0, 255, 0), 2);
+	cv::line(frame, Point(lp.x - 10, lp.y), Point(lp.x + 10, lp.y), Scalar(0, 255, 0), 2);
+	cv::line(frame, Point(lp.x, lp.y - 10), Point(lp.x, lp.y + 10), Scalar(0, 255, 0), 2);
 
-	cv::line(frame, Point(rp.y - 10, rp.x), Point(rp.y + 10, rp.x), Scalar(0, 255, 0), 2);
-	cv::line(frame, Point(rp.y, rp.x - 10), Point(rp.y, rp.x + 10), Scalar(0, 255, 0), 2);
+	cv::line(frame, Point(rp.x - 10, rp.y), Point(rp.x + 10, rp.y), Scalar(0, 255, 0), 2);
+	cv::line(frame, Point(rp.x, rp.y - 10), Point(rp.x, rp.y + 10), Scalar(0, 255, 0), 2);
 
 	if(display)
 		cv::imshow("Body_Detect", frame);

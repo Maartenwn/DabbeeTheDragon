@@ -28,6 +28,7 @@ extern int width;
 extern int height;
 
 extern cv::Point leftHandPoint, rightHandPoint;
+cv::Point lhp, rhp;
 
 float total_score;
 
@@ -60,7 +61,6 @@ static void addObstacle(void) {
 }
 
 
-
 PlayingState::PlayingState(GameStateManager* manager)
 {
 	this->manager = manager;
@@ -88,17 +88,22 @@ void PlayingState::drawHUD()
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glBegin(GL_QUADS);
-	glColor4f(1.0f, 1.0f, 1.0f, .5f);
 
-	glVertex2f(leftHandPoint.x - gsize, leftHandPoint.y - gsize);
-	glVertex2f(leftHandPoint.x + gsize, leftHandPoint.y - gsize);
-	glVertex2f(leftHandPoint.x + gsize, leftHandPoint.y + gsize);
-	glVertex2f(leftHandPoint.x - gsize, leftHandPoint.y + gsize);
+	if (leftHandPoint.x != -1)
+		lhp = leftHandPoint;
 
-	glVertex2f(rightHandPoint.x - gsize, rightHandPoint.y - gsize);
-	glVertex2f(rightHandPoint.x + gsize, rightHandPoint.y - gsize);
-	glVertex2f(rightHandPoint.x + gsize, rightHandPoint.y + gsize);
-	glVertex2f(rightHandPoint.x - gsize, rightHandPoint.y + gsize);
+	glVertex2f(lhp.x - gsize, lhp.y - gsize);
+	glVertex2f(lhp.x + gsize, lhp.y - gsize);
+	glVertex2f(lhp.x + gsize, lhp.y + gsize);
+	glVertex2f(lhp.x - gsize, lhp.y + gsize);
+
+	if (rightHandPoint.x != -1)
+		rhp = rightHandPoint;
+
+	glVertex2f(rhp.x - gsize, rhp.y - gsize);
+	glVertex2f(rhp.x + gsize, rhp.y - gsize);
+	glVertex2f(rhp.x + gsize, rhp.y + gsize);
+	glVertex2f(rhp.x - gsize, rhp.y + gsize);
 
 	glEnd();
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
