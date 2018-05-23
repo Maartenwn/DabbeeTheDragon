@@ -9,6 +9,7 @@ int height = 800;
 int width = 1200;
 
 float flapspeed;
+cv::Point leftHandPoint, rightHandPoint;
 bool keys[256];
 GameStateManager* manager;
 
@@ -53,13 +54,8 @@ void motion(const double& speed) {
 }
 
 void movement(const cv::Point& lp, const cv::Point& rp, const cv::Point& mp) {
-	//cout << "left hand: (x: " << lp.x << ", y: " << lp.y << ") right hand: (x: " << rp.x << ", y: " << rp.y << ")" << endl;
-	//TODO add low alpha sprites/models to scene
-	
-	//Scene max: height width
-	//CV max:  mp.y mp.x
-
-	//float .... = ((... - mp.y) / mp.x - mp.y) * (height - width) + height;
+	leftHandPoint = cv::Point((lp.y / (float)mp.y) * height, (lp.x / (float)mp.x) * width);
+	rightHandPoint = cv::Point((rp.y / (float)mp.y) * height, (rp.x / (float)mp.x) * width);
 }
 
 int main(int argc, char* argv[])
@@ -80,7 +76,7 @@ int main(int argc, char* argv[])
 	ZeroMemory(keys, sizeof(keys));
 	//Init motion
 	MotionInput m(&motion, &movement);
-	m.Start(0);
+	m.Start(0, true);
 
 	manager = new GameStateManager();
 

@@ -103,7 +103,8 @@ void MotionInput::LocateHands(const Mat& input, double dWidth, double dHeight) {
 	cv::line(frame, Point(rp.y - 10, rp.x), Point(rp.y + 10, rp.x), Scalar(0, 255, 0), 2);
 	cv::line(frame, Point(rp.y, rp.x - 10), Point(rp.y, rp.x + 10), Scalar(0, 255, 0), 2);
 
-	cv::imshow("Body_Detect", frame);
+	if(display)
+		cv::imshow("Body_Detect", frame);
 }
 
 MotionInput::MotionInput(onMotionReceived fun, onMovementMotionReceived fun2)
@@ -144,8 +145,10 @@ void MotionInput::Run(cv::VideoCapture cap, cv::Mat out) {
 }
 
 
-void MotionInput::Start(const int &cam)
+void MotionInput::Start(const int &cam, const bool &dis)
 {
+	display = dis;
+
 	VideoCapture cap(cam);
 
 	if (!cap.isOpened())
@@ -156,11 +159,12 @@ void MotionInput::Start(const int &cam)
 
 	dWidth = cap.get(CV_CAP_PROP_FRAME_WIDTH);
 	dHeight = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
-	cout << "Frame size : " << dWidth << " x " << dHeight << endl;
+	//cout << "Frame size : " << dWidth << " x " << dHeight << endl;
 
 	sWidth = (dWidth / 5) * 2;
 
-	namedWindow("Body_Detect", CV_WINDOW_AUTOSIZE);
+	if(display)
+		namedWindow("Body_Detect", CV_WINDOW_AUTOSIZE);
 
 	pMOG2 = createBackgroundSubtractorMOG2();
 
