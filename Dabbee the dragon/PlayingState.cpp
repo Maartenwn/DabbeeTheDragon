@@ -23,6 +23,7 @@ ObstacleGenerator* obstacleGenerator;
 
 std::list<GameObject*> objects;
 
+
 extern int width;
 extern int height;
 
@@ -119,7 +120,6 @@ void PlayingState::draw()
 		addObstacle();
 	}
 
-	glutSwapBuffers();
 }
 
 void PlayingState::update(float deltaTime)

@@ -1,3 +1,4 @@
+#include "GL\glew.h"
 #include <GL/freeglut.h>
 #include "GameStateManager.h"
 #include "ModelComponent.h"
@@ -16,7 +17,7 @@ void reshape(int w, int h)
 {
 	width = w;
 	height = h;
-	glViewport(0, 0, w, h);
+	//glViewport(0, 0, w, h);
 }
 
 void keyboard(unsigned char key, int x, int  y)
@@ -35,6 +36,7 @@ void keyboardup(unsigned char key, int x, int y)
 void display()
 {
 	manager->draw();
+	glutSwapBuffers();
 }
 
 int lastTime = 0;
@@ -73,6 +75,11 @@ int main(int argc, char* argv[])
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
 	glutKeyboardUpFunc(keyboardup);
+	GLenum error = glewInit();
+	if (GLEW_OK != error) {
+		/* Problem: glewInit failed, something is seriously wrong. */
+		fprintf(stderr, "Error: %s\n", glewGetErrorString(error));
+	}
 
 	//opengl init
 
@@ -85,6 +92,7 @@ int main(int argc, char* argv[])
 	manager = new GameStateManager();
 
 	glutMainLoop();
+
 	return 0;
 }
 
