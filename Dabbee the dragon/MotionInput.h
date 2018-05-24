@@ -9,10 +9,12 @@ public:
 	typedef void(*onMotionReceived)(const double&);
 	typedef void(*onMovementMotionReceived)(const cv::Point&, const cv::Point&, const cv::Point&);
 
+	bool display;
+
 	onMotionReceived motionFun;
 	onMovementMotionReceived movementFun;
 	MotionInput(onMotionReceived, onMovementMotionReceived);
-	void Start(const int&);
+	void Start(const int&, const bool&);
 private:
 	cv::Point FirstPix(const cv::Mat&, bool);
 	void LocateHands(const cv::Mat&, double, double);

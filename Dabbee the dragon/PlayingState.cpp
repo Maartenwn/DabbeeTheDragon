@@ -14,12 +14,13 @@
 #include "CollisionComponent.h"
 #include  "PlayingState.h"
 #include <iostream>
+#include <string>
+#include <opencv2\features2d\features2d.hpp>
 
 GameObject* player;
 GameObject* skybox;
 
 ObstacleGenerator* obstacleGenerator;
-
 
 std::list<GameObject*> objects;
 
@@ -27,6 +28,10 @@ std::list<GameObject*> objects;
 extern int width;
 extern int height;
 
+extern cv::Point leftHandPoint, rightHandPoint;
+cv::Point lhp, rhp;
+
+float total_score;
 
 static void addObstacle(void) {
 	float position = obstacleGenerator->getNextObstacle();
@@ -57,7 +62,6 @@ static void addObstacle(void) {
 }
 
 
-
 PlayingState::PlayingState(GameStateManager* manager)
 {
 	this->manager = manager;
@@ -66,6 +70,59 @@ PlayingState::PlayingState(GameStateManager* manager)
 
 PlayingState::~PlayingState()
 {
+	total_score = 0;
+}
+
+void PlayingState::drawHUD()
+{
+	float gsize = 10;
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0.0, width, height, 0.0, -1.0, 10.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glBegin(GL_QUADS);
+
+	if (leftHandPoint.x != -1)
+		lhp = leftHandPoint;
+
+	glVertex2f(lhp.x - gsize, lhp.y - gsize);
+	glVertex2f(lhp.x + gsize, lhp.y - gsize);
+	glVertex2f(lhp.x + gsize, lhp.y + gsize);
+	glVertex2f(lhp.x - gsize, lhp.y + gsize);
+
+	if (rightHandPoint.x != -1)
+		rhp = rightHandPoint;
+
+	glVertex2f(rhp.x - gsize, rhp.y - gsize);
+	glVertex2f(rhp.x + gsize, rhp.y - gsize);
+	glVertex2f(rhp.x + gsize, rhp.y + gsize);
+	glVertex2f(rhp.x - gsize, rhp.y + gsize);
+
+	glEnd();
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	glPushMatrix();
+	glTranslatef(30, 40 ,0);
+	glScalef(.3f,-.3f,1);
+
+	unsigned char scoreLabel[15] = " ";
+	std::string s = "Score " + std::to_string((int)total_score);
+	std::copy(s.begin(), s.end(), scoreLabel);
+
+	glutStrokeString(GLUT_STROKE_ROMAN, scoreLabel);
+	glPopMatrix();
+
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
 }
 
 void PlayingState::draw()
@@ -106,6 +163,7 @@ void PlayingState::draw()
 	for (auto &o : objects) {
 		if (o->getComponent<ObstacleComponent>() != nullptr) {
 			if (o->position.z < player->position.z - 1) {
+				total_score+=.5f;
 				removableObjects.push_back(o);
 				continue;
 			}
@@ -120,6 +178,9 @@ void PlayingState::draw()
 		addObstacle();
 	}
 
+	drawHUD();
+
+	glutSwapBuffers();
 }
 
 void PlayingState::update(float deltaTime)
@@ -172,5 +233,7 @@ void PlayingState::deInit()
 	objects.clear();
 	delete skybox;
 	delete obstacleGenerator;
+
+	total_score = 0;
 }
 
