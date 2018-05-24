@@ -9,6 +9,7 @@
 #define WHITESPACE -120
 #define DEBUG_STROKE    GLUT_STROKE_ROMAN
 
+extern int FPS;
 extern int width;		//dont proper resize
 extern int height;
 extern GameObject* player;
@@ -67,11 +68,14 @@ void draw_debug_display(bool on) {
 		debug_println(val);
 
 		if (flapspeed > 0) { fapspeed = flapspeed; }
-		val = "\n FAPSPEED: ";
+		val = "\nFAPSPEED: ";
 		std::stringstream().swap(ss);			//clear the string stream
 		ss << std::fixed << std::setprecision(1) << fapspeed;
 		debug_println(val + ss.str());
 
+		val = "\nFPS: ";
+		val.append(std::to_string(FPS));
+		debug_println(val);
 	}
 }
 

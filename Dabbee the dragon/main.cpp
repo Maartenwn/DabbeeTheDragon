@@ -4,10 +4,13 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include "MotionInput.h"
-
+#define FPSFIELD 20
 int height = 800;
 int width = 1200;
+float fpsTime = 0;
+int frameCounter = 0;
 
+int FPS;
 float flapspeed;
 cv::Point leftHandPoint, rightHandPoint;
 bool keys[256];
@@ -43,6 +46,13 @@ void idle()
 {
 	int currentTime = glutGet(GLUT_ELAPSED_TIME);
 	float deltaTime = (currentTime - lastTime) / 1000.0f;
+	fpsTime += deltaTime;
+	if (fpsTime >= .5f) {	//one second passed
+		FPS = frameCounter / fpsTime;
+		fpsTime = 0;
+		frameCounter = 0;
+	}
+	frameCounter++;
 	lastTime = currentTime;
 	manager->update(deltaTime);
 

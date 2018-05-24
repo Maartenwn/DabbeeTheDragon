@@ -100,6 +100,11 @@ void PlayingState::drawHUD()
 	glVertex2f(lhp.x + gsize, lhp.y + gsize);
 	glVertex2f(lhp.x - gsize, lhp.y + gsize);
 
+	glVertex2f(20, 40);
+	glVertex2f(40,40);
+	glVertex2f(40,80);
+	glVertex2f(20,80);
+
 	if (rightHandPoint.x != -1)
 		rhp = rightHandPoint;
 
