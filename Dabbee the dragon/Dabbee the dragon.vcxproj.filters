@@ -23,6 +23,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimerComponent.cpp" />
     <ClCompile Include="Vec.cpp" />
+    <ClCompile Include="Debuginfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionComponent.h" />
@@ -48,5 +49,6 @@
     <ClInclude Include="TextureVertex.h" />
     <ClInclude Include="TimerComponent.h" />
     <ClInclude Include="Vec.h" />
+    <ClInclude Include="Debuginfo.h" />
   </ItemGroup>
 </Project>

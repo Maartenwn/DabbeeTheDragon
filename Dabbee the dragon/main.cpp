@@ -44,7 +44,6 @@ void idle()
 	int currentTime = glutGet(GLUT_ELAPSED_TIME);
 	float deltaTime = (currentTime - lastTime) / 1000.0f;
 	lastTime = currentTime;
-
 	manager->update(deltaTime);
 
 }
