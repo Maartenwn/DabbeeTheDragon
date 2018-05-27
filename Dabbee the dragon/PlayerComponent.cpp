@@ -37,13 +37,13 @@ void PlayerComponent::update(float elapsedTime)
 		avg = (top - cur) / TICKS_TO_RISE;
 	}
 
-	if (keys['w']) {
+	if (keys[' ']) {
 		top = -((MAX_FLAP_SPEED/2) * PLAYER_SPEED_MOD) / MAX_FLAP_SPEED;
 		cur = moveto->mt_speedcounter;
 		avg = (top - cur) / TICKS_TO_RISE;
 		fapspeed = 500;
 		cout << fapspeed << endl;
-		keys['w'] = false;
+		keys[' '] = false;
 	}
 
 	if (cur > top) {

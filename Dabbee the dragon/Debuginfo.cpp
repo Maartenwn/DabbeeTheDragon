@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+
 #include "Debuginfo.h"
 #include <GL/freeglut.h>
 #include <string>
@@ -5,10 +7,15 @@
 #include <iomanip> // setprecision
 #include <sstream> // stringstream
 #include "collisionComponent.h"
+#include <math.h>
 
-#define WHITESPACE -120
+#define WHITESPACE 120
 #define DEBUG_STROKE    GLUT_STROKE_ROMAN
 
+int Camindx = 0;
+extern bool keys[256];
+extern Vec3f cameraOffset;
+extern Vec3f fpsCamOff;
 extern int FPS;
 extern int width;		//dont proper resize
 extern int height;
@@ -16,6 +23,7 @@ extern GameObject* player;
 extern std::list<GameObject*> objects;
 extern float flapspeed;
 float fapspeed;
+Vec3f cameraoffsets[6] = { Vec3f(0, 0, 0), Vec3f(-5, 5, 3), Vec3f(-10, 0, 0), Vec3f(0, -1, 3),  Vec3f(-12, -1, 3), Vec3f(0,0,10)};
 
 void draw_debug_display(bool on) {
 	if (on){
@@ -76,12 +84,39 @@ void draw_debug_display(bool on) {
 		val = "\nFPS: ";
 		val.append(std::to_string(FPS));
 		debug_println(val);
-	}
+		if (keys['0']) { Camindx = 0; }
+		if (keys['1']) { Camindx = 1; }
+		if (keys['2']) { Camindx = 2; }
+		if (keys['3']) { Camindx = 3; }						//first person view
+		if (keys['4']) { Camindx = 4; }						//side view
+		if (keys['5']) { Camindx = 5; }						
+		debug_println("CAMERA: " + std::to_string(Camindx));
+
+		cameraOffset = cameraoffsets[Camindx];
+		if (3 == Camindx) {		//first person
+			float z = sin(player->rotation.x * (M_PI / 180)) * 2.3f;
+			float y = cos(player->rotation.x * (M_PI / 180)) * 2.3f;
+			cameraOffset.y += y;
+			cameraOffset.z += z;
+			fpsCamOff = cameraOffset;
+			fpsCamOff.y += y;
+			fpsCamOff.z += z;
+		}
+		else {
+			fpsCamOff = Vec3f(0, 0, 0);
+		}
+
+		if (keys['r']) { 
+			player->position = Vec3f(0, 0, 0);
+			keys[' '] = true;
+		}	//should be a decent rest function
+	} 
+	else { Camindx = 0; }
 }
 
 void debug_println(std::string s){
 	unsigned char val[33];					//max 32 chars per line
 	std::copy(s.begin(), s.end(), val);
 	glutStrokeString(DEBUG_STROKE, val);
-	glTranslatef(-glutStrokeLengthf(DEBUG_STROKE,val),WHITESPACE, 0);			//translate x back to the begining of string and y a whitespace down
+	glTranslatef(-glutStrokeLengthf(DEBUG_STROKE,val),-WHITESPACE, 0);			//translate x back to the begining of string and y a whitespace down
 }

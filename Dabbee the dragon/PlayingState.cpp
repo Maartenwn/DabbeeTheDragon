@@ -23,6 +23,8 @@ GameObject* skybox;
 
 ObstacleGenerator* obstacleGenerator;
 
+Vec3f fpsCamOff = Vec3f(0,0,0);
+Vec3f cameraOffset = Vec3f(0,0,0);
 std::list<GameObject*> objects;
 bool debugon = false;
 bool butreleased = true;
@@ -163,8 +165,8 @@ void PlayingState::draw()
 	0, player->position.y, player->position.z,
 	0, 1, 0);*/
 
-	gluLookAt(player->position.x, player->position.y + 1, player->position.z - 3,
-		player->position.x, player->position.y + 0.5, player->position.z,
+	gluLookAt(player->position.x + cameraOffset.x, player->position.y + 1 + cameraOffset.y, player->position.z - 3 + cameraOffset.z,
+		player->position.x + fpsCamOff.x, player->position.y + 0.5 + fpsCamOff.y, player->position.z + fpsCamOff.z,
 		0, 1, 0);
 
 
@@ -216,8 +218,8 @@ void PlayingState::update(float deltaTime)
 	}
 
 	//sets the skybox to the player pos
-	skybox->position = { player->position.x - 0.5f, player->position.y + .5f,
-		player->position.z - 2.5f };
+	skybox->position = { player->position.x - 0.5f + cameraOffset.x, player->position.y + .5f + cameraOffset.y,
+		player->position.z - 2.5f + cameraOffset.z};
 
 	glutPostRedisplay();
 }
