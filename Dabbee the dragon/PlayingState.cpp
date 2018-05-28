@@ -161,13 +161,6 @@ void PlayingState::init()
 	hasCollided = false;
 	cameraOffset = { 0,0,0 };
 	playingGame->init();
-	for (int i = 0; i < 5; i++)
-		addObstacle();
-
-	skybox = new GameObject();
-	skybox->addComponent(new SkyboxComponent());
-
-	
 }
 
 void PlayingState::deInit()

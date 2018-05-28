@@ -13,6 +13,8 @@
 #include "TimerComponent.h"
 #include "SkyboxComponent.h"
 #include "DiveComponent.h"
+#include "FollowComponent.h"
+#include "PointToHandComponent.h"
 
 GameObject* player;
 GameObject* skybox;
@@ -176,6 +178,27 @@ void Game::init() {
 	o->position.z = -10;
 	objects.push_back(o);
 	player = o;
+
+	/*GameObject *lw = new GameObject();
+	lw->addComponent(new FollowComponent(o, { 0, .55f, 0 }));
+	lw->addComponent(new PointToHandComponent(true));
+	lw->addComponent(new ModelComponent("models/dragon/wing.obj"));
+	lw->scale = { .04f, .04f, .04f };
+	lw->position.x = 0;
+	lw->position.z = -10;
+	lw->position.y = .55f;
+	GameObject *rw = new GameObject();
+
+	rw->addComponent(new FollowComponent(o, { .01f, .55f, 0 }));
+	rw->addComponent(new PointToHandComponent(false));
+	rw->addComponent(new ModelComponent("models/dragon/wing.obj"));
+	rw->scale = { -.04f, .04f, .04f };
+	rw->position.x = .01f;
+	rw->position.y = .55f;
+	rw->position.z = -10;
+	objects.push_back(rw);
+	objects.push_back(lw);*/
+
 
 	for (int i = 0; i < 5; i++)
 		addObstacle();

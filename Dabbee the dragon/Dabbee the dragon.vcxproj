@@ -131,6 +131,7 @@
     <ClCompile Include="Debuginfo.cpp" />
     <ClCompile Include="DiveComponent.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
+    <ClCompile Include="FollowComponent.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Debuginfo.h" />
     <ClInclude Include="DiveComponent.h" />
     <ClInclude Include="DrawComponent.h" />
+    <ClInclude Include="FollowComponent.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
@@ -176,6 +178,7 @@
     <ClInclude Include="ObstacleGenerator.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PlayingState.h" />
+    <ClInclude Include="PointToHandComponent.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SkyboxComponent.h" />
     <ClInclude Include="stb_image.h" />
