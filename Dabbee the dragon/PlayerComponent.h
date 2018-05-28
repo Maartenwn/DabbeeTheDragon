@@ -2,7 +2,7 @@
 
 #include "Component.h"
 
-#define PLAYER_SPEED_MOD 3.5
+#define PLAYER_SPEED_MOD 2.5
 
 class PlayerComponent : public Component
 {

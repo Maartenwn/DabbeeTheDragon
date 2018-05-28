@@ -24,6 +24,7 @@ private:
 	public:
 		std::list<Vertex> vertices;
 	};
+
 	class MaterialInfo
 	{
 	public:
@@ -53,6 +54,15 @@ public:
 	ObjModel(const std::string &filename);
 	~ObjModel(void);
 	string getName();
+
+	struct ModelVertex
+	{
+		float x, y, z;
+		float nx, ny, nz;
+		float tx, ty;
+	};
+
+	vector<ModelVertex> modelVerts;
 
 	void draw();
 };
