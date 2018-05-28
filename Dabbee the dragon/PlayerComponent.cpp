@@ -3,7 +3,6 @@
 #include "MoveToComponent.h"
 #include "MotionInput.h"
 #include <iostream>
-#define TICKS_TO_RISE 40
 
 #include "CollisionComponent.h"
 #include <iostream>
@@ -32,19 +31,18 @@ void PlayerComponent::update(float elapsedTime)
 	MoveToComponent* moveto = gameObject->getComponent<MoveToComponent>();
 
 	if (flapspeed != 0.0f) {
-		top = -(flapspeed * PLAYER_SPEED_MOD) / MAX_FLAP_SPEED;
+		top = -((flapspeed * PLAYER_SPEED_MOD) / MAX_FLAP_SPEED);
 		cur = moveto->mt_speedcounter;
-		avg = (top - cur) / TICKS_TO_RISE;
+		avg = (top - cur) * (elapsedTime * 5);
 	}
 
 	if (keys[' ']) {
-		top = -((MAX_FLAP_SPEED/2) * PLAYER_SPEED_MOD) / MAX_FLAP_SPEED;
+		top = -(((MAX_FLAP_SPEED/2) * PLAYER_SPEED_MOD) / MAX_FLAP_SPEED);
 		cur = moveto->mt_speedcounter;
-		avg = (top - cur) / TICKS_TO_RISE;
-		fapspeed = 500;
-		cout << fapspeed << endl;
+		avg = (top - cur) * (elapsedTime * 5);
 		keys[' '] = false;
 	}
+
 
 	if (cur > top) {
 		moveto->mt_speedcounter += avg;
