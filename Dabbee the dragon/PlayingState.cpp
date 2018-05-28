@@ -12,6 +12,8 @@
 #include "SkyboxComponent.h"
 #include "DiveComponent.h"
 #include "CollisionComponent.h"
+#include "FollowComponent.h"
+#include "PointToHandComponent.h"
 #include  "PlayingState.h"
 #include <iostream>
 #include <string>
@@ -155,10 +157,17 @@ void PlayingState::update(float deltaTime)
 void PlayingState::init()
 {
 	hasFlapped = false;
+	
 	hasCollided = false;
 	cameraOffset = { 0,0,0 };
 	playingGame->init();
+	for (int i = 0; i < 5; i++)
+		addObstacle();
 
+	skybox = new GameObject();
+	skybox->addComponent(new SkyboxComponent());
+
+	
 }
 
 void PlayingState::deInit()

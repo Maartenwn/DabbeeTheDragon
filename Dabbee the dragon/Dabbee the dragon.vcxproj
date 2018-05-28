@@ -146,6 +146,7 @@
     <ClCompile Include="ObstacleGenerator.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="PlayingState.cpp" />
+    <ClCompile Include="PointToHandComponent.cpp" />
     <ClCompile Include="SkyboxComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimerComponent.cpp" />
