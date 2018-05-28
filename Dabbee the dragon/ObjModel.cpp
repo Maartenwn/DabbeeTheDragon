@@ -78,6 +78,7 @@ static inline std::string cleanLine(std::string line)
 */
 ObjModel::ObjModel(const std::string &fileName)
 {
+	name = fileName;
 	std::cout << "Loading " << fileName << std::endl;
 	std::string dirName = fileName;
 	if(dirName.rfind("/") != std::string::npos)
@@ -86,7 +87,6 @@ ObjModel::ObjModel(const std::string &fileName)
 		dirName = dirName.substr(0, dirName.rfind("\\"));
 	if(fileName == dirName)
 		dirName = "";
-
 
 	std::ifstream pFile(fileName.c_str());
 
@@ -189,30 +189,27 @@ void ObjModel::draw()
 	//  foreach face in group
 	//    foreach vertex in face
 	//      emit vertex
-
 	for(ObjGroup* group : groups) {
 		glEnable(GL_TEXTURE_2D);
 		for(MaterialInfo* material : materials) {
+			materials[group->materialIndex]->texture->bind();
 		}
-		materials[group->materialIndex]->texture->bind();
+		
+		glPushMatrix();
+		glScalef(0.25f, 0.25f, 0.25f);
+		glBegin(GL_TRIANGLES);
+		glColor3f(1.0, 1.0, 1.0);
 		for(Face face : group->faces) {
-			glPushMatrix();
 			//glColor3f(1.0, 0.5, 0.3);
-			glScalef(0.25f, 0.25f, 0.25f);
-			
-
-			glBegin(GL_TRIANGLES);
-			
 
 			for (Vertex vertex : face.vertices)
 			{
 				glTexCoord2fv(texcoords[vertex.texcoord].v);
 				glVertex3fv(vertices[vertex.position].v);
-			}
-
-			glEnd();
-			glPopMatrix();
+			}	
 		}
+		glEnd();
+		glPopMatrix();
 	}
 }
 
@@ -289,12 +286,16 @@ void ObjModel::loadMaterialFile( const std::string &fileName, const std::string 
 	}
 	if(currentMaterial != NULL)
 		materials.push_back(currentMaterial);
-
 }
 
 ObjModel::MaterialInfo::MaterialInfo()
 {
 	texture = NULL;
 }
+
+string ObjModel::getName() {
+	return name;
+}
+
 
 

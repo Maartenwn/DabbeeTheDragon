@@ -1,6 +1,10 @@
 #include "MoveToComponent.h"
 #include "GameObject.h"
+#include "PlayerComponent.h"
+#include <iostream>
 
+using namespace std;
+#define G 2.0f
 
 MoveToComponent::MoveToComponent()
 {
@@ -13,7 +17,11 @@ MoveToComponent::~MoveToComponent()
 
 void MoveToComponent::update(float elapsedTime)
 {
-	gameObject->position.x = (1 - speed) * gameObject->position.x + speed * target.x;
-	gameObject->position.y = (1 - speed) * gameObject->position.y + speed * target.y;
-	gameObject->position.z = (1 - speed) * gameObject->position.z + speed * target.z;
+	gameObject->position.x += mt_speed * target.x * elapsedTime;
+	gameObject->position.y += mt_speed * target.y * mt_speedcounter * elapsedTime;
+	gameObject->position.z += mt_speed * target.z * elapsedTime;
+	mt_speedcounter += G * elapsedTime;
+
 }
+
+

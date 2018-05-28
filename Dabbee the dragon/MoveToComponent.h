@@ -6,12 +6,18 @@
 class MoveToComponent : public Component
 {
 public:
-	float speed = 0.025f;
+
+	float mt_speedcounter = 1;	//used for fall animation
+	float mt_speed = 2.0f;
+
+	int	  mt_amountLeftToRotate = 45;
+
 	Vec3f target;
 
 	MoveToComponent();
 	~MoveToComponent();
 
 	virtual void update(float elapsedTime) override;
+
 };
 
