@@ -13,6 +13,7 @@
 #include "DiveComponent.h"
 #include "CollisionComponent.h"
 #include "FollowComponent.h"
+#include "PointToHandComponent.h"
 #include  "PlayingState.h"
 #include <iostream>
 #include <string>
@@ -257,6 +258,7 @@ void PlayingState::init()
 
 	GameObject *lw = new GameObject();
 	lw->addComponent(new FollowComponent(o, { 0, .55f, 0 }));
+	lw->addComponent(new PointToHandComponent(true));
 	lw->addComponent(new ModelComponent("models/dragon/wing.obj"));
 	lw->scale = { .04f, .04f, .04f };
 	lw->position.x = 0;
@@ -265,6 +267,7 @@ void PlayingState::init()
 
 	GameObject *rw = new GameObject();
 	rw->addComponent(new FollowComponent(o, { .01f, .55f, 0 }));
+	rw->addComponent(new PointToHandComponent(false));
 	rw->addComponent(new ModelComponent("models/dragon/wing.obj"));
 	rw->scale = { -.04f, .04f, .04f };
 	rw->position.x = .01f;

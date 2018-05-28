@@ -3,10 +3,6 @@
 #include "Component.h"
 #include "GameObject.h"
 
-
-#define PLAYER_ANGLE_TOP  10;
-#define PLAYER_ANGLE_BOT  145;
-
 class FollowComponent : public Component {
 public:
 

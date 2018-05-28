@@ -145,6 +145,7 @@
     <ClCompile Include="ObstacleGenerator.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="PlayingState.cpp" />
+    <ClCompile Include="PointToHandComponent.cpp" />
     <ClCompile Include="SkyboxComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimerComponent.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="ObstacleGenerator.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PlayingState.h" />
+    <ClInclude Include="PointToHandComponent.h" />
     <ClInclude Include="SkyboxComponent.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
