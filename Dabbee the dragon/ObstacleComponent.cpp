@@ -30,7 +30,7 @@ void ObstacleComponent::draw() {
 	glPushMatrix();
 	//glTranslatef(0, gapY, 0);
 	//glTranslatef(0, 0, 20);
-	glBegin(GL_QUADS);
+	glBegin(GL_LINES);
 	
 
 	glColor3f(1, 0, 0);

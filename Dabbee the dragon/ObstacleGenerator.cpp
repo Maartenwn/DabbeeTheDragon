@@ -1,4 +1,5 @@
 #include "ObstacleGenerator.h"
+#include <time.h>
 #include <stdlib.h>
 #include <iostream>
 
@@ -10,6 +11,8 @@ ObstacleGenerator::ObstacleGenerator()
 	this->topObstacle = new ObstacleComponent();
 
 	obstacleCount = 1;
+	time_t seed;
+	srand(time(&seed));
 }
 
 
@@ -22,6 +25,7 @@ float ObstacleGenerator::getNextObstacle() {
 	ObstacleComponent* bottemTemp;
 	do
 	{
+		
 		int randomHeight = rand() % MAX_GAP_DISTANCE + 0; //random number between 0 and gap distance
 		std::cout << randomHeight << std::endl;
 		topTemp = new ObstacleComponent();

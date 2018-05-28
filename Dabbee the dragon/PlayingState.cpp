@@ -41,6 +41,7 @@ float total_score;
 static void addObstacle(void) {
 	float position = obstacleGenerator->getNextObstacle();
 	GameObject* o = new GameObject();
+	o->addComponent(new ModelComponent("models/Roper_Sleeping/Roper_Sleeping.obj"));
 	o->addComponent(obstacleGenerator->bottomObstacle);
 	auto collision = new CollisionComponent();
 
@@ -49,6 +50,7 @@ static void addObstacle(void) {
 	hitboxes.push_back(new Cube(o->position, { obstacle->width + 0.01f,obstacle->height + 0.01f,obstacle->depth + 0.01f }));
 	collision->updateHitboxes(hitboxes);
 	o->addComponent(collision);
+	
 	o->position = Vec3f(-obstacle->width / 2, obstacle->gapY, position);
 
 	objects.push_back(o);
