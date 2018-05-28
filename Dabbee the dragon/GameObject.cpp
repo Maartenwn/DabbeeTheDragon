@@ -3,6 +3,8 @@
 #include "CollisionComponent.h"
 #include <GL/freeglut.h>
 
+extern bool debugon;
+
 GameObject::GameObject()
 {
 }
@@ -39,7 +41,7 @@ void GameObject::draw()
 
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
-	if (collisionComponent) {
+	if (collisionComponent && debugon) {
 		collisionComponent->draw();
 	}
 	glRotatef(rotation.x, 1, 0, 0);

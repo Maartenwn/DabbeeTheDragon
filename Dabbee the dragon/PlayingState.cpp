@@ -184,24 +184,10 @@ void PlayingState::draw()
 
 	glEnable(GL_LIGHT0);
 
-	std::list<GameObject*> removableObjects;
 	for (auto &o : objects) {
-		if (o->getComponent<ObstacleComponent>() != nullptr) {
-			if (o->position.z < player->position.z - 1) {
-				total_score+=.5f;
-				removableObjects.push_back(o);
-				continue;
-			}
-		}
 		o->draw();
 	}
 
-	if (removableObjects.size() > 0) {
-		for (auto &o : removableObjects)
-			objects.remove(o);
-
-		addObstacle();
-	}
 
 	drawHUD();
 }
@@ -211,15 +197,33 @@ extern float flapspeed;
 
 void PlayingState::update(float deltaTime)
 {
-	if (flapspeed != 0.0) hasFlapped = true;
+	if (flapspeed != 0.0 || keys[' ']) hasFlapped = true;
 	if (hasFlapped) {
 		for (auto &o : objects)
 			o->update(deltaTime);
 
 		auto collision = player->getComponent<CollisionComponent>();
 		if (collision->checkCollision(objects)) {
-			manager->changeState(1);
+			manager->changeState(0);
 		}
+	}
+
+	std::list<GameObject*> removableObjects;
+	for (auto &o : objects) {
+		if (o->getComponent<ObstacleComponent>() != nullptr) {
+			if (o->position.z < player->position.z - 1) {
+				total_score += .5f;
+				removableObjects.push_back(o);
+				continue;
+			}
+		}
+	}
+
+	if (removableObjects.size() > 0) {
+		for (auto &o : removableObjects)
+			objects.remove(o);
+
+		addObstacle();
 	}
 	
 
@@ -268,4 +272,3 @@ void PlayingState::deInit()
 
 	total_score = 0;
 }
-

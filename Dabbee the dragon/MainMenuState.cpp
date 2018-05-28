@@ -32,6 +32,8 @@ extern int height;
 
 	void MainMenuState::draw()
 	{
+		glUseProgram(program);
+
 		glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
 		glViewport(0, 0, width, height);
 
@@ -39,7 +41,6 @@ extern int height;
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glViewport(0, 0, width, height);
-		glUseProgram(program);
 
 
 		glClearColor(0.9f, 0.5f, 0.5f, 1.0f);

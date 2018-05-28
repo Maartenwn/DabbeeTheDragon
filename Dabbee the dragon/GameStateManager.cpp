@@ -17,8 +17,8 @@ GameStateManager::~GameStateManager()
 void GameStateManager::init()
 {
 	currentState = 0;
+	//states.push_back(new MainMenuState(this));
 	states.push_back(new PlayingState(this));
-	states.push_back(new MainMenuState(this));
 
 
 	states[currentState]->init();
