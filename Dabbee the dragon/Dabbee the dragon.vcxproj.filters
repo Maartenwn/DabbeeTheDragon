@@ -90,6 +90,12 @@
     <ClCompile Include="GLShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Debuginfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModelComponent.h">
@@ -167,16 +173,39 @@
     <ClInclude Include="GLShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Debuginfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="blurshader.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="vertexBlurShader.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="fragmentBlurShader.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="vertexBlurShader.txt">
+      <Filter>Source Files\Components</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="wawoosh.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="DesiJourney.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Flap.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="WingFlap.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>
