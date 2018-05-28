@@ -5,6 +5,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include "MotionInput.h"
+#include "AudioPlayer.h"
 #define FPSFIELD 20
 int height = 800;
 int width = 1200;
@@ -97,7 +98,10 @@ int main(int argc, char* argv[])
 	MotionInput m(&motion, &movement);
 	m.Start(0, true);
 
+
 	manager = new GameStateManager();
+	InitAudioPlayer();
+	PlaySoundInloop("DesiJourney.wav");
 	glutSetIconTitle("icon1.ico");
 
 	glutMainLoop();

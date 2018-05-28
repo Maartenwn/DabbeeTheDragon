@@ -1,4 +1,5 @@
 #include "PlayerComponent.h"
+#include "AudioPlayer.h"
 #include "GameObject.h"
 #include "MoveToComponent.h"
 #include "MotionInput.h"
@@ -34,7 +35,7 @@ void PlayerComponent::update(float elapsedTime)
 	if (flapspeed != 0.0f) {
 		top = -((flapspeed * PLAYER_SPEED_MOD) / MAX_FLAP_SPEED);
 		cur = moveto->mt_speedcounter;
-		avg = (top - cur) * (elapsedTime * 5);
+		PlaySoundOnce("WingFlap.wav");
 	}
 
 	if (keys[' ']) {
@@ -43,12 +44,15 @@ void PlayerComponent::update(float elapsedTime)
 		avg = (top - cur)  * (elapsedTime * 5);
 		fapspeed = 500;
 		keys[' '] = false;
+		PlaySoundOnce("WingFlap.wav"); 
 	}
 
 
 	if (cur > top) {
 		moveto->mt_speedcounter += avg;
 		cur += avg;
+		
+
 	}
 
 	float z = sin(gameObject->rotation.x * (M_PI/180)) * 1.85;

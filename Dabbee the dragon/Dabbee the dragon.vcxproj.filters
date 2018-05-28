@@ -90,6 +90,9 @@
     <ClCompile Include="GLShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AudioPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Debuginfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -187,11 +190,11 @@
     <Text Include="blurshader.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="vertexBlurShader.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="fragmentBlurShader.txt">
       <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="vertexBlurShader.txt">
+      <Filter>Source Files\Components</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
