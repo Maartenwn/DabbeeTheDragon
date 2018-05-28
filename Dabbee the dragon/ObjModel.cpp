@@ -176,18 +176,18 @@ ObjModel::ObjModel(const std::string &fileName)
 	for (auto& group : groups) {
 		for (auto& face : group->faces) {
 			for (auto& vertex : face.vertices) {
-					modelVerts.push_back(
-						ModelVertex{
-						vertices[vertex.position].x,
-						vertices[vertex.position].y,
-						vertices[vertex.position].z,
-						normals[vertex.normal].x,
-						normals[vertex.normal].y,
-						normals[vertex.normal].z,
-						0,//texcoords[vertex.texcoord].x,
-						0//texcoords[vertex.texcoord].y
-					}
-					);
+				modelVerts.push_back(
+					ModelVertex{
+					vertices[vertex.position].x,
+					vertices[vertex.position].y,
+					vertices[vertex.position].z,
+					normals[vertex.normal].x,
+					normals[vertex.normal].y,
+					normals[vertex.normal].z,
+					texcoords[vertex.texcoord].x,
+					texcoords[vertex.texcoord].y
+				}
+				);
 			}
 		}
 	}
@@ -202,6 +202,8 @@ ObjModel::~ObjModel(void)
 void ObjModel::draw()
 {
 	glEnable(GL_TEXTURE_2D);
+
+	materials[0]->texture->bind();
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);

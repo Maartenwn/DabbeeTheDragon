@@ -12,6 +12,7 @@
 #include "SkyboxComponent.h"
 #include "DiveComponent.h"
 #include "CollisionComponent.h"
+#include "FollowComponent.h"
 #include  "PlayingState.h"
 #include <iostream>
 #include <string>
@@ -244,15 +245,36 @@ void PlayingState::init()
 	o->addComponent(new TimerComponent());
 	o->addComponent(new DiveComponent());
 	o->addComponent(new MoveToComponent());
-	o->addComponent(new ModelComponent("models/steve/steve.obj"));
+	o->addComponent(new ModelComponent("models/dragon/dragon_body.obj"));
 	auto collision = new CollisionComponent();
 	vector<Cube*> cubes;
 	cubes.push_back(new Cube({ -0.35f,-0.5,1.5 }, { 0.7f,0.7f,0.7f }));
 	collision->updateHitboxes(cubes);
 	o->addComponent(collision);
-	o->rotation = { 90,270,0 };
+	o->rotation = { 0, 0 ,0 };
+	o->scale = {.04f, .04f, .04f };
 	o->position.z = -10;
+
+	GameObject *lw = new GameObject();
+	lw->addComponent(new FollowComponent(o, { 0, .55f, 0 }));
+	lw->addComponent(new ModelComponent("models/dragon/wing.obj"));
+	lw->scale = { .04f, .04f, .04f };
+	lw->position.x = 0;
+	lw->position.y = .55f;
+	lw->position.z = -10;
+
+	GameObject *rw = new GameObject();
+	rw->addComponent(new FollowComponent(o, { .01f, .55f, 0 }));
+	rw->addComponent(new ModelComponent("models/dragon/wing.obj"));
+	rw->scale = { -.04f, .04f, .04f };
+	rw->position.x = .01f;
+	rw->position.y = .55f;
+	rw->position.z = -10;
+	
+	objects.push_back(rw);
+	objects.push_back(lw);
 	objects.push_back(o);
+
 	player = o;
 
 	for (int i = 0; i < 5; i++)
@@ -261,7 +283,6 @@ void PlayingState::init()
 	skybox = new GameObject();
 	skybox->addComponent(new SkyboxComponent());
 
-	
 }
 
 void PlayingState::deInit()
