@@ -31,6 +31,7 @@ extern int height;
 extern cv::Point leftHandPoint, rightHandPoint;
 cv::Point lhp, rhp;
 
+bool hasFlapped;
 float total_score;
 
 static void addObstacle(void) {
@@ -179,19 +180,24 @@ void PlayingState::draw()
 	}
 
 	drawHUD();
-
-	glutSwapBuffers();
 }
+
+extern float flapspeed;
+
 
 void PlayingState::update(float deltaTime)
 {
-	for (auto &o : objects)
-		o->update(deltaTime);
+	if (flapspeed != 0.0) hasFlapped = true;
+	if (hasFlapped) {
+		for (auto &o : objects)
+			o->update(deltaTime);
 
-	auto collision = player->getComponent<CollisionComponent>();
-	if (collision->checkCollision(objects)) {
-		manager->changeState(1);
+		auto collision = player->getComponent<CollisionComponent>();
+		if (collision->checkCollision(objects)) {
+			manager->changeState(1);
+		}
 	}
+	
 
 	//sets the skybox to the player pos
 	skybox->position = { player->position.x - 0.5f, player->position.y + .5f,
@@ -202,6 +208,7 @@ void PlayingState::update(float deltaTime)
 
 void PlayingState::init()
 {
+	hasFlapped = false;
 	obstacleGenerator = new ObstacleGenerator();
 	glEnable(GL_DEPTH_TEST);
 	GameObject *o = new GameObject();
