@@ -36,6 +36,7 @@ void PlayerComponent::update(float elapsedTime)
 		top = -((flapspeed * PLAYER_SPEED_MOD) / MAX_FLAP_SPEED);
 		cur = moveto->mt_speedcounter;
 		PlaySoundOnce("WingFlap.wav");
+		avg = (top - cur) * (elapsedTime * 5);
 	}
 
 	if (keys[' ']) {
