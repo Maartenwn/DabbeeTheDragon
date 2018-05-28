@@ -52,7 +52,7 @@ static void addObstacle(void) {
 	o->addComponent(collision);
 	
 	o->position = Vec3f(-obstacle->width / 2, obstacle->gapY, position);
-
+	o->rotation = { -90,0,0 };
 	objects.push_back(o);
 
 	GameObject* o2 = new GameObject();
@@ -246,7 +246,7 @@ void PlayingState::init()
 	o->addComponent(new TimerComponent());
 	o->addComponent(new DiveComponent());
 	o->addComponent(new MoveToComponent());
-	o->addComponent(new ModelComponent("models/steve/steve.obj"));
+	//o->addComponent(new ModelComponent("models/steve/steve.obj"));
 	auto collision = new CollisionComponent();
 	vector<Cube*> cubes;
 	cubes.push_back(new Cube({ -0.35f,-0.5,1.5 }, { 0.7f,0.7f,0.7f }));

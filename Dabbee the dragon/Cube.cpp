@@ -24,7 +24,6 @@ void Cube::draw()
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);  // this tells it to only render lines
 	glBegin(GL_LINES);
 
-
 	//bottem
 	glVertex3f(position.x,position.y,position.z);
 	glVertex3f(maxPosition.x, position.y, position.z);

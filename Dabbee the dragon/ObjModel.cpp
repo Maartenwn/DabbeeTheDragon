@@ -201,12 +201,15 @@ ObjModel::~ObjModel(void)
 
 void ObjModel::draw()
 {
+
 	glEnable(GL_TEXTURE_2D);
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 
+	glTranslatef(2, -1, -25.75);
+	glScalef(3, 1, 3);
 	glVertexPointer(3, GL_FLOAT, sizeof(ModelVertex), ((float*)modelVerts.data()) + 0);
 	glNormalPointer(GL_FLOAT, sizeof(ModelVertex), ((float*)modelVerts.data()) + 3);
 	glTexCoordPointer(2, GL_FLOAT, sizeof(ModelVertex), ((float*)modelVerts.data()) + 6);
