@@ -130,6 +130,7 @@
     <ClCompile Include="Debuginfo.cpp" />
     <ClCompile Include="DiveComponent.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="Debuginfo.h" />
     <ClInclude Include="DiveComponent.h" />
     <ClInclude Include="DrawComponent.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateManager.h" />
@@ -170,6 +172,7 @@
     <ClInclude Include="ObstacleGenerator.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PlayingState.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SkyboxComponent.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
@@ -181,6 +184,12 @@
     <Text Include="blurshader.txt" />
     <Text Include="fragmentBlurShader.txt" />
     <Text Include="vertexBlurShader.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Dabbee the dragon.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

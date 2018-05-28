@@ -4,9 +4,9 @@
 #include "MotionInput.h"
 #include <iostream>
 #define TICKS_TO_RISE 40
+#include <iostream>
 
 #include "CollisionComponent.h"
-#include <iostream>
 #include "debuginfo.h"
 #define _USE_MATH_DEFINES
 
@@ -42,7 +42,6 @@ void PlayerComponent::update(float elapsedTime)
 		cur = moveto->mt_speedcounter;
 		avg = (top - cur) / TICKS_TO_RISE;
 		fapspeed = 500;
-		cout << fapspeed << endl;
 		keys[' '] = false;
 	}
 
