@@ -211,7 +211,7 @@ void PlayingState::update(float deltaTime)
 	std::list<GameObject*> removableObjects;
 	for (auto &o : objects) {
 		if (o->getComponent<ObstacleComponent>() != nullptr) {
-			if (o->position.z < player->position.z - 1) {
+			if (o->position.z < player->position.z - 2) {
 				total_score += .5f;
 				removableObjects.push_back(o);
 				continue;

@@ -37,8 +37,6 @@ void GameObject::draw()
 	if (!drawComponent)
 		return;
 	
-
-
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
 	if (collisionComponent && debugon) {

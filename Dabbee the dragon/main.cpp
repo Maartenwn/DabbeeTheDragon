@@ -21,7 +21,7 @@ void reshape(int w, int h)
 {
 	width = w;
 	height = h;
-	//glViewport(0, 0, w, h);
+	glViewport(0, 0, w, h);
 }
 
 void keyboard(unsigned char key, int x, int  y)
