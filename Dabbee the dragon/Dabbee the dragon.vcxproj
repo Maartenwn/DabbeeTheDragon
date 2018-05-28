@@ -127,6 +127,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="CubeComponent.cpp" />
+    <ClCompile Include="Debuginfo.cpp" />
     <ClCompile Include="DiveComponent.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="CubeComponent.h" />
+    <ClInclude Include="Debuginfo.h" />
     <ClInclude Include="DiveComponent.h" />
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="GameObject.h" />

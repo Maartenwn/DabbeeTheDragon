@@ -16,15 +16,19 @@
 #include <iostream>
 #include <string>
 #include <opencv2\features2d\features2d.hpp>
+#include "Debuginfo.h"
 
 GameObject* player;
 GameObject* skybox;
 
 ObstacleGenerator* obstacleGenerator;
 
+Vec3f fpsCamOff = Vec3f(0,0,0);
+Vec3f cameraOffset = Vec3f(0,0,0);
 std::list<GameObject*> objects;
-
-
+bool debugon = false;
+bool butreleased = true;
+extern bool keys[256];
 extern int width;
 extern int height;
 
@@ -99,6 +103,11 @@ void PlayingState::drawHUD()
 	glVertex2f(lhp.x + gsize, lhp.y + gsize);
 	glVertex2f(lhp.x - gsize, lhp.y + gsize);
 
+	glVertex2f(20, 40);
+	glVertex2f(40,40);
+	glVertex2f(40,80);
+	glVertex2f(20,80);
+
 	if (rightHandPoint.x != -1)
 		rhp = rightHandPoint;
 
@@ -111,14 +120,29 @@ void PlayingState::drawHUD()
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glPushMatrix();
-	glTranslatef(30, 40 ,0);
+	glTranslatef(30, 40 ,0);	//translate and scale
 	glScalef(.3f,-.3f,1);
 
 	unsigned char scoreLabel[15] = " ";
 	std::string s = "Score " + std::to_string((int)total_score);
 	std::copy(s.begin(), s.end(), scoreLabel);
-
 	glutStrokeString(GLUT_STROKE_ROMAN, scoreLabel);
+
+
+	glTranslatef(-30, -40, 0);
+	glScalef(1/.3f, 1/-.3f, 1);	//back to O
+
+	if (butreleased) {
+		bool dab = false;
+		dab ^= keys['d'] && keys['a'] && keys['b'];
+		if (dab) {
+			debugon = debugon ^ dab;
+			butreleased = false;
+		}
+	}
+	if (!(keys['d'] && keys['a'] && keys['b'])) { butreleased = true; }
+    draw_debug_display(debugon);
+	
 	glPopMatrix();
 
 	glMatrixMode(GL_PROJECTION);
@@ -142,8 +166,8 @@ void PlayingState::draw()
 	0, player->position.y, player->position.z,
 	0, 1, 0);*/
 
-	gluLookAt(player->position.x, player->position.y + 1, player->position.z - 3,
-		player->position.x, player->position.y + 0.5, player->position.z,
+	gluLookAt(player->position.x + cameraOffset.x, player->position.y + 1 + cameraOffset.y, player->position.z - 3 + cameraOffset.z,
+		player->position.x + fpsCamOff.x, player->position.y + 0.5 + fpsCamOff.y, player->position.z + fpsCamOff.z,
 		0, 1, 0);
 
 
@@ -200,8 +224,8 @@ void PlayingState::update(float deltaTime)
 	
 
 	//sets the skybox to the player pos
-	skybox->position = { player->position.x - 0.5f, player->position.y + .5f,
-		player->position.z - 2.5f };
+	skybox->position = { player->position.x - 0.5f + cameraOffset.x, player->position.y + .5f + cameraOffset.y,
+		player->position.z - 2.5f + cameraOffset.z};
 
 	glutPostRedisplay();
 }
@@ -223,6 +247,7 @@ void PlayingState::init()
 	collision->updateHitboxes(cubes);
 	o->addComponent(collision);
 	o->rotation = { 90,270,0 };
+	o->position.z = -10;
 	objects.push_back(o);
 	player = o;
 

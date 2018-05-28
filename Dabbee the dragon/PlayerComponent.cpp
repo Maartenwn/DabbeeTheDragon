@@ -3,18 +3,18 @@
 #include "MoveToComponent.h"
 #include "MotionInput.h"
 #include <iostream>
-
 #define TICKS_TO_RISE 40
 
 #include "CollisionComponent.h"
 #include <iostream>
+#include "debuginfo.h"
 #define _USE_MATH_DEFINES
 
 #include <math.h>
 
 extern bool keys[256];
 extern float flapspeed;
-
+extern float fapspeed;
 float cur, top, avg;
 
 using namespace std;
@@ -37,11 +37,13 @@ void PlayerComponent::update(float elapsedTime)
 		avg = (top - cur) / TICKS_TO_RISE;
 	}
 
-	if (keys['w']) {
+	if (keys[' ']) {
 		top = -((MAX_FLAP_SPEED/2) * PLAYER_SPEED_MOD) / MAX_FLAP_SPEED;
 		cur = moveto->mt_speedcounter;
 		avg = (top - cur) / TICKS_TO_RISE;
-		keys['w'] = false;
+		fapspeed = 500;
+		cout << fapspeed << endl;
+		keys[' '] = false;
 	}
 
 	if (cur > top) {
