@@ -172,7 +172,7 @@ void Game::init() {
 	o->addComponent(new ModelComponent("models/dragon/dragon_body.obj"));
 	auto collision = new CollisionComponent();
 	vector<Cube*> cubes;
-	cubes.push_back(new Cube({ -0.35f,-0.5,1.5 }, { 0.7f,0.7f,0.7f }));
+	cubes.push_back(new Cube({ -0.35f,-0.8f,1.5 }, { 0.7f, 0.8f,0.7f }));
 	collision->updateHitboxes(cubes);
 	o->addComponent(collision);
 	o->position.z = -10;
