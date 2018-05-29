@@ -1,14 +1,14 @@
 #pragma once
 #include "GameState.h"
 #include "GameStateManager.h"
-#include "PlayingState.h"
+#include "Game.h"
 
 class MainMenuState :
 	public GameState
 {
 public:
 	GameStateManager * manager;
-	PlayingState * game;
+	Game * game;
 
 	MainMenuState(GameStateManager* manager);
 	~MainMenuState();
@@ -16,5 +16,6 @@ public:
 	void update(float deltaTime);
 	void init();
 	void deInit();
+	void resize(int w, int h);
 };
 

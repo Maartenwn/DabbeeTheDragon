@@ -15,16 +15,15 @@ static ObjModel* findModel(const string input) {
 }
 
 void initModels() {
-	models.push_back(new ObjModel("models/steve/steve.obj"));
-	//models.push_back(new ObjModel("models/Dragon/Luxion.obj"));
+	//models.push_back(new ObjModel("models/steve/steve.obj"));
+	models.push_back(new ObjModel("models/dragon/dragon_body.obj"));
+	models.push_back(new ObjModel("models/dragon/wing.obj"));
 }
 
 ModelComponent::ModelComponent(const string nameModel)
 {
 	model = findModel(nameModel);
 }
-
-
 
 ModelComponent::~ModelComponent()
 {

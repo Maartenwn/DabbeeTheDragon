@@ -42,10 +42,10 @@ void GameObject::draw()
 	if (collisionComponent && debugon) {
 		collisionComponent->draw();
 	}
+	glScalef(scale.x, scale.y, scale.z);
 	glRotatef(rotation.x, 1, 0, 0);
 	glRotatef(rotation.y, 0, 1, 0);
 	glRotatef(rotation.z, 0, 0, 1);
-	glScalef(scale.x, scale.y, scale.z);
 	drawComponent->draw();
 	glPopMatrix();
 }

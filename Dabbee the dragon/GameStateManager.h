@@ -21,6 +21,7 @@ public:
 	void update(float deltaTime);
 	void deInit();
 	void changeState(int state);
+	void resize(int w, int h);
 };
 
 #endif // !HGAMESTATEMANAGER
