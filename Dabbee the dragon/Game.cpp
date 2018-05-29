@@ -99,8 +99,8 @@ void Game::draw() {
 	glPushMatrix();
 	GLfloat diffuse[] = { 1, 0, 1, 0 };
 	glLightfv(GL_LIGHT0, GL_POSITION, diffuse);
-	glTranslatef(player->position.x - 3, player->position.y + 1, player->position.z);
-	GLfloat pos[] = { 1, 0, 0, 1 };
+	glTranslatef(player->position.x - 5, player->position.y + 5, player->position.z - 3);
+	GLfloat pos[] = { 0, 0, 0, 1 };
 	glLightfv(GL_LIGHT0, GL_POSITION, pos);
 	glPopMatrix();
 
@@ -179,7 +179,7 @@ void Game::init() {
 	o->addComponent(new ModelComponent("models/dragon/dragon_body.obj"));
 	auto collision = new CollisionComponent();
 	vector<Cube*> cubes;
-	cubes.push_back(new Cube({ -0.35f,-0.5,1.5 }, { 0.7f,0.7f,0.7f }));
+	cubes.push_back(new Cube({ -0.35f,-0.8f,1.5 }, { 0.7f, 0.8f,0.7f }));
 	collision->updateHitboxes(cubes);
 	o->addComponent(collision);
 	o->position.z = -10;
@@ -189,7 +189,7 @@ void Game::init() {
 	GameObject *lw = new GameObject();
 	lw->addComponent(new FollowComponent(o, { 0, .55f, 0 }));
 	lw->addComponent(new PointToHandComponent(true));
-	lw->addComponent(new ModelComponent("models/dragon/wing.obj"));
+	lw->addComponent(new ModelComponent("models/dragon/n_wing.obj"));
 	lw->scale = { .04f, .04f, .04f };
 	lw->position.x = 0;
 	lw->position.z = -10;
@@ -198,7 +198,7 @@ void Game::init() {
 
 	rw->addComponent(new FollowComponent(o, { .01f, .55f, 0 }));
 	rw->addComponent(new PointToHandComponent(false));
-	rw->addComponent(new ModelComponent("models/dragon/wing.obj"));
+	rw->addComponent(new ModelComponent("models/dragon/n_wing.obj"));
 	rw->scale = { -.04f, .04f, .04f };
 	rw->position.x = .01f;
 	rw->position.y = .55f;
