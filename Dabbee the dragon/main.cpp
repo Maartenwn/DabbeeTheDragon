@@ -96,7 +96,7 @@ int main(int argc, char* argv[])
 	ZeroMemory(keys, sizeof(keys));
 	//Init motion
 	MotionInput m(&motion, &movement);
-	m.Start(0, true);
+	m.Start(0, false);
 
 
 	manager = new GameStateManager();

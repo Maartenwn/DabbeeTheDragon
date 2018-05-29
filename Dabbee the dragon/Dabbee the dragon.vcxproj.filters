@@ -105,6 +105,9 @@
     <ClCompile Include="PointToHandComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="TerreinGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModelComponent.h">
@@ -201,6 +204,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PointToHandComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TerreinGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

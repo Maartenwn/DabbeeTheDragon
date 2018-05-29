@@ -15,11 +15,14 @@
 #include "DiveComponent.h"
 #include "FollowComponent.h"
 #include "PointToHandComponent.h"
+#include "TerreinGenerator.h"
 
 GameObject* player;
 GameObject* skybox;
 
 ObstacleGenerator* obstacleGenerator;
+
+TerreinGenerator* tg;
 
 Vec3f fpsCamOff;
 Vec3f cameraOffset;
@@ -95,7 +98,6 @@ void Game::draw() {
 		player->position.x + fpsCamOff.x, player->position.y + 0.5 + fpsCamOff.y, player->position.z + fpsCamOff.z,
 		0, 1, 0);
 
-
 	glPushMatrix();
 	GLfloat diffuse[] = { 1, 0, 1, 0 };
 	glLightfv(GL_LIGHT0, GL_POSITION, diffuse);
@@ -108,6 +110,8 @@ void Game::draw() {
 	skybox->draw();
 
 	glEnable(GL_LIGHT0);
+
+	tg->draw();
 
 	for (auto &o : objects) {
 		o->draw();
@@ -146,7 +150,7 @@ float Game::update(float deltaTime) {
 	std::list<GameObject*> removableObjects;
 	for (auto &o : objects) {
 		if (o->getComponent<ObstacleComponent>() != nullptr) {
-			if (o->position.z < player->position.z - 2) {
+			if (o->position.z < player->position.z - 6) {
 
 				point += .5f;
 				removableObjects.push_back(o);
@@ -159,6 +163,8 @@ float Game::update(float deltaTime) {
 		for (auto &o : removableObjects)
 			objects.remove(o);
 		addObstacle();
+		std::vector<GameObject*> v{ std::begin(objects), std::end(objects)};
+		tg->recalculateTerrein(v);
 	}
 
 
@@ -169,6 +175,8 @@ float Game::update(float deltaTime) {
 }
 void Game::init() {
 	obstacleGenerator = new ObstacleGenerator();
+	tg = new TerreinGenerator();
+
 	glEnable(GL_DEPTH_TEST);
 	GameObject *o = new GameObject();
 	o->scale = { .04f, .04f, .04f };
@@ -222,4 +230,5 @@ void Game::deInit() {
 	objects.clear();
 	delete skybox;
 	delete obstacleGenerator;
+	delete tg;
 }
