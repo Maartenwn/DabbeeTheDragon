@@ -157,31 +157,6 @@ void PlayingState::update(float deltaTime)
 void PlayingState::init()
 {
 	hasFlapped = false;
-	obstacleGenerator = new ObstacleGenerator();
-	glEnable(GL_DEPTH_TEST);
-	GameObject *o = new GameObject();
-	o->addComponent(new PlayerComponent());
-	o->addComponent(new TimerComponent());
-	o->addComponent(new DiveComponent());
-	o->addComponent(new MoveToComponent());
-	o->addComponent(new ModelComponent("models/steve/steve.obj"));
-	auto collision = new CollisionComponent();
-	vector<Cube*> cubes;
-	cubes.push_back(new Cube({ -0.35f,-0.5,1.5 }, { 0.7f,0.7f,0.7f }));
-	collision->updateHitboxes(cubes);
-	o->addComponent(collision);
-	o->rotation = { 90,270,0 };
-	o->position.z = -10;
-	objects.push_back(o);
-	player = o;
-
-	for (int i = 0; i < 5; i++)
-		addObstacle();
-
-	skybox = new GameObject();
-	skybox->addComponent(new SkyboxComponent());
-
-	
 	hasCollided = false;
 	cameraOffset = { 0,0,0 };
 	playingGame->init();

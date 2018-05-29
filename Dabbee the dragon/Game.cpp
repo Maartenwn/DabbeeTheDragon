@@ -34,26 +34,33 @@ extern bool keys[256];
 static void addObstacle(void) {
 	float position = obstacleGenerator->getNextObstacle();
 	GameObject* o = new GameObject();
+	o->addComponent(new ModelComponent("models/TestRoper/crystal.obj"));
 	o->addComponent(obstacleGenerator->bottomObstacle);
 	auto collision = new CollisionComponent();
 
 	vector<Cube*> hitboxes;
 	ObstacleComponent* obstacle = o->getComponent<ObstacleComponent>();
-	hitboxes.push_back(new Cube(o->position, { obstacle->width + 0.01f,obstacle->height + 0.01f,obstacle->depth + 0.01f }));
+
+	o->position = Vec3f(0, obstacle->gapY, position);
+	o->rotation = { -90,0,0 };
+	o->scale = { 0.4f, 0.4f, 0.4f };
+
+	hitboxes.push_back(new Cube({-obstacle->width / 2,0,-obstacle->depth/2}, { obstacle->width + 0.01f,obstacle->height + 0.01f,obstacle->depth + 0.01f }));
 	collision->updateHitboxes(hitboxes);
 	o->addComponent(collision);
-	o->position = Vec3f(-obstacle->width / 2, obstacle->gapY, position);
 
 	objects.push_back(o);
 
 	GameObject* o2 = new GameObject();
 	o2->addComponent(obstacleGenerator->topObstacle);
+	auto collision2 = new CollisionComponent();
+
 
 	vector<Cube*> hitboxes2;
 	ObstacleComponent* obstacle2 = o2->getComponent<ObstacleComponent>();
 	hitboxes2.push_back(new Cube(o2->position, { obstacle2->width + 0.01f,obstacle2->height + 0.01f,obstacle2->depth + 0.01f }));
-	collision->updateHitboxes(hitboxes2);
-	o2->addComponent(collision);
+	collision2->updateHitboxes(hitboxes2);
+	o2->addComponent(collision2);
 	o2->position = Vec3f(-obstacle2->width / 2, obstacle2->gapY, position);
 
 	objects.push_back(o2);
