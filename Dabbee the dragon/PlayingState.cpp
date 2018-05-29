@@ -18,13 +18,9 @@
 #include <opencv2\features2d\features2d.hpp>
 #include "Debuginfo.h"
 #include "Texture.h"
+#include "MagicHands.h"
 GameObject* player;
 GameObject* skybox;
-
-Vec2f motionO;
-
-Texture* lefthand;
-Texture* righthand;
 
 ObstacleGenerator* obstacleGenerator;
 
@@ -37,9 +33,6 @@ extern bool keys[256];
 extern int width;
 extern int height;
 
-extern cv::Point leftHandPoint, rightHandPoint;
-cv::Point lhp, rhp;
-
 bool hasFlapped;
 float total_score;
 
@@ -51,10 +44,12 @@ static void addObstacle(void) {
 
 	vector<Cube*> hitboxes;
 	ObstacleComponent* obstacle = o->getComponent<ObstacleComponent>();
+
 	hitboxes.push_back(new Cube(o->position, { obstacle->width + 0.01f,obstacle->height + 0.01f,obstacle->depth + 0.01f }));
 	collision->updateHitboxes(hitboxes);
 	o->addComponent(collision);
-	o->position = Vec3f(-obstacle->width / 2, obstacle->gapY, position);
+	o->position = Vec3f(
+		-obstacle->width / 2, obstacle->gapY, position);
 
 	objects.push_back(o);
 
@@ -85,7 +80,6 @@ PlayingState::~PlayingState()
 
 void PlayingState::drawHUD()
 {
-	float gsize = 50;
 
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
@@ -98,48 +92,7 @@ void PlayingState::drawHUD()
 
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glColor4f(1.0f, 1.0f, 1.0f,0.0f);
-	glEnable(GL_TEXTURE_2D);
-	glDisable(GL_LIGHTING);
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	lefthand->bind();
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glColor4f(1.0, 1.0, 1.0, 0.5);//Replace this alpha for transparency
-
-	glPushMatrix();
-	glTranslatef(lhp.x, lhp.y, 0);
-	float rotationL = atan2(lhp.y - motionO.y, lhp.x - motionO.x) * 180.0f / 3.1415f;
-	glRotatef(rotationL + 90, 0, 0, 1);
-	glBegin(GL_QUADS);
-	if (leftHandPoint.x != -1)
-		lhp = leftHandPoint;
-	glTexCoord2f(1, 1);		glVertex2f( - gsize,- gsize);
-	glTexCoord2f(0, 1);		glVertex2f( gsize,  - gsize);
-	glTexCoord2f(0, 0);		glVertex2f( gsize,    gsize);
-	glTexCoord2f(1, 0);		glVertex2f( - gsize,  gsize);
-	glEnd();
-	glPopMatrix();
-
-	righthand->bind();
-	glPushMatrix();
-	glTranslatef(rhp.x, rhp.y, 0);
-	float rotationR = atan2(rhp.y - motionO.y, rhp.x - motionO.x) * 180.0f / 3.1415f;
-	glRotatef(rotationR -270, 0, 0, 1);
-	glBegin(GL_QUADS);
-	if (rightHandPoint.x != -1)
-		rhp = rightHandPoint;
-
-	glTexCoord2f(1, 1);		glVertex2f(-gsize, -gsize);
-	glTexCoord2f(0, 1);		glVertex2f(gsize, -gsize);
-	glTexCoord2f(0, 0);		glVertex2f(gsize, gsize);
-	glTexCoord2f(1, 0);		glVertex2f(-gsize, gsize);
-	glEnd();
-	glPopMatrix();
-
-	glDisable(GL_BLEND);
-	glEnable(GL_LIGHTING);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	hand_draw();
 
 	glPushMatrix();
 	glTranslatef(30, 40 ,0);	//translate and scale
@@ -219,6 +172,7 @@ extern float flapspeed;
 
 void PlayingState::update(float deltaTime)
 {
+	hand_update();
 	if (flapspeed != 0.0 || keys[' ']) hasFlapped = true;
 	if (hasFlapped) {
 		for (auto &o : objects)
@@ -258,10 +212,7 @@ void PlayingState::update(float deltaTime)
 
 void PlayingState::init()
 {
-	motionO = Vec2f(width / 2, height / 2);
-	lefthand = new Texture("mickey_mouse_PNG39R.png");
-	righthand = new Texture("mickey_mouse_PNG39L.png");
-
+	hand_init();
 	hasFlapped = false;
 	obstacleGenerator = new ObstacleGenerator();
 	glEnable(GL_DEPTH_TEST);
