@@ -62,7 +62,6 @@ void PlayingState::resize(int w, int h) {
 
 void PlayingState::drawHUD()
 {
-	float gsize = 10;
 
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
@@ -72,34 +71,10 @@ void PlayingState::drawHUD()
 	glLoadIdentity();
 	glDisable(GL_CULL_FACE);
 
+
 	glClear(GL_DEPTH_BUFFER_BIT);
-
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glBegin(GL_QUADS);
-
-	if (leftHandPoint.x != -1)
-		lhp = leftHandPoint;
-
-	glVertex2f(lhp.x - gsize, lhp.y - gsize);
-	glVertex2f(lhp.x + gsize, lhp.y - gsize);
-	glVertex2f(lhp.x + gsize, lhp.y + gsize);
-	glVertex2f(lhp.x - gsize, lhp.y + gsize);
-
-	glVertex2f(20, 40);
-	glVertex2f(40,40);
-	glVertex2f(40,80);
-	glVertex2f(20,80);
-
-	if (rightHandPoint.x != -1)
-		rhp = rightHandPoint;
-
-	glVertex2f(rhp.x - gsize, rhp.y - gsize);
-	glVertex2f(rhp.x + gsize, rhp.y - gsize);
-	glVertex2f(rhp.x + gsize, rhp.y + gsize);
-	glVertex2f(rhp.x - gsize, rhp.y + gsize);
-
-	glEnd();
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glColor4f(1.0f, 1.0f, 1.0f,0.0f);
+	hand_draw();
 
 	glPushMatrix();
 	glTranslatef(30, 40 ,0);	//translate and scale
@@ -144,6 +119,7 @@ bool hasCollided;
 
 void PlayingState::update(float deltaTime)
 {
+	hand_update();
 	if (flapspeed != 0.0 || keys[' ']) hasFlapped = true;
 	if (hasFlapped) {
 		total_score += playingGame->update(deltaTime);
@@ -156,6 +132,7 @@ void PlayingState::update(float deltaTime)
 
 void PlayingState::init()
 {
+	hand_init();
 	hasFlapped = false;
 	hasCollided = false;
 	cameraOffset = { 0,0,0 };
