@@ -19,7 +19,7 @@ void initModels() {
 	models.push_back(new ObjModel("models/dragon/dragon_body.obj"));
 	models.push_back(new ObjModel("models/dragon/n_wing.obj"));
 	//models.push_back(new ObjModel("models/Roper_Sleeping/Roper_Sleeping.obj"));
-	models.push_back(new ObjModel("models/TestRoper/crystal.obj"
+	models.push_back(new ObjModel("models/TestRoper/crystal.obj"));
 }
 
 ModelComponent::ModelComponent(const string nameModel)
