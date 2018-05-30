@@ -5,9 +5,10 @@
 #include <windows.h>
 #include <gl/GL.h>
 #include "Vec.h"
+#include <math.h>
 
 #define FLOOR_STEP 5.0f
-#define FLOOR_WIDTH 30.0f
+#define FLOOR_WIDTH 50.0f
 #define FLOOR_NOICE 4
 
 using namespace std;
@@ -73,16 +74,30 @@ void TerreinGenerator::recalculateTerrein(const std::vector<GameObject*>& objs)
 		}
 	}
 
-	for (int x = -FLOOR_WIDTH; x < FLOOR_WIDTH; x += (FLOOR_WIDTH / 10)) {
+	//Duplicate upside down, mirrored vert
+
+	float to = 12;
+	float objModelOffset = -.3f;
+	float xOffset = 2.7f;
+
+	float prevCurve = (-pow((to * to) - pow(-FLOOR_WIDTH, 2), .5f) + to) + objModelOffset;
+	bool topLight = true;
+	float step = (FLOOR_WIDTH / 25.0f);
+	for (int x = -FLOOR_WIDTH; x < FLOOR_WIDTH; x += step) {
+		
+		float curve = (-pow((to * to) - pow(x, 2), .5f) + to) + objModelOffset;
 		for (int i = 1; i < points.size(); i++) {
-			Vec3f a(x, points.at(i).y, points.at(i).z);
-			Vec3f b(x + (FLOOR_WIDTH / 10), points.at(i).y, points.at(i).z);
-			Vec3f c(x + (FLOOR_WIDTH / 10), points.at(i - 1).y, points.at(i - 1).z);
-			Vec3f d(x, points.at(i - 1).y, points.at(i - 1).z);
 
-			Vec3f n = (b - a).cross(c - a).normalize();
+			Vec3f a(x - xOffset, points.at(i).y + (prevCurve), points.at(i).z);
+			Vec3f b(x - xOffset + step, points.at(i).y + (curve), points.at(i).z);
+			Vec3f c(x - xOffset + step, points.at(i - 1).y + (curve), points.at(i - 1).z);
+			Vec3f d(x - xOffset, points.at(i - 1).y + (prevCurve), points.at(i - 1).z);
 
-			//TODO curve
+			Vec3f n;
+			if(topLight)
+				n = (b - a).cross(c - a).normalize();
+			else
+				n = (c - a).cross(b - a).normalize();
 
 			verts.push_back(
 				ObjModel::ModelVertex{
@@ -127,6 +142,7 @@ void TerreinGenerator::recalculateTerrein(const std::vector<GameObject*>& objs)
 				0, 1
 			});
 		}
+		prevCurve = curve;
 	}
 }
 
