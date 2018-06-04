@@ -94,8 +94,8 @@ void draw_debug_display(bool on) {
 
 		cameraOffset = cameraoffsets[Camindx];
 		if (3 == Camindx) {		//first person
-			float z = sin(player->rotation.x * (M_PI / 180)) * 2.3f;
-			float y = cos(player->rotation.x * (M_PI / 180)) * 2.3f;
+			float z = sin(player->rotation.x * (M_PI / 180) + M_PI/4) * 2.3f;
+			float y = cos(player->rotation.x * (M_PI / 180) + M_PI/4) * 2.3f;
 			cameraOffset.y += y;
 			cameraOffset.z += z;
 			fpsCamOff = cameraOffset;

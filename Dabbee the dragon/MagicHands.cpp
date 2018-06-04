@@ -122,9 +122,9 @@ void hand_update(float ellapesdTime,bool circle){
 		}
 
 		if (lhp.y > height - height / 6 && lhp.x < width / 2) { onLcircleDraw = 1; onRcircleDraw = 0; } 	//lefthand presses somthing
-		if (rhp.y > height - height / 6 && rhp.x > width / 2) { onRcircleDraw = 1; onLcircleDraw = 0; } 	//lefthand presses somthing
+		//if (rhp.y > height - height / 6 && rhp.x > width / 2) { onRcircleDraw = 1; onLcircleDraw = 0; } 	//lefthand presses somthing
 		if (lhp.y < height - height / 6 || lhp.x > width / 2) { onLcircleDraw = 0; angleInPiesL = 0; }		//lefthand release
-		if (rhp.y < height - height / 6 || rhp.x < width / 2) { onRcircleDraw = 0; angleInPiesR = 0; }		//righthand release
+		//if (rhp.y < height - height / 6 || rhp.x < width / 2) { onRcircleDraw = 0; angleInPiesR = 0; }		//righthand release
 
 	}
 }
