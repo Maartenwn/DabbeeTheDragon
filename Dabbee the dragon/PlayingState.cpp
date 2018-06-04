@@ -105,7 +105,7 @@ bool hasCollided;
 
 void PlayingState::update(float deltaTime)
 {
-	hand_update();
+	hand_update(deltaTime,false);
 	if (flapspeed != 0.0 || keys[' ']) hasFlapped = true;
 	if (hasFlapped) {
 		total_score += playingGame->update(deltaTime);
@@ -118,6 +118,7 @@ void PlayingState::update(float deltaTime)
 
 void PlayingState::init()
 {
+	keys['s'] = false;
 	hasFlapped = false;
 	hasCollided = false;
 	cameraOffset = { 0,0,0 };
