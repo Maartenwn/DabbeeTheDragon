@@ -163,7 +163,7 @@ float Game::update(float deltaTime) {
 	}
 	else hasCollided = false;
 
-	if (player->position.y <= tg->currentHeight(player->position.z)) {
+	if (player->position.y <= tg->currentHeight(player->position.z) || player->position.y < -10 || player->position.y >14) {
 		hasCollided = true;
 	}
 	
