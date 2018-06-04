@@ -16,7 +16,6 @@ public:
 	PlayingState(GameStateManager* manager);
 	~PlayingState();
 
-	void drawScore();
 	void resize(int w, int h);
 	void drawHUD();
 	void draw();
