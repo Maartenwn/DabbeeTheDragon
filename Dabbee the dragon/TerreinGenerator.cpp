@@ -194,3 +194,15 @@ void TerreinGenerator::draw(void)
 	glDisableClientState(GL_NORMAL_ARRAY);
 
 }
+
+float TerreinGenerator::currentHeight(float z)
+{
+	float t = 1.1f;
+	for (hPoint p : points) {
+		if (p.z - t <= z && z < p.z + t) {
+			return p.y;
+		}
+	}
+
+	return -999.0f;
+}
