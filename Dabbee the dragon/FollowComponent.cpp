@@ -9,6 +9,8 @@ FollowComponent::FollowComponent(GameObject * o, Vec3f offset)
 
 FollowComponent::~FollowComponent()
 {
+	followObject = NULL;
+	
 }
 
 void FollowComponent::update(float elapsedTime)

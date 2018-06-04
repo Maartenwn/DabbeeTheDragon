@@ -12,6 +12,11 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
+	for (auto it = components.begin();it != components.end();) {
+		Component* toBeDeleted = *it;
+		it = components.erase(it);
+		delete toBeDeleted;
+	}
 }
 
 void GameObject::addComponent(Component * component)

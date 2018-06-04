@@ -6,7 +6,7 @@ class DrawComponent : public Component
 {
 public:
 	DrawComponent();
-	~DrawComponent();
+	virtual ~DrawComponent() = 0;
 	virtual void draw() = 0;
 };
 

@@ -11,6 +11,11 @@ CollisionComponent::CollisionComponent()
 
 CollisionComponent::~CollisionComponent()
 {
+	for (auto it = hitboxes.begin();it != hitboxes.end();) {
+		Cube* toBeDeleted = *it;
+		it = hitboxes.erase(it);
+		delete toBeDeleted;
+	}
 }
 
 void CollisionComponent::draw()

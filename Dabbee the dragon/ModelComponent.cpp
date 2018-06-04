@@ -4,7 +4,7 @@
 
 using namespace std;
 
-vector<ObjModel*> models;
+static vector<ObjModel*> models;
 
 
 static ObjModel* findModel(const string input) {
@@ -29,6 +29,8 @@ ModelComponent::ModelComponent(const string nameModel)
 
 ModelComponent::~ModelComponent()
 {
+	//delete model;
+	model = NULL;
 }
 
 void ModelComponent::draw() {
