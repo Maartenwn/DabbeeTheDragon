@@ -15,11 +15,14 @@
 #include "DiveComponent.h"
 #include "FollowComponent.h"
 #include "PointToHandComponent.h"
+#include "TerreinGenerator.h"
 
 GameObject* player;
 GameObject* skybox;
 
 ObstacleGenerator* obstacleGenerator;
+
+TerreinGenerator* tg;
 
 Vec3f fpsCamOff;
 Vec3f cameraOffset;
@@ -95,7 +98,6 @@ void Game::draw() {
 		player->position.x + fpsCamOff.x, player->position.y + 0.5 + fpsCamOff.y, player->position.z + fpsCamOff.z,
 		0, 1, 0);
 
-
 	glPushMatrix();
 	GLfloat diffuse[] = { 1, 0, 1, 0 };
 	glLightfv(GL_LIGHT0, GL_POSITION, diffuse);
@@ -108,6 +110,8 @@ void Game::draw() {
 	skybox->draw();
 
 	glEnable(GL_LIGHT0);
+
+	tg->draw();
 
 	for (auto &o : objects) {
 		o->draw();
@@ -146,7 +150,7 @@ float Game::update(float deltaTime) {
 	std::list<GameObject*> removableObjects;
 	for (auto &o : objects) {
 		if (o->getComponent<ObstacleComponent>() != nullptr) {
-			if (o->position.z < player->position.z - 2) {
+			if (o->position.z < player->position.z - 6) {
 
 				point += .5f;
 				removableObjects.push_back(o);
@@ -159,6 +163,19 @@ float Game::update(float deltaTime) {
 		for (auto &o : removableObjects)
 			objects.remove(o);
 		addObstacle();
+
+		
+		std::vector<GameObject*> vobjs{ std::begin(objects), std::end(objects) };
+		std::vector<GameObject*> v;
+
+		v.push_back(vobjs.at(vobjs.size() - 4));
+		v.push_back(vobjs.at(vobjs.size() - 3));
+		v.push_back(vobjs.at(vobjs.size() - 2));
+		v.push_back(vobjs.at(vobjs.size() - 1));
+
+
+		tg->addTerreinBetweenObjs(v);
+		tg->removeTerreinFromFront();
 	}
 
 
@@ -169,6 +186,8 @@ float Game::update(float deltaTime) {
 }
 void Game::init() {
 	obstacleGenerator = new ObstacleGenerator();
+	tg = new TerreinGenerator();
+
 	glEnable(GL_DEPTH_TEST);
 	GameObject *o = new GameObject();
 	o->scale = { .04f, .04f, .04f };
@@ -210,6 +229,14 @@ void Game::init() {
 	for (int i = 0; i < 5; i++)
 		addObstacle();
 
+	vector<GameObject*> obstacleObjs;
+	for (GameObject* obj : objects)
+		if (obj->getComponent<ObstacleComponent>() != nullptr)
+			obstacleObjs.push_back(obj);
+
+	tg->addTerreinBetweenObjs(obstacleObjs);
+
+	
 	skybox = new GameObject();
 	skybox->addComponent(new SkyboxComponent());
 
@@ -222,4 +249,5 @@ void Game::deInit() {
 	objects.clear();
 	delete skybox;
 	delete obstacleGenerator;
+	delete tg;
 }

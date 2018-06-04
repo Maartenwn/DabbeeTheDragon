@@ -17,6 +17,12 @@ public:
 	Vec3f(float x, float y, float z);
 	float& operator [](int);
 
+	float length();
+	Vec3f normalize();
+	Vec3f cross(const Vec3f &other);
+	Vec3f operator - (const Vec3f &other);
+	Vec3f operator / (float factor);
+
 };
 
 class Vec2f
