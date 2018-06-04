@@ -163,8 +163,19 @@ float Game::update(float deltaTime) {
 		for (auto &o : removableObjects)
 			objects.remove(o);
 		addObstacle();
-		std::vector<GameObject*> v{ std::begin(objects), std::end(objects)};
-		tg->recalculateTerrein(v);
+
+		
+		std::vector<GameObject*> vobjs{ std::begin(objects), std::end(objects) };
+		std::vector<GameObject*> v;
+
+		v.push_back(vobjs.at(vobjs.size() - 4));
+		v.push_back(vobjs.at(vobjs.size() - 3));
+		v.push_back(vobjs.at(vobjs.size() - 2));
+		v.push_back(vobjs.at(vobjs.size() - 1));
+
+
+		tg->addTerreinBetweenObjs(v);
+		tg->removeTerreinFromFront();
 	}
 
 
@@ -218,6 +229,14 @@ void Game::init() {
 	for (int i = 0; i < 5; i++)
 		addObstacle();
 
+	vector<GameObject*> obstacleObjs;
+	for (GameObject* obj : objects)
+		if (obj->getComponent<ObstacleComponent>() != nullptr)
+			obstacleObjs.push_back(obj);
+
+	tg->addTerreinBetweenObjs(obstacleObjs);
+
+	
 	skybox = new GameObject();
 	skybox->addComponent(new SkyboxComponent());
 

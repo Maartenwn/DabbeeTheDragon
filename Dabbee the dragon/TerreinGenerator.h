@@ -6,7 +6,6 @@
 #include "Texture.h"
 
 class TerreinGenerator {
-
 public:
 
 	struct hPoint {
@@ -14,12 +13,13 @@ public:
 		float z;
 	};
 
-	std::vector<hPoint> points;
-
 	TerreinGenerator();
 	~TerreinGenerator();
 
-	void recalculateTerrein(const std::vector<GameObject*>&);
+	void recalculateTerrein(const std::vector<GameObject*>&, bool);
+	void addTerreinBetweenObjs(const std::vector<GameObject*>&);
+	void removeTerreinFromFront();
 	void draw(void);
-
+private:
+	vector<hPoint> points;
 };
