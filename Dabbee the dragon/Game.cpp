@@ -166,7 +166,7 @@ float Game::update(float deltaTime) {
 	}
 	else hasCollided = false;
 
-	if (player->position.y <= tg->currentHeight(player->position.z) || player->position.y < -10 || player->position.y >14) {
+	if (player->position.y >= tg->currentRoofHeight(player->position.z) || player->position.y <= tg->currentFloorHeight(player->position.z) || player->position.y < -10 || player->position.y >14) {
 		hasCollided = true;
 	}
 	
@@ -258,6 +258,19 @@ void Game::init() {
 		if (obj->getComponent<ObstacleComponent>() != nullptr)
 			obstacleObjs.push_back(obj);
 
+	std::vector<GameObject*> v;
+
+	GameObject *floorNode = new GameObject();
+	floorNode->position = Vec3f(0, -10, -16);
+	GameObject *roofNode = new GameObject();
+	roofNode->position = Vec3f(0, 10, -16);
+
+	v.push_back(floorNode);
+	v.push_back(roofNode);
+	v.push_back(obstacleObjs.at(0));
+	v.push_back(obstacleObjs.at(1));
+
+	tg->addTerreinBetweenObjs(v);
 	tg->addTerreinBetweenObjs(obstacleObjs);
 
 	
