@@ -80,7 +80,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>opencv_world341d.lib;opengl32.lib;glu32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>freeglut\lib\x64;C:\opencv\build\x64\vc15\lib;glew-2.1.0\lib\Release\x64;bass\c\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>freeglut\lib\x64;C:\opencv\build\x64\vc15\lib;glew-2.1.0\lib\Release\x64;bass\c\x64;%(AdditionalLibraryDirectories)freeglut\lib\x64;C:\opencv\build\x64\vc15\lib;glew-2.1.0\lib\Release\x64;bass\c\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -113,13 +113,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>freeglut/include;D:\Software\libs\opencv\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\opencv\build\include;freeglut\include;glew-2.1.0\include;bass\c</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>freeglut\lib\x64;D:\Software\libs\opencv\opencv\build\x64\vc15\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freeglut.lib;opencv_world341d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>freeglut\lib\x64;C:\opencv\build\x64\vc15\lib;glew-2.1.0\lib\Release\x64;bass\c\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world341.lib;opengl32.lib;glu32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

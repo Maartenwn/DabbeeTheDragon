@@ -44,7 +44,8 @@ static void addObstacle(void) {
 	auto collision = new CollisionComponent();
 
 	vector<Cube*> hitboxes;
-	ObstacleComponent* obstacle = o->getComponent<ObstacleComponent>();
+	ObstacleComponent* obstacle = NULL;
+	obstacle = o->getComponent<ObstacleComponent>();
 
 	o->position = Vec3f(0, obstacle->gapY, position);
 	o->rotation = { -90,0,(float)(rand() % 360) };
@@ -63,7 +64,8 @@ static void addObstacle(void) {
 
 
 	vector<Cube*> hitboxes2;
-	ObstacleComponent* obstacle2 = o2->getComponent<ObstacleComponent>();
+	ObstacleComponent* obstacle2 = NULL;
+	obstacle2 = o2->getComponent<ObstacleComponent>();
 	hitboxes2.push_back(new Cube({ -obstacle2->width / 2, -obstacle2->height,-obstacle2->depth / 2 }, { obstacle2->width + 0.01f,obstacle2->height + 0.01f,obstacle2->depth + 0.01f }));
 	collision2->updateHitboxes(hitboxes2);
 	o2->addComponent(collision2);
@@ -157,7 +159,8 @@ float Game::update(float deltaTime) {
 		o->update(deltaTime);
 	}
 
-	auto collision = player->getComponent<CollisionComponent>();
+	CollisionComponent* collision = NULL;
+	collision = player->getComponent<CollisionComponent>();
 	if (collision->checkCollision(objects)) {
 		hasCollided = true;
 	}
