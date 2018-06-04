@@ -57,17 +57,19 @@ static void addObstacle(void) {
 	objects.push_back(o);
 
 	GameObject* o2 = new GameObject();
+	o2->addComponent(new ModelComponent("models/TestRoper/crystal.obj"));
 	o2->addComponent(obstacleGenerator->topObstacle);
 	auto collision2 = new CollisionComponent();
 
 
 	vector<Cube*> hitboxes2;
 	ObstacleComponent* obstacle2 = o2->getComponent<ObstacleComponent>();
-	hitboxes2.push_back(new Cube(o2->position, { obstacle2->width + 0.01f,obstacle2->height + 0.01f,obstacle2->depth + 0.01f }));
+	hitboxes2.push_back(new Cube({ -obstacle2->width / 2, -obstacle2->height,-obstacle2->depth / 2 }, { obstacle2->width + 0.01f,obstacle2->height + 0.01f,obstacle2->depth + 0.01f }));
 	collision2->updateHitboxes(hitboxes2);
 	o2->addComponent(collision2);
-	o2->position = Vec3f(-obstacle2->width / 2, obstacle2->gapY, position);
-
+	o2->position = Vec3f(0, obstacle2->gapY + obstacle2->height, position);
+	o2->rotation = { 90,0,0 };
+	o2->scale = { 0.4f, 0.4f, 0.4f };
 	objects.push_back(o2);
 }
 
