@@ -206,6 +206,10 @@
     <Media Include="wawoosh.wav" />
     <Media Include="WingFlap.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="glassShader.frag" />
+    <None Include="glassShader.verb" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

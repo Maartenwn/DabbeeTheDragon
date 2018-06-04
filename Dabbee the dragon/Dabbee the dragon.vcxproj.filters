@@ -245,4 +245,12 @@
       <Filter>Resource Files</Filter>
     </Media>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="glassShader.verb">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="glassShader.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

@@ -168,7 +168,6 @@ void MainMenuState::update(float deltaTime)
 
 void MainMenuState::init()
 {
-	hand_init();
 	updateTime = 0;
 	srand(time(NULL));
 	generateRenderTexture();

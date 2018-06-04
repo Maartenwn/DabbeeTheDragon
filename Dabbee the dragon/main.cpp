@@ -48,7 +48,7 @@ void display()
 int lastTime = 0;
 void idle()
 {
-
+	AudioPlayer_update();
 	int currentTime = glutGet(GLUT_ELAPSED_TIME);
 	float deltaTime = (currentTime - lastTime) / 1000.0f;
 	fpsTime += deltaTime;

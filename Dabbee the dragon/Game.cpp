@@ -219,7 +219,14 @@ void Game::init() {
 
 }
 void Game::deInit() {
-	objects.clear();
+	//delete player;
 	delete skybox;
 	delete obstacleGenerator;
+
+
+	for (auto it = objects.begin();it != objects.end();) {
+		GameObject* toBeDeleted = *it;
+		it = objects.erase(it);
+		delete toBeDeleted;
+	}
 }

@@ -118,7 +118,6 @@ void PlayingState::update(float deltaTime)
 
 void PlayingState::init()
 {
-	hand_init();
 	hasFlapped = false;
 	hasCollided = false;
 	cameraOffset = { 0,0,0 };

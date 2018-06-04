@@ -26,11 +26,12 @@ void InitAudioPlayer() {
 	BASS_Init(device, freq, 0, 0, NULL);
 }
 
-static void onStreamDone(HSYNC handle, DWORD channel, DWORD data, void* pTarget) {
-	HSTREAM stream = channel;//(HSTREAM)data;
-	std::vector<HSTREAM>::iterator position = find(streams.begin(), streams.end(), stream);
- 	if (position != streams.end()) // == myVector.end() means the element was not found
-		streams.erase(position);
+void AudioPlayer_update() {
+	for (auto it = streams.begin(); it != streams.end();) {
+		if (BASS_ChannelIsActive(*it) != BASS_ACTIVE_PLAYING) {
+			it = streams.erase(it);
+		}else it++;
+	}
 }
 		
 void PlaySoundOnce(const std::string filename) {  
@@ -47,7 +48,6 @@ void PlaySoundOnce(const std::string filename) {
 		//BASS_SetVolume(0.5);
 		BASS_ChannelSetAttribute(singleSound, BASS_ATTRIB_VOL, 0.5f);
 		BASS_ChannelPlay(singleSound, FALSE);
-		BASS_ChannelSetSync(singleSound, 0, BASS_SYNC_END, onStreamDone, 0);
 		streams.push_back(singleSound);
 	}
 }

@@ -16,7 +16,6 @@
 extern bool keys[256];
 extern float flapspeed;
 extern float fapspeed;
-float cur, top, avg;
 
 using namespace std;
 
