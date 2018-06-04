@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 class GameObject;
 
 class Component
@@ -8,7 +8,7 @@ protected:
 	GameObject* gameObject;
 public:
 	Component();
-	~Component();
+	virtual ~Component() { printf("Testing"); }
 
 	virtual void update(float elapsedTime) {};
 

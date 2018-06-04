@@ -1,24 +1,11 @@
 #include <GL/freeglut.h>
-#include "stb_image.h"
-#include <math.h>
-#include "GameObject.h"
-#include "MoveToComponent.h"
-#include "ObstacleComponent.h"
-#include "ObstacleGenerator.h"
-#include "ModelComponent.h"
-#include "CubeComponent.h"
-#include "PlayerComponent.h"
-#include "TimerComponent.h"
-#include "SkyboxComponent.h"
-#include "DiveComponent.h"
-#include "CollisionComponent.h"
-#include "FollowComponent.h"
-#include "PointToHandComponent.h"
 #include  "PlayingState.h"
 #include <iostream>
 #include <string>
 #include <opencv2\features2d\features2d.hpp>
 #include "Debuginfo.h"
+#include "MagicHands.h"
+#include "Vec.h"
 
 #include "Game.h"
 
@@ -30,7 +17,6 @@ extern Vec3f cameraOffset;
 
 
 extern cv::Point leftHandPoint, rightHandPoint;
-cv::Point lhp, rhp;
 
 bool hasFlapped;
 float total_score;
@@ -132,7 +118,6 @@ void PlayingState::update(float deltaTime)
 
 void PlayingState::init()
 {
-	hand_init();
 	hasFlapped = false;
 	hasCollided = false;
 	cameraOffset = { 0,0,0 };

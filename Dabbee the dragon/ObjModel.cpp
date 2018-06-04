@@ -1,9 +1,15 @@
+#include "GL\glew.h"
+#include "GL\freeglut.h"
+
+
 #include "ObjModel.h"
 #include "Texture.h"
 #include <fstream>
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include "GLShader.h"
+
 
 /**
 * Replaces a substring in a string
@@ -71,13 +77,16 @@ static inline std::string cleanLine(std::string line)
 }
 
 
-
+static GLuint program;
 
 /**
 * Loads an object model
 */
 ObjModel::ObjModel(const std::string &fileName)
 {
+	if (fileName == "models/TestRoper/crystal.obj") {
+		program = LoadShader("glassShader.verb", "glassShader.frag");
+	}
 	name = fileName;
 	std::cout << "Loading " << fileName << std::endl;
 	std::string dirName = fileName;
@@ -191,11 +200,17 @@ ObjModel::ObjModel(const std::string &fileName)
 			}
 		}
 	}
+	glUseProgram(0);
 }
 
 
 ObjModel::~ObjModel(void)
 {
+	vector<Vec3f>().swap(vertices);
+	vector<Vec3f>().swap(normals);
+	vector<Vec2f>().swap(texcoords);
+	vector<ObjGroup*>().swap(groups);
+	vector<MaterialInfo*>().swap(materials);
 }
 
 
@@ -210,11 +225,14 @@ void ObjModel::draw()
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 
+
 	glVertexPointer(3, GL_FLOAT, sizeof(ModelVertex), ((float*)modelVerts.data()) + 0);
 	glNormalPointer(GL_FLOAT, sizeof(ModelVertex), ((float*)modelVerts.data()) + 3);
 	glTexCoordPointer(2, GL_FLOAT, sizeof(ModelVertex), ((float*)modelVerts.data()) + 6);
 
 	glDrawArrays(GL_TRIANGLES, 0, modelVerts.size());
+
+	glUseProgram(0);
 
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
