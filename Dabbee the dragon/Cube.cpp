@@ -12,7 +12,6 @@ Cube::Cube(Vec3f newPosition,Vec3f size)
 
 Cube::~Cube()
 {
-
 }
 
 void Cube::draw()

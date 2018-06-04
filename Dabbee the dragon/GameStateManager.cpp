@@ -38,6 +38,7 @@ void GameStateManager::draw()
 
 void GameStateManager::update(float deltaTime)
 {
+	if (deltaTime > 1) return;
 	states[currentState]->update(deltaTime);
 }
 

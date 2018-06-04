@@ -172,7 +172,7 @@ void MainMenuState::init()
 	srand(time(NULL));
 	generateRenderTexture();
 	logo = new Texture("mainmenu.png");
-	cameraOffset = { -10, 0, 0 };
+	cameraOffset = { -4, 0, -1 };
 	game->init();
 }
 

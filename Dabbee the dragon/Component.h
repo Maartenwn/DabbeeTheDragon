@@ -8,7 +8,7 @@ protected:
 	GameObject* gameObject;
 public:
 	Component();
-	virtual ~Component() { printf("Testing"); }
+	virtual ~Component() {};
 
 	virtual void update(float elapsedTime) {};
 

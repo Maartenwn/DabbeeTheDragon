@@ -16,6 +16,8 @@
 #include "FollowComponent.h"
 #include "PointToHandComponent.h"
 #include "TerreinGenerator.h"
+#include <time.h>
+
 
 GameObject* player;
 GameObject* skybox;
@@ -45,7 +47,7 @@ static void addObstacle(void) {
 	ObstacleComponent* obstacle = o->getComponent<ObstacleComponent>();
 
 	o->position = Vec3f(0, obstacle->gapY, position);
-	o->rotation = { -90,0,0 };
+	o->rotation = { -90,0,(float)(rand() % 360) };
 	o->scale = { 0.4f, 0.4f, 0.4f };
 
 	hitboxes.push_back(new Cube({-obstacle->width / 2,0,-obstacle->depth/2}, { obstacle->width + 0.01f,obstacle->height + 0.01f,obstacle->depth + 0.01f }));
@@ -72,6 +74,7 @@ static void addObstacle(void) {
 Game::Game(GameStateManager* manager)
 {
 	this->manager = manager;
+	srand(time(NULL));
 }
 
 
@@ -85,10 +88,20 @@ void Game::draw() {
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(90.0f, width / (float)height, 0.1f, 50.0f);
+	gluPerspective(90.0f, width / (float)height, 0.1f, 100.0f);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	glEnable(GL_FOG);
+
+	float fogColor[3] = { 0.8f,0.8f,0.8f };
+	glFogfv(GL_FOG_COLOR, fogColor);
+	glFogi(GL_FOG_MODE, GL_LINEAR);
+	glFogf(GL_FOG_START, 2.f);
+	glFogf(GL_FOG_END, 40.f);
+	glFogf(GL_FOG_DENSITY, 5.f);
+
 
 	/*gluLookAt(-10, player->position.y, player->position.z,
 	0, player->position.y, player->position.z,
@@ -138,8 +151,9 @@ void Game::autoInput() {
 
 float Game::update(float deltaTime) {
 	float point = 0;
-	for (auto &o : objects)
+	for (auto &o : objects) {
 		o->update(deltaTime);
+	}
 
 	auto collision = player->getComponent<CollisionComponent>();
 	if (collision->checkCollision(objects)) {
@@ -202,6 +216,7 @@ void Game::init() {
 	collision->updateHitboxes(cubes);
 	o->addComponent(collision);
 	o->position.z = -10;
+	o->position.y = 0;
 	objects.push_back(o);
 	player = o;
 
@@ -226,7 +241,7 @@ void Game::init() {
 	objects.push_back(lw);
 
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 20;i++)
 		addObstacle();
 
 	vector<GameObject*> obstacleObjs;
