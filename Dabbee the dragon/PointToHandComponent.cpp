@@ -1,12 +1,11 @@
 #include "PointToHandComponent.h"
 #include "GameObject.h"
-#include <opencv2\features2d\features2d.hpp>
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <iostream>
 
 extern cv::Point leftHandPoint, rightHandPoint;
-cv::Point clhp, crhp;
+
 
 extern int width;
 extern int height;

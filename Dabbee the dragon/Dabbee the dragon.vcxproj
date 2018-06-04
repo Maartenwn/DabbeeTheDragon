@@ -137,6 +137,7 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GLShader.cpp" />
+    <ClCompile Include="MagicHands.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="ModelComponent.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="GLShader.h" />
+    <ClInclude Include="MagicHands.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="ModelComponent.h" />
     <ClInclude Include="MotionInput.h" />
@@ -205,6 +207,10 @@
     <Media Include="Flap.wav" />
     <Media Include="wawoosh.wav" />
     <Media Include="WingFlap.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="glassShader.frag" />
+    <None Include="glassShader.verb" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

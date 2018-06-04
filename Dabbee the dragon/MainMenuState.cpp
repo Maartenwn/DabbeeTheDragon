@@ -6,6 +6,7 @@
 #include "GLShader.h"
 #include "Texture.h"
 #include "Vec.h"
+#include "MagicHands.h"
 #include <time.h>
 
 GLuint FramebufferName;
@@ -129,6 +130,7 @@ void MainMenuState::draw()
 
 
 	glUseProgram(0);
+
 	logo->bind();
 	glBegin(GL_QUADS);  // front face
 	glTexCoord2f(0.0f, 0.0f); glVertex2f(0, height);
@@ -136,6 +138,9 @@ void MainMenuState::draw()
 	glTexCoord2f(1.0f, 1.0f); glVertex2f(width, 0);
 	glTexCoord2f(1.0f, 0.0f); glVertex2f(width, height);
 	glEnd();
+
+	hand_draw();
+
 
 	glEnable(GL_LIGHTING);
 	glDisable(GL_BLEND);
@@ -146,6 +151,7 @@ float updateTime;
 
 void MainMenuState::update(float deltaTime)
 {
+	hand_update();
 	game->autoInput();
 
 

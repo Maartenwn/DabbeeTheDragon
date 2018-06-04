@@ -12,8 +12,7 @@ Cube::Cube(Vec3f newPosition,Vec3f size)
 
 Cube::~Cube()
 {
-	//delete &position;
-	//delete &maxPosition;
+
 }
 
 void Cube::draw()

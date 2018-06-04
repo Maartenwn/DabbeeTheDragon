@@ -2,9 +2,11 @@
 #include "PlayingState.h" 
 #include "MainMenuState.h"
 #include "GameState.h"
+#include "MagicHands.h"
 
 GameStateManager::GameStateManager()
 {
+	hand_init();
 	init();
 }
 
