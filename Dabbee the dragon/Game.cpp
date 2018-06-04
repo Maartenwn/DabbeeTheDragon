@@ -68,7 +68,7 @@ static void addObstacle(void) {
 	collision2->updateHitboxes(hitboxes2);
 	o2->addComponent(collision2);
 	o2->position = Vec3f(0, obstacle2->gapY + obstacle2->height, position);
-	o2->rotation = { 90,0,0 };
+	o2->rotation = { 90,0,(float)(rand() % 360) };
 	o2->scale = { 0.4f, 0.4f, 0.4f };
 	objects.push_back(o2);
 }
@@ -97,7 +97,8 @@ void Game::draw() {
 
 	glEnable(GL_FOG);
 
-	float fogColor[3] = { 0.8f,0.8f,0.8f };
+	//Fog color is same as skybox in the back
+	float fogColor[3] = { 0.27f,0.24f,0.23f };
 	glFogfv(GL_FOG_COLOR, fogColor);
 	glFogi(GL_FOG_MODE, GL_LINEAR);
 	glFogf(GL_FOG_START, 2.f);
