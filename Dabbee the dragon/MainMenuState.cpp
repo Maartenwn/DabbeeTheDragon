@@ -151,7 +151,7 @@ float updateTime;
 
 void MainMenuState::update(float deltaTime)
 {
-	hand_update();
+	hand_update(deltaTime,true);
 	game->autoInput();
 
 
