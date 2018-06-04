@@ -20,6 +20,9 @@ public:
 	void addTerreinBetweenObjs(const std::vector<GameObject*>&);
 	void removeTerreinFromFront();
 	void draw(void);
+
+	float currentHeight(float);
+
 private:
 	vector<hPoint> points;
 };

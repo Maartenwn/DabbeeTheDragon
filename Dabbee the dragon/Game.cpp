@@ -147,6 +147,10 @@ float Game::update(float deltaTime) {
 	}
 	else hasCollided = false;
 
+	if (player->position.y <= tg->currentHeight(player->position.z)) {
+		hasCollided = true;
+	}
+	
 	std::list<GameObject*> removableObjects;
 	for (auto &o : objects) {
 		if (o->getComponent<ObstacleComponent>() != nullptr) {
