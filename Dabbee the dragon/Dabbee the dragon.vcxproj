@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{8C48BD49-5490-4CD6-BC26-D53144D54365}</ProjectGuid>
     <RootNamespace>Dabbeethedragon</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -80,7 +80,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>opencv_world341d.lib;opengl32.lib;glu32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>freeglut\lib\x64;C:\opencv\build\x64\vc15\lib;glew-2.1.0\lib\Release\x64;bass\c\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>freeglut\lib\x64;C:\opencv\build\x64\vc15\lib;glew-2.1.0\lib\Release\x64;bass\c\x64;%(AdditionalLibraryDirectories)freeglut\lib\x64;C:\opencv\build\x64\vc15\lib;glew-2.1.0\lib\Release\x64;bass\c\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -113,13 +113,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>freeglut/include;D:\Software\libs\opencv\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\opencv\build\include;freeglut\include;glew-2.1.0\include;bass\c</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>freeglut\lib\x64;D:\Software\libs\opencv\opencv\build\x64\vc15\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freeglut.lib;opencv_world341d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>freeglut\lib\x64;C:\opencv\build\x64\vc15\lib;glew-2.1.0\lib\Release\x64;bass\c\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world341.lib;opengl32.lib;glu32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -137,6 +137,7 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GLShader.cpp" />
+    <ClCompile Include="MagicHands.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="ModelComponent.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="PlayingState.cpp" />
     <ClCompile Include="PointToHandComponent.cpp" />
     <ClCompile Include="SkyboxComponent.cpp" />
+    <ClCompile Include="TerreinGenerator.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimerComponent.cpp" />
     <ClCompile Include="Vec.cpp" />
@@ -169,6 +171,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="GLShader.h" />
+    <ClInclude Include="MagicHands.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="ModelComponent.h" />
     <ClInclude Include="MotionInput.h" />
@@ -182,6 +185,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="SkyboxComponent.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="TerreinGenerator.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureVertex.h" />
     <ClInclude Include="TimerComponent.h" />
@@ -199,10 +203,19 @@
     <Image Include="icon1.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="AUW-crashsound.wav" />
+    <Media Include="ButtonClick.wav" />
+    <Media Include="ChargingButton.wav" />
     <Media Include="DesiJourney.wav" />
     <Media Include="Flap.wav" />
+    <Media Include="FlapToStart.wav" />
+    <Media Include="PointGainSound.wav" />
     <Media Include="wawoosh.wav" />
     <Media Include="WingFlap.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="glassShader.frag" />
+    <None Include="glassShader.verb" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

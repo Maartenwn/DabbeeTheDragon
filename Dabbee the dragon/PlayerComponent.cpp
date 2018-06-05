@@ -2,6 +2,7 @@
 #include "AudioPlayer.h"
 #include "GameObject.h"
 #include "MoveToComponent.h"
+#include "GameStateManager.h"
 #include "MotionInput.h"
 #include <iostream>
 #define TICKS_TO_RISE 40
@@ -16,7 +17,6 @@
 extern bool keys[256];
 extern float flapspeed;
 extern float fapspeed;
-float cur, top, avg;
 
 using namespace std;
 
@@ -30,7 +30,8 @@ PlayerComponent::~PlayerComponent()
 
 void PlayerComponent::update(float elapsedTime)
 {
-	MoveToComponent* moveto = gameObject->getComponent<MoveToComponent>();
+	MoveToComponent* moveto = NULL;
+	moveto = gameObject->getComponent<MoveToComponent>();
 
 	if (flapspeed != 0.0f) {
 		top = -((flapspeed * PLAYER_SPEED_MOD) / MAX_FLAP_SPEED);
@@ -56,14 +57,15 @@ void PlayerComponent::update(float elapsedTime)
 
 	}
 
-	float z = sin(gameObject->rotation.x * (M_PI/180)) * 1.85;
-	float y = cos(gameObject->rotation.x * (M_PI / 180)) * 1.85;
-	auto collision = gameObject->getComponent<CollisionComponent>();
+	float z = sin((gameObject->rotation.x * (M_PI / 180)) + M_PI/3) * 1.3f;
+	float y = cos((gameObject->rotation.x * (M_PI / 180)) + M_PI/3) * 1.3f;
+	CollisionComponent* collision = NULL;
+	collision = gameObject->getComponent<CollisionComponent>();
 	for (Cube* &hitbox : collision->hitboxes) {
-		hitbox->maxPosition.z = z + 0.5 * hitbox->size.z;
-		hitbox->maxPosition.y = y + 0.5 * hitbox->size.y;
-		hitbox->position.z = z - hitbox->size.z/2;
-		hitbox->position.y = y - hitbox->size.y/2;
+		hitbox->maxPosition.z = (z + (hitbox->size.z / 2));
+		hitbox->maxPosition.y = (y + (hitbox->size.y / 2));
+		hitbox->position.z = (z - (hitbox->size.z/2));
+		hitbox->position.y = (y - (hitbox->size.y/2));
 	}
 
 

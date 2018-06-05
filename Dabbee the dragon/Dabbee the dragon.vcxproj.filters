@@ -105,6 +105,15 @@
     <ClCompile Include="PointToHandComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="MagicHands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TerreinGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MagicHands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModelComponent.h">
@@ -203,6 +212,12 @@
     <ClInclude Include="PointToHandComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TerreinGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MagicHands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="blurshader.txt">
@@ -238,5 +253,28 @@
     <Media Include="WingFlap.wav">
       <Filter>Resource Files</Filter>
     </Media>
+    <Media Include="AUW-crashsound.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="ButtonClick.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="FlapToStart.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="PointGainSound.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="ChargingButton.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="glassShader.verb">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="glassShader.frag">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

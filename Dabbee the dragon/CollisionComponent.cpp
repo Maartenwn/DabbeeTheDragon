@@ -11,10 +11,16 @@ CollisionComponent::CollisionComponent()
 
 CollisionComponent::~CollisionComponent()
 {
+	for (auto it = hitboxes.begin();it != hitboxes.end();) {
+		Cube* toBeDeleted = *it;	
+		it = hitboxes.erase(it);
+		delete toBeDeleted;
+	}
 }
 
 void CollisionComponent::draw()
 {
+	glColor3f(1.0f, 1.0f, 1.0f);
 	for (Cube* &hitbox : hitboxes)
 	{
 		hitbox->draw();
@@ -38,7 +44,8 @@ GameObject* CollisionComponent::checkCollision(std::list<GameObject*> objects)
 	{
 		if (object != gameObject) {
 			if (object->getComponent<CollisionComponent>() != nullptr) {
-				CollisionComponent* collision = object->getComponent<CollisionComponent>();
+				CollisionComponent* collision = NULL;
+				collision = object->getComponent<CollisionComponent>();
 				for (Cube* &cube : hitboxes) {
 					for (Cube* &cube2 : collision->hitboxes) {
 						if (cube->collide(gameObject->position, object->position, *cube2)) {

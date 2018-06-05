@@ -15,11 +15,16 @@
 #include "DiveComponent.h"
 #include "FollowComponent.h"
 #include "PointToHandComponent.h"
+#include "TerreinGenerator.h"
+#include <time.h>
+
 
 GameObject* player;
 GameObject* skybox;
 
 ObstacleGenerator* obstacleGenerator;
+
+TerreinGenerator* tg;
 
 Vec3f fpsCamOff;
 Vec3f cameraOffset;
@@ -34,34 +39,46 @@ extern bool keys[256];
 static void addObstacle(void) {
 	float position = obstacleGenerator->getNextObstacle();
 	GameObject* o = new GameObject();
+	o->addComponent(new ModelComponent("models/TestRoper/crystal.obj"));
 	o->addComponent(obstacleGenerator->bottomObstacle);
 	auto collision = new CollisionComponent();
 
 	vector<Cube*> hitboxes;
-	ObstacleComponent* obstacle = o->getComponent<ObstacleComponent>();
-	hitboxes.push_back(new Cube(o->position, { obstacle->width + 0.01f,obstacle->height + 0.01f,obstacle->depth + 0.01f }));
+	ObstacleComponent* obstacle = NULL;
+	obstacle = o->getComponent<ObstacleComponent>();
+
+	o->position = Vec3f(0, obstacle->gapY, position);
+	o->rotation = { -90,0,(float)(rand() % 360) };
+	o->scale = { 0.4f, 0.4f, 0.4f };
+
+	hitboxes.push_back(new Cube({-obstacle->width / 2,0,-obstacle->depth/2}, { obstacle->width + 0.01f,obstacle->height + 0.01f,obstacle->depth + 0.01f }));
 	collision->updateHitboxes(hitboxes);
 	o->addComponent(collision);
-	o->position = Vec3f(-obstacle->width / 2, obstacle->gapY, position);
 
 	objects.push_back(o);
 
 	GameObject* o2 = new GameObject();
+	o2->addComponent(new ModelComponent("models/TestRoper/crystal.obj"));
 	o2->addComponent(obstacleGenerator->topObstacle);
+	auto collision2 = new CollisionComponent();
+
 
 	vector<Cube*> hitboxes2;
-	ObstacleComponent* obstacle2 = o2->getComponent<ObstacleComponent>();
-	hitboxes2.push_back(new Cube(o2->position, { obstacle2->width + 0.01f,obstacle2->height + 0.01f,obstacle2->depth + 0.01f }));
-	collision->updateHitboxes(hitboxes2);
-	o2->addComponent(collision);
-	o2->position = Vec3f(-obstacle2->width / 2, obstacle2->gapY, position);
-
+	ObstacleComponent* obstacle2 = NULL;
+	obstacle2 = o2->getComponent<ObstacleComponent>();
+	hitboxes2.push_back(new Cube({ -obstacle2->width / 2, -obstacle2->height,-obstacle2->depth / 2 }, { obstacle2->width + 0.01f,obstacle2->height + 0.01f,obstacle2->depth + 0.01f }));
+	collision2->updateHitboxes(hitboxes2);
+	o2->addComponent(collision2);
+	o2->position = Vec3f(0, obstacle2->gapY + obstacle2->height, position);
+	o2->rotation = { 90,0,(float)(rand() % 360) };
+	o2->scale = { 0.4f, 0.4f, 0.4f };
 	objects.push_back(o2);
 }
 
 Game::Game(GameStateManager* manager)
 {
 	this->manager = manager;
+	srand(time(NULL));
 }
 
 
@@ -75,10 +92,21 @@ void Game::draw() {
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(90.0f, width / (float)height, 0.1f, 50.0f);
+	gluPerspective(90.0f, width / (float)height, 0.1f, 100.0f);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	glEnable(GL_FOG);
+
+	//Fog color is same as skybox in the back
+	float fogColor[3] = { 0.27f,0.24f,0.23f };
+	glFogfv(GL_FOG_COLOR, fogColor);
+	glFogi(GL_FOG_MODE, GL_LINEAR);
+	glFogf(GL_FOG_START, 2.f);
+	glFogf(GL_FOG_END, 40.f);
+	glFogf(GL_FOG_DENSITY, 5.f);
+
 
 	/*gluLookAt(-10, player->position.y, player->position.z,
 	0, player->position.y, player->position.z,
@@ -88,12 +116,11 @@ void Game::draw() {
 		player->position.x + fpsCamOff.x, player->position.y + 0.5 + fpsCamOff.y, player->position.z + fpsCamOff.z,
 		0, 1, 0);
 
-
 	glPushMatrix();
 	GLfloat diffuse[] = { 1, 0, 1, 0 };
 	glLightfv(GL_LIGHT0, GL_POSITION, diffuse);
-	glTranslatef(player->position.x - 3, player->position.y + 1, player->position.z);
-	GLfloat pos[] = { 1, 0, 0, 1 };
+	glTranslatef(player->position.x - 5, player->position.y + 5, player->position.z - 3);
+	GLfloat pos[] = { 0, 0, 0, 1 };
 	glLightfv(GL_LIGHT0, GL_POSITION, pos);
 	glPopMatrix();
 
@@ -101,6 +128,8 @@ void Game::draw() {
 	skybox->draw();
 
 	glEnable(GL_LIGHT0);
+
+	tg->draw();
 
 	for (auto &o : objects) {
 		o->draw();
@@ -116,7 +145,7 @@ void Game::autoInput() {
 	for (auto &o : objects) {
 		if (o->getComponent<ObstacleComponent>() != nullptr) {
 			if (o->position.z > player->position.z  && o->position.z < player->position.z + 8) {
-				if (player->position.y < o->position.y - 5) {
+				if (player->position.y < o->position.y - 7) {
 					keys[' '] = true;
 				}
 				else keys[' '] = false;
@@ -127,19 +156,25 @@ void Game::autoInput() {
 
 float Game::update(float deltaTime) {
 	float point = 0;
-	for (auto &o : objects)
+	for (auto &o : objects) {
 		o->update(deltaTime);
+	}
 
-	auto collision = player->getComponent<CollisionComponent>();
+	CollisionComponent* collision = NULL;
+	collision = player->getComponent<CollisionComponent>();
 	if (collision->checkCollision(objects)) {
 		hasCollided = true;
 	}
 	else hasCollided = false;
 
+	if (player->position.y >= tg->currentRoofHeight(player->position.z) || player->position.y <= tg->currentFloorHeight(player->position.z) || player->position.y < -10 || player->position.y >14) {
+		hasCollided = true;
+	}
+	
 	std::list<GameObject*> removableObjects;
 	for (auto &o : objects) {
 		if (o->getComponent<ObstacleComponent>() != nullptr) {
-			if (o->position.z < player->position.z - 2) {
+			if (o->position.z < player->position.z - 6) {
 
 				point += .5f;
 				removableObjects.push_back(o);
@@ -152,6 +187,19 @@ float Game::update(float deltaTime) {
 		for (auto &o : removableObjects)
 			objects.remove(o);
 		addObstacle();
+
+		
+		std::vector<GameObject*> vobjs{ std::begin(objects), std::end(objects) };
+		std::vector<GameObject*> v;
+
+		v.push_back(vobjs.at(vobjs.size() - 4));
+		v.push_back(vobjs.at(vobjs.size() - 3));
+		v.push_back(vobjs.at(vobjs.size() - 2));
+		v.push_back(vobjs.at(vobjs.size() - 1));
+
+
+		tg->addTerreinBetweenObjs(v);
+		tg->removeTerreinFromFront();
 	}
 
 
@@ -162,6 +210,8 @@ float Game::update(float deltaTime) {
 }
 void Game::init() {
 	obstacleGenerator = new ObstacleGenerator();
+	tg = new TerreinGenerator();
+
 	glEnable(GL_DEPTH_TEST);
 	GameObject *o = new GameObject();
 	o->scale = { .04f, .04f, .04f };
@@ -172,17 +222,18 @@ void Game::init() {
 	o->addComponent(new ModelComponent("models/dragon/dragon_body.obj"));
 	auto collision = new CollisionComponent();
 	vector<Cube*> cubes;
-	cubes.push_back(new Cube({ -0.35f,-0.5,1.5 }, { 0.7f,0.7f,0.7f }));
+	cubes.push_back(new Cube({ -0.175f,-0.8f,1.5 }, { 0.35f, 0.1f,0.5f }));
 	collision->updateHitboxes(cubes);
 	o->addComponent(collision);
 	o->position.z = -10;
+	o->position.y = 0;
 	objects.push_back(o);
 	player = o;
 
 	GameObject *lw = new GameObject();
 	lw->addComponent(new FollowComponent(o, { 0, .55f, 0 }));
 	lw->addComponent(new PointToHandComponent(true));
-	lw->addComponent(new ModelComponent("models/dragon/wing.obj"));
+	lw->addComponent(new ModelComponent("models/dragon/n_wing.obj"));
 	lw->scale = { .04f, .04f, .04f };
 	lw->position.x = 0;
 	lw->position.z = -10;
@@ -191,7 +242,7 @@ void Game::init() {
 
 	rw->addComponent(new FollowComponent(o, { .01f, .55f, 0 }));
 	rw->addComponent(new PointToHandComponent(false));
-	rw->addComponent(new ModelComponent("models/dragon/wing.obj"));
+	rw->addComponent(new ModelComponent("models/dragon/n_wing.obj"));
 	rw->scale = { -.04f, .04f, .04f };
 	rw->position.x = .01f;
 	rw->position.y = .55f;
@@ -200,9 +251,30 @@ void Game::init() {
 	objects.push_back(lw);
 
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 20;i++)
 		addObstacle();
 
+	vector<GameObject*> obstacleObjs;
+	for (GameObject* obj : objects)
+		if (obj->getComponent<ObstacleComponent>() != nullptr)
+			obstacleObjs.push_back(obj);
+
+	std::vector<GameObject*> v;
+
+	GameObject *floorNode = new GameObject();
+	floorNode->position = Vec3f(0, -10, -16);
+	GameObject *roofNode = new GameObject();
+	roofNode->position = Vec3f(0, 10, -16);
+
+	v.push_back(floorNode);
+	v.push_back(roofNode);
+	v.push_back(obstacleObjs.at(0));
+	v.push_back(obstacleObjs.at(1));
+
+	tg->addTerreinBetweenObjs(v);
+	tg->addTerreinBetweenObjs(obstacleObjs);
+
+	
 	skybox = new GameObject();
 	skybox->addComponent(new SkyboxComponent());
 
@@ -212,7 +284,15 @@ void Game::init() {
 
 }
 void Game::deInit() {
-	objects.clear();
+	//delete player;
 	delete skybox;
 	delete obstacleGenerator;
+	delete tg;
+
+
+	for (auto it = objects.begin();it != objects.end();) {
+		GameObject* toBeDeleted = *it;
+		it = objects.erase(it);
+		delete toBeDeleted;
+	}
 }

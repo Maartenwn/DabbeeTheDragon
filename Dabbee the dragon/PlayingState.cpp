@@ -1,25 +1,14 @@
 #include <GL/freeglut.h>
-#include "stb_image.h"
-#include <math.h>
-#include "GameObject.h"
-#include "MoveToComponent.h"
-#include "ObstacleComponent.h"
-#include "ObstacleGenerator.h"
-#include "ModelComponent.h"
-#include "CubeComponent.h"
-#include "PlayerComponent.h"
-#include "TimerComponent.h"
-#include "SkyboxComponent.h"
-#include "DiveComponent.h"
-#include "CollisionComponent.h"
-#include "FollowComponent.h"
-#include "PointToHandComponent.h"
 #include  "PlayingState.h"
 #include <iostream>
 #include <string>
 #include <opencv2\features2d\features2d.hpp>
 #include "Debuginfo.h"
-
+#include <cmath>
+#include "MagicHands.h"
+#include "AudioPlayer.h"
+#include "Vec.h"
+#include "Texture.h"
 #include "Game.h"
 
 
@@ -30,22 +19,49 @@ extern Vec3f cameraOffset;
 
 
 extern cv::Point leftHandPoint, rightHandPoint;
-cv::Point lhp, rhp;
 
 bool hasFlapped;
 float total_score;
-
+bool isDead;
 
 extern int width;
 extern int height;
 
+int imgWidth, imgHeight;
 
+GLuint list_base;
+int bpp;
 
+static Texture* font;
 
 PlayingState::PlayingState(GameStateManager* manager)
 {
 	this->playingGame = new Game(manager);
 	this->manager = manager;
+	font = new Texture("ExportedFont1.png");
+
+	list_base = glGenLists(256);
+	glEnable(GL_TEXTURE_2D);
+	font->bind();
+	for (int i = 0; i < 256; i++) {
+		float cx = (float)(15 - i % 16) / 16.0f;
+		float cy = (float)(i / 16) / 16.0f;
+
+		float size = 1 / 16.0f;
+
+		glNewList(list_base + 255 - i, GL_COMPILE);
+
+		glBegin(GL_QUADS);
+
+		glTexCoord2f(cx, cy);					glVertex2d(0, 1);	
+		glTexCoord2f(cx, cy + size);			glVertex2i(0, 0);
+		glTexCoord2f(cx + size, cy + size);		glVertex2i(1, 0);
+		glTexCoord2f(cx + size, cy);			glVertex2i(1, 1);
+
+		glEnd();
+		glTranslated(1, 0, 0);
+		glEndList();
+	}
 }
 
 
@@ -55,6 +71,50 @@ PlayingState::~PlayingState()
 	delete playingGame;
 }
 
+void PlayingState::drawScore()
+{
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0.0, width, height, 0.0, -1.0, 1.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glDisable(GL_CULL_FACE);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+
+	glDisable(GL_LIGHTING);
+	glDisable(GL_DEPTH_TEST);
+
+	glEnable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glColor3f(1.0f, 1.0f, 1.0f);
+
+	glPushMatrix();
+	glScalef(50, 50, 50);
+	font->bind();
+	glListBase(list_base);
+	string score = "Score: ";
+	score += to_string((int) total_score);
+	glCallLists(score.length(), GL_UNSIGNED_BYTE, score.c_str());
+	glPopMatrix();
+
+
+	if (isDead) {
+		glPushMatrix();
+
+		glListBase(list_base);
+		string deathString = "Game over";
+		glTranslated(width / 2 - 70 * (deathString.length() / 2), height / 2  - 70/2, 0);
+		glScalef(70, 70, 70);
+		glCallLists(deathString.length(), GL_UNSIGNED_BYTE, deathString.c_str());
+		glPopMatrix();
+	}
+
+} 
+
 void PlayingState::resize(int w, int h) {
 
 }
@@ -62,53 +122,27 @@ void PlayingState::resize(int w, int h) {
 
 void PlayingState::drawHUD()
 {
-	float gsize = 10;
 
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
 	glOrtho(0.0, width, height, 0.0, -1.0, 10.0);
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	glLoadIdentity(); 
 	glDisable(GL_CULL_FACE);
 
 	glClear(GL_DEPTH_BUFFER_BIT);
-
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glBegin(GL_QUADS);
-
-	if (leftHandPoint.x != -1)
-		lhp = leftHandPoint;
-
-	glVertex2f(lhp.x - gsize, lhp.y - gsize);
-	glVertex2f(lhp.x + gsize, lhp.y - gsize);
-	glVertex2f(lhp.x + gsize, lhp.y + gsize);
-	glVertex2f(lhp.x - gsize, lhp.y + gsize);
-
-	glVertex2f(20, 40);
-	glVertex2f(40,40);
-	glVertex2f(40,80);
-	glVertex2f(20,80);
-
-	if (rightHandPoint.x != -1)
-		rhp = rightHandPoint;
-
-	glVertex2f(rhp.x - gsize, rhp.y - gsize);
-	glVertex2f(rhp.x + gsize, rhp.y - gsize);
-	glVertex2f(rhp.x + gsize, rhp.y + gsize);
-	glVertex2f(rhp.x - gsize, rhp.y + gsize);
-
-	glEnd();
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glColor4f(1.0f, 1.0f, 1.0f,0.0f);
+	hand_draw();
 
 	glPushMatrix();
 	glTranslatef(30, 40 ,0);	//translate and scale
 	glScalef(.3f,-.3f,1);
 
-	unsigned char scoreLabel[15] = " ";
+	/*unsigned char scoreLabel[15] = " ";
 	std::string s = "Score " + std::to_string((int)total_score);
 	std::copy(s.begin(), s.end(), scoreLabel);
-	glutStrokeString(GLUT_STROKE_ROMAN, scoreLabel);
+	glutStrokeString(GLUT_STROKE_ROMAN, scoreLabel);*/
 
 
 	glTranslatef(-30, -40, 0);
@@ -126,7 +160,6 @@ void PlayingState::drawHUD()
     draw_debug_display(debugon);
 	
 	glPopMatrix();
-
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
@@ -136,35 +169,57 @@ void PlayingState::draw()
 {
 	playingGame->draw();
 	drawHUD();
+	drawScore();
+
 }
 
 extern float flapspeed;
 
 bool hasCollided;
-
+float timeSinceDeath;
 void PlayingState::update(float deltaTime)
 {
-	if (flapspeed != 0.0 || keys[' ']) hasFlapped = true;
-	if (hasFlapped) {
-		total_score += playingGame->update(deltaTime);
-	}
-	if (hasCollided) {
-		manager->changeState(0);
+	if (isDead) {
+		timeSinceDeath += deltaTime;
+		if (timeSinceDeath > 3) {
+			manager->changeState(0);
+		}
+		return;
 	}
 
+
+	hand_update(deltaTime,false);
+	if (flapspeed != 0.0 || keys[' ']) hasFlapped = true;
+	if (hasFlapped) {
+		int i = playingGame->update(deltaTime);
+		total_score += i;
+		if (i >  0)
+		PlaySoundOnce("PointGainSound.wav");
+	}
+	if (hasCollided && !isDead) {
+		isDead = true;
+		PlaySoundOnce("AUW-crashsound.wav");
+		timeSinceDeath = 0;
+	}
+	
+	
 }
 
 void PlayingState::init()
 {
+	keys['s'] = false;
 	hasFlapped = false;
-	
+	isDead = false;
 	hasCollided = false;
 	cameraOffset = { 0,0,0 };
 	playingGame->init();
+	PlaySoundOnce("FlapToStart.wav");
 }
 
 void PlayingState::deInit()
 {
+	debugon = false;
+	butreleased = true;	
 	playingGame->deInit();
 	total_score = 0;
 }

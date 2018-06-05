@@ -94,8 +94,8 @@ void draw_debug_display(bool on) {
 
 		cameraOffset = cameraoffsets[Camindx];
 		if (3 == Camindx) {		//first person
-			float z = sin(player->rotation.x * (M_PI / 180)) * 2.3f;
-			float y = cos(player->rotation.x * (M_PI / 180)) * 2.3f;
+			float z = sin(player->rotation.x * (M_PI / 180) + M_PI/4) * 2.3f;
+			float y = cos(player->rotation.x * (M_PI / 180) + M_PI/4) * 2.3f;
 			cameraOffset.y += y;
 			cameraOffset.z += z;
 			fpsCamOff = cameraOffset;
@@ -117,6 +117,10 @@ void draw_debug_display(bool on) {
 void debug_println(std::string s){
 	unsigned char val[33];					//max 32 chars per line
 	std::copy(s.begin(), s.end(), val);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glDisable(GL_LIGHTING);
 	glutStrokeString(DEBUG_STROKE, val);
 	glTranslatef(-glutStrokeLengthf(DEBUG_STROKE,val),-WHITESPACE, 0);			//translate x back to the begining of string and y a whitespace down
+	glEnable(GL_LIGHTING);
+
 }

@@ -8,5 +8,8 @@ public:
 };
 
 void InitAudioPlayer();
+void AudioPlayer_update();
 void PlaySoundOnce(const std::string filename);
 void PlaySoundInloop(const std::string filename);
+void PlayChargingSound();
+void KillChargingSound();

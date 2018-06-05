@@ -6,7 +6,8 @@
 
 class PlayerComponent : public Component
 {
-			
+private: 
+	float cur, top, avg;
 public:
 	float pc_speed = 15;
 

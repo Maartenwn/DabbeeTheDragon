@@ -8,6 +8,7 @@ using namespace std;
 
 MoveToComponent::MoveToComponent()
 {
+	mt_speedcounter = 1;
 }
 
 
@@ -21,7 +22,7 @@ void MoveToComponent::update(float elapsedTime)
 	gameObject->position.y += mt_speed * target.y * mt_speedcounter * elapsedTime;
 	gameObject->position.z += mt_speed * target.z * elapsedTime;
 	mt_speedcounter += G * elapsedTime;
-
+	
 }
 
 

@@ -17,8 +17,10 @@ DiveComponent::~DiveComponent()
 }
 
 void DiveComponent::dive() {
-	PlayerComponent* player = gameObject->getComponent<PlayerComponent>();
-	MoveToComponent* moveTo = gameObject->getComponent<MoveToComponent>();
+	PlayerComponent* player = NULL;
+	player = gameObject->getComponent<PlayerComponent>();
+	MoveToComponent* moveTo = NULL;
+	moveTo = gameObject->getComponent<MoveToComponent>();
 
 	float rot = 90;
 	float speed = moveTo->mt_speedcounter;

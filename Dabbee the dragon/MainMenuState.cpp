@@ -6,6 +6,8 @@
 #include "GLShader.h"
 #include "Texture.h"
 #include "Vec.h"
+#include "MagicHands.h"
+#include "AudioPlayer.h"
 #include <time.h>
 
 GLuint FramebufferName;
@@ -129,6 +131,7 @@ void MainMenuState::draw()
 
 
 	glUseProgram(0);
+
 	logo->bind();
 	glBegin(GL_QUADS);  // front face
 	glTexCoord2f(0.0f, 0.0f); glVertex2f(0, height);
@@ -136,6 +139,9 @@ void MainMenuState::draw()
 	glTexCoord2f(1.0f, 1.0f); glVertex2f(width, 0);
 	glTexCoord2f(1.0f, 0.0f); glVertex2f(width, height);
 	glEnd();
+
+	hand_draw();
+
 
 	glEnable(GL_LIGHTING);
 	glDisable(GL_BLEND);
@@ -146,6 +152,7 @@ float updateTime;
 
 void MainMenuState::update(float deltaTime)
 {
+	hand_update(deltaTime,true);
 	game->autoInput();
 
 
@@ -157,6 +164,7 @@ void MainMenuState::update(float deltaTime)
 
 	if (keys['s']) {
 		manager->changeState(1);
+		PlaySoundOnce("ButtonClick.wav");
 	}
 }
 
@@ -166,7 +174,7 @@ void MainMenuState::init()
 	srand(time(NULL));
 	generateRenderTexture();
 	logo = new Texture("mainmenu.png");
-	cameraOffset = { -10, 0, 0 };
+	cameraOffset = { -4, 0, -1 };
 	game->init();
 }
 

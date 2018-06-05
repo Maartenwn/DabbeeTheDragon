@@ -2,9 +2,11 @@
 #include "PlayingState.h" 
 #include "MainMenuState.h"
 #include "GameState.h"
+#include "MagicHands.h"
 
 GameStateManager::GameStateManager()
 {
+	hand_init();
 	init();
 }
 
@@ -36,6 +38,7 @@ void GameStateManager::draw()
 
 void GameStateManager::update(float deltaTime)
 {
+	if (deltaTime > 1) return;
 	states[currentState]->update(deltaTime);
 }
 
