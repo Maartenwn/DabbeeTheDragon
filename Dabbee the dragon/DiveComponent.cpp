@@ -33,10 +33,10 @@ void DiveComponent::dive() {
 		rot = PLAYER_ANGLE_BOT;
 	}else {
 		float temp = PLAYER_ANGLE_BOT - PLAYER_ANGLE_TOP;
-		rot = ((speed - top) / (bot - top) * (temp))  + PLAYER_ANGLE_TOP;
+		rot = ((speed - top) / (bot - top) * (temp));
 	}
 
-	gameObject->rotation = { rot ,270,0 };
+	gameObject->rotation = { rot - 90 ,0,0 };
 }
 
 void DiveComponent::update(float elapsedTime) {

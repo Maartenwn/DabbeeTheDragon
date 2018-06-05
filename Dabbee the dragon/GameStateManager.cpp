@@ -1,9 +1,12 @@
 #include "GameStateManager.h"
 #include "PlayingState.h" 
+#include "MainMenuState.h"
 #include "GameState.h"
+#include "MagicHands.h"
 
 GameStateManager::GameStateManager()
 {
+	hand_init();
 	init();
 }
 
@@ -16,12 +19,17 @@ GameStateManager::~GameStateManager()
 void GameStateManager::init()
 {
 	currentState = 0;
-	states.push_back(new PlayingState(this));
+	states.push_back(new MainMenuState(this));
 	states.push_back(new PlayingState(this));
 
 
 	states[currentState]->init();
 }
+
+void GameStateManager::resize(int w, int h) {
+	states[currentState]->resize(w, h);
+}
+
 
 void GameStateManager::draw()
 {
@@ -30,6 +38,7 @@ void GameStateManager::draw()
 
 void GameStateManager::update(float deltaTime)
 {
+	if (deltaTime > 1) return;
 	states[currentState]->update(deltaTime);
 }
 

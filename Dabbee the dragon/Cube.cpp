@@ -12,8 +12,6 @@ Cube::Cube(Vec3f newPosition,Vec3f size)
 
 Cube::~Cube()
 {
-	//delete &position;
-	//delete &maxPosition;
 }
 
 void Cube::draw()
@@ -23,7 +21,6 @@ void Cube::draw()
 	glColor3f(1.0, 1.0, 1.0);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);  // this tells it to only render lines
 	glBegin(GL_LINES);
-
 
 	//bottem
 	glVertex3f(position.x,position.y,position.z);

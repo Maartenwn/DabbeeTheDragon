@@ -3,6 +3,8 @@
 #include "CollisionComponent.h"
 #include <GL/freeglut.h>
 
+extern bool debugon;
+
 GameObject::GameObject()
 {
 }
@@ -10,6 +12,11 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
+	for (auto it = components.begin();it != components.end();) {
+		Component* toBeDeleted = *it;
+		it = components.erase(it);
+		delete toBeDeleted;
+	}
 }
 
 void GameObject::addComponent(Component * component)
@@ -35,17 +42,15 @@ void GameObject::draw()
 	if (!drawComponent)
 		return;
 	
-
-
 	glPushMatrix();
 	glTranslatef(position.x, position.y, position.z);
-	if (collisionComponent) {
+	if (collisionComponent && debugon) {
 		collisionComponent->draw();
 	}
+	glScalef(scale.x, scale.y, scale.z);
 	glRotatef(rotation.x, 1, 0, 0);
 	glRotatef(rotation.y, 0, 1, 0);
 	glRotatef(rotation.z, 0, 0, 1);
-	glScalef(scale.x, scale.y, scale.z);
 	drawComponent->draw();
 	glPopMatrix();
 }
