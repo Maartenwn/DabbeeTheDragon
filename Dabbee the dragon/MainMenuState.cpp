@@ -7,6 +7,7 @@
 #include "Texture.h"
 #include "Vec.h"
 #include "MagicHands.h"
+#include "AudioPlayer.h"
 #include <time.h>
 
 GLuint FramebufferName;
@@ -163,6 +164,7 @@ void MainMenuState::update(float deltaTime)
 
 	if (keys['s']) {
 		manager->changeState(1);
+		PlaySoundOnce("ButtonClick.wav");
 	}
 }
 

@@ -9,6 +9,7 @@ using namespace std;
 #pragma comment(lib, "bass.lib") // link with bass.dll
 
 HSTREAM backgroundMusic; // Handle for open stream
+HSTREAM ChargingButton;
 AudioPlayer::AudioPlayer()
 {
 }
@@ -52,11 +53,22 @@ void PlaySoundOnce(const std::string filename) {
 	}
 }
 
-void PlaySoundInloop(const std::string filename) {
+void PlaySoundInloop(const std::string filename) {	
 	
 	backgroundMusic = BASS_StreamCreateFile(FALSE, filename.c_str(), 0, 0, 0);
 	BASS_ChannelSetAttribute(backgroundMusic, BASS_ATTRIB_VOL, 0.03f);
 	BASS_ChannelPlay(backgroundMusic, TRUE);
+}
+
+void PlayChargingSound() {
+
+	ChargingButton = BASS_StreamCreateFile(FALSE, "ChargingButton.wav", 0, 0, 0);
+	BASS_ChannelSetAttribute(ChargingButton, BASS_ATTRIB_VOL, 0.5f);
+	BASS_ChannelPlay(ChargingButton, FALSE);
+}
+
+void KillChargingSound() {
+	BASS_ChannelPause(ChargingButton);
 }
 
 

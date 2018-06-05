@@ -203,8 +203,13 @@
     <Image Include="icon1.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="AUW-crashsound.wav" />
+    <Media Include="ButtonClick.wav" />
+    <Media Include="ChargingButton.wav" />
     <Media Include="DesiJourney.wav" />
     <Media Include="Flap.wav" />
+    <Media Include="FlapToStart.wav" />
+    <Media Include="PointGainSound.wav" />
     <Media Include="wawoosh.wav" />
     <Media Include="WingFlap.wav" />
   </ItemGroup>
