@@ -18,8 +18,10 @@ void Cube::draw()
 {
 	glPushMatrix();
 	glDisable(GL_LIGHTING);
+	glDisable(GL_TEXTURE_2D);	
 	glColor3f(1.0, 1.0, 1.0);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);  // this tells it to only render lines
+	glLineWidth(5);
 	glBegin(GL_LINES);
 
 	//bottem
@@ -63,6 +65,7 @@ void Cube::draw()
 	glEnd();
 	glEnable(GL_LIGHTING);
 	glPopMatrix();
+	glLineWidth(1);
 }
 
 bool Cube::collide(Vec3f pos1, Vec3f pos2, Cube toCheckCube)

@@ -117,6 +117,10 @@ void draw_debug_display(bool on) {
 void debug_println(std::string s){
 	unsigned char val[33];					//max 32 chars per line
 	std::copy(s.begin(), s.end(), val);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glDisable(GL_LIGHTING);
 	glutStrokeString(DEBUG_STROKE, val);
 	glTranslatef(-glutStrokeLengthf(DEBUG_STROKE,val),-WHITESPACE, 0);			//translate x back to the begining of string and y a whitespace down
+	glEnable(GL_LIGHTING);
+
 }

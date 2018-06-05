@@ -145,7 +145,7 @@ void Game::autoInput() {
 	for (auto &o : objects) {
 		if (o->getComponent<ObstacleComponent>() != nullptr) {
 			if (o->position.z > player->position.z  && o->position.z < player->position.z + 8) {
-				if (player->position.y < o->position.y - 5) {
+				if (player->position.y < o->position.y - 7) {
 					keys[' '] = true;
 				}
 				else keys[' '] = false;

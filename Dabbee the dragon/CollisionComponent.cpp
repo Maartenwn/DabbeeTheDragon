@@ -20,6 +20,7 @@ CollisionComponent::~CollisionComponent()
 
 void CollisionComponent::draw()
 {
+	glColor3f(1.0f, 1.0f, 1.0f);
 	for (Cube* &hitbox : hitboxes)
 	{
 		hitbox->draw();

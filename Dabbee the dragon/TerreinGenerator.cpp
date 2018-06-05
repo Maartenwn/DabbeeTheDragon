@@ -9,9 +9,10 @@
 #include <math.h>
 
 
-#define FLOOR_STEP 5
-#define FLOOR_WIDTH 50.0f
-#define FLOOR_NOICE 6
+#define FLOOR_STEP 2
+#define FLOOR_WIDTH 150
+#define FLOOR_NOICE 20
+#define xOffset 5.5
 
 using namespace std;
 
@@ -173,7 +174,6 @@ void TerreinGenerator::GenerateVerts(vector<hPoint> objPoints, bool bot)
 
 	float to = 12;
 	float objModelOffset = -.3f;
-	float xOffset = 2.65f;
 	float yOffset = 0;
 
 	float prevCurve;

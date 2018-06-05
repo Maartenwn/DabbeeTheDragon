@@ -6,7 +6,7 @@
 #include "Debuginfo.h"
 #include "MagicHands.h"
 #include "Vec.h"
-
+#include "Texture.h"
 #include "Game.h"
 
 
@@ -20,6 +20,7 @@ extern cv::Point leftHandPoint, rightHandPoint;
 
 bool hasFlapped;
 float total_score;
+bool isDead;
 
 extern int width;
 extern int height;
@@ -85,6 +86,7 @@ void PlayingState::drawScore()
 	glDisable(GL_DEPTH_TEST);
 
 	glEnable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glColor3f(1.0f, 1.0f, 1.0f);
 
@@ -96,6 +98,19 @@ void PlayingState::drawScore()
 	score += to_string((int) total_score);
 	glCallLists(score.length(), GL_UNSIGNED_BYTE, score.c_str());
 	glPopMatrix();
+
+
+	if (isDead) {
+		glPushMatrix();
+
+		glListBase(list_base);
+		string deathString = "You are dead";
+		glTranslated(width / 2 - 70 * (deathString.length() / 2), height / 2  - 70/2, 0);
+		glScalef(70, 70, 70);
+		glCallLists(deathString.length(), GL_UNSIGNED_BYTE, deathString.c_str());
+		glPopMatrix();
+	}
+
 } 
 
 void PlayingState::resize(int w, int h) {
@@ -114,7 +129,6 @@ void PlayingState::drawHUD()
 	glLoadIdentity(); 
 	glDisable(GL_CULL_FACE);
 
-
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glColor4f(1.0f, 1.0f, 1.0f,0.0f);
 	hand_draw();
@@ -123,10 +137,10 @@ void PlayingState::drawHUD()
 	glTranslatef(30, 40 ,0);	//translate and scale
 	glScalef(.3f,-.3f,1);
 
-	unsigned char scoreLabel[15] = " ";
+	/*unsigned char scoreLabel[15] = " ";
 	std::string s = "Score " + std::to_string((int)total_score);
 	std::copy(s.begin(), s.end(), scoreLabel);
-	glutStrokeString(GLUT_STROKE_ROMAN, scoreLabel);
+	glutStrokeString(GLUT_STROKE_ROMAN, scoreLabel);*/
 
 
 	glTranslatef(-30, -40, 0);
@@ -160,24 +174,36 @@ void PlayingState::draw()
 extern float flapspeed;
 
 bool hasCollided;
-
+float timeSinceDeath;
 void PlayingState::update(float deltaTime)
 {
+	if (isDead) {
+		timeSinceDeath += deltaTime;
+		if (timeSinceDeath > 3) {
+			manager->changeState(0);
+		}
+		return;
+	}
+
+
 	hand_update(deltaTime,false);
 	if (flapspeed != 0.0 || keys[' ']) hasFlapped = true;
 	if (hasFlapped) {
 		total_score += playingGame->update(deltaTime);
 	}
-	if (hasCollided) {
-		manager->changeState(0);
+	if (hasCollided && !isDead) {
+		isDead = true;
+		timeSinceDeath = 0;
 	}
-
+	
+	
 }
 
 void PlayingState::init()
 {
 	keys['s'] = false;
 	hasFlapped = false;
+	isDead = false;
 	hasCollided = false;
 	cameraOffset = { 0,0,0 };
 	playingGame->init();
@@ -185,6 +211,8 @@ void PlayingState::init()
 
 void PlayingState::deInit()
 {
+	debugon = false;
+	butreleased = true;	
 	playingGame->deInit();
 	total_score = 0;
 }
