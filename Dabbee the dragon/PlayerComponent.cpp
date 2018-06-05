@@ -2,6 +2,7 @@
 #include "AudioPlayer.h"
 #include "GameObject.h"
 #include "MoveToComponent.h"
+#include "GameStateManager.h"
 #include "MotionInput.h"
 #include <iostream>
 #define TICKS_TO_RISE 40

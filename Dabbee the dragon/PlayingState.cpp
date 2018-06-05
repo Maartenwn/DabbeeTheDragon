@@ -4,7 +4,9 @@
 #include <string>
 #include <opencv2\features2d\features2d.hpp>
 #include "Debuginfo.h"
+#include <cmath>
 #include "MagicHands.h"
+#include "AudioPlayer.h"
 #include "Vec.h"
 
 #include "Game.h"
@@ -108,10 +110,15 @@ void PlayingState::update(float deltaTime)
 	hand_update(deltaTime,false);
 	if (flapspeed != 0.0 || keys[' ']) hasFlapped = true;
 	if (hasFlapped) {
-		total_score += playingGame->update(deltaTime);
+		int i = playingGame->update(deltaTime);
+		total_score += i;
+		if (i >  0)
+		PlaySoundOnce("PointGainSound.wav");
 	}
 	if (hasCollided) {
 		manager->changeState(0);
+		PlaySoundOnce("AUW-crashsound.wav");
+		Sleep(200);// zodat overgang iets natuurlijker is
 	}
 
 }
@@ -123,6 +130,7 @@ void PlayingState::init()
 	hasCollided = false;
 	cameraOffset = { 0,0,0 };
 	playingGame->init();
+	PlaySoundOnce("FlapToStart.wav");
 }
 
 void PlayingState::deInit()
