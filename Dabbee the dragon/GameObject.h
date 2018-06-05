@@ -35,9 +35,11 @@ public:
 		for (auto c : components)
 		{
 			T* t = dynamic_cast<T*>(c);
-			if (t)
+			if (t) {
 				return t;
+			}
 		}
+		return nullptr;
 	}
 
 	template<class T>

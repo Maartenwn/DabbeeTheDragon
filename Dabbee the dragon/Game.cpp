@@ -44,7 +44,8 @@ static void addObstacle(void) {
 	auto collision = new CollisionComponent();
 
 	vector<Cube*> hitboxes;
-	ObstacleComponent* obstacle = o->getComponent<ObstacleComponent>();
+	ObstacleComponent* obstacle = NULL;
+	obstacle = o->getComponent<ObstacleComponent>();
 
 	o->position = Vec3f(0, obstacle->gapY, position);
 	o->rotation = { -90,0,(float)(rand() % 360) };
@@ -63,12 +64,13 @@ static void addObstacle(void) {
 
 
 	vector<Cube*> hitboxes2;
-	ObstacleComponent* obstacle2 = o2->getComponent<ObstacleComponent>();
+	ObstacleComponent* obstacle2 = NULL;
+	obstacle2 = o2->getComponent<ObstacleComponent>();
 	hitboxes2.push_back(new Cube({ -obstacle2->width / 2, -obstacle2->height,-obstacle2->depth / 2 }, { obstacle2->width + 0.01f,obstacle2->height + 0.01f,obstacle2->depth + 0.01f }));
 	collision2->updateHitboxes(hitboxes2);
 	o2->addComponent(collision2);
 	o2->position = Vec3f(0, obstacle2->gapY + obstacle2->height, position);
-	o2->rotation = { 90,0,0 };
+	o2->rotation = { 90,0,(float)(rand() % 360) };
 	o2->scale = { 0.4f, 0.4f, 0.4f };
 	objects.push_back(o2);
 }
@@ -97,7 +99,8 @@ void Game::draw() {
 
 	glEnable(GL_FOG);
 
-	float fogColor[3] = { 0.8f,0.8f,0.8f };
+	//Fog color is same as skybox in the back
+	float fogColor[3] = { 0.27f,0.24f,0.23f };
 	glFogfv(GL_FOG_COLOR, fogColor);
 	glFogi(GL_FOG_MODE, GL_LINEAR);
 	glFogf(GL_FOG_START, 2.f);
@@ -157,13 +160,14 @@ float Game::update(float deltaTime) {
 		o->update(deltaTime);
 	}
 
-	auto collision = player->getComponent<CollisionComponent>();
+	CollisionComponent* collision = NULL;
+	collision = player->getComponent<CollisionComponent>();
 	if (collision->checkCollision(objects)) {
 		hasCollided = true;
 	}
 	else hasCollided = false;
 
-	if (player->position.y <= tg->currentHeight(player->position.z)) {
+	if (player->position.y >= tg->currentRoofHeight(player->position.z) || player->position.y <= tg->currentFloorHeight(player->position.z) || player->position.y < -10 || player->position.y >14) {
 		hasCollided = true;
 	}
 	
@@ -255,6 +259,19 @@ void Game::init() {
 		if (obj->getComponent<ObstacleComponent>() != nullptr)
 			obstacleObjs.push_back(obj);
 
+	std::vector<GameObject*> v;
+
+	GameObject *floorNode = new GameObject();
+	floorNode->position = Vec3f(0, -10, -16);
+	GameObject *roofNode = new GameObject();
+	roofNode->position = Vec3f(0, 10, -16);
+
+	v.push_back(floorNode);
+	v.push_back(roofNode);
+	v.push_back(obstacleObjs.at(0));
+	v.push_back(obstacleObjs.at(1));
+
+	tg->addTerreinBetweenObjs(v);
 	tg->addTerreinBetweenObjs(obstacleObjs);
 
 	

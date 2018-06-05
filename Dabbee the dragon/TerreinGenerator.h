@@ -21,8 +21,11 @@ public:
 	void removeTerreinFromFront();
 	void draw(void);
 
-	float currentHeight(float);
+	float currentFloorHeight(float);
+	float currentRoofHeight(float);
 
 private:
-	vector<hPoint> points;
+	vector<hPoint> floor;
+	vector<hPoint> roof;
+	void GenerateVerts(vector<hPoint>, bool);
 };

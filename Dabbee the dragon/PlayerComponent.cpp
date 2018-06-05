@@ -29,7 +29,8 @@ PlayerComponent::~PlayerComponent()
 
 void PlayerComponent::update(float elapsedTime)
 {
-	MoveToComponent* moveto = gameObject->getComponent<MoveToComponent>();
+	MoveToComponent* moveto = NULL;
+	moveto = gameObject->getComponent<MoveToComponent>();
 
 	if (flapspeed != 0.0f) {
 		top = -((flapspeed * PLAYER_SPEED_MOD) / MAX_FLAP_SPEED);
@@ -57,7 +58,8 @@ void PlayerComponent::update(float elapsedTime)
 
 	float z = sin((gameObject->rotation.x * (M_PI / 180)) + M_PI/3) * 1.3f;
 	float y = cos((gameObject->rotation.x * (M_PI / 180)) + M_PI/3) * 1.3f;
-	auto collision = gameObject->getComponent<CollisionComponent>();
+	CollisionComponent* collision = NULL;
+	collision = gameObject->getComponent<CollisionComponent>();
 	for (Cube* &hitbox : collision->hitboxes) {
 		hitbox->maxPosition.z = (z + (hitbox->size.z / 2));
 		hitbox->maxPosition.y = (y + (hitbox->size.y / 2));
