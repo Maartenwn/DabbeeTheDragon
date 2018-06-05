@@ -104,7 +104,7 @@ void PlayingState::drawScore()
 		glPushMatrix();
 
 		glListBase(list_base);
-		string deathString = "You are dead";
+		string deathString = "Game over";
 		glTranslated(width / 2 - 70 * (deathString.length() / 2), height / 2  - 70/2, 0);
 		glScalef(70, 70, 70);
 		glCallLists(deathString.length(), GL_UNSIGNED_BYTE, deathString.c_str());
