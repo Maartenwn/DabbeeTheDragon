@@ -106,8 +106,8 @@ void hand_update(float ellapesdTime,bool circle){
 	rotationR = atan2(rhp.y - motionO.y, rhp.x - motionO.x) * 180.0f / 3.1415f;
 	if (circle == true) {
 		if (ellapesdTime < 1.0f) {
-			angleInPiesR += 1.2f * ellapesdTime;		
-			angleInPiesL += 1.2f * ellapesdTime;
+			angleInPiesR += 1.666f * ellapesdTime;		
+			angleInPiesL += 1.666f * ellapesdTime;
 		}if (angleInPiesR > 2.2f) {
 			angleInPiesR = 0;
 			onRcircleDraw = 0;

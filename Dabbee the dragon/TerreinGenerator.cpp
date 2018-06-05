@@ -27,6 +27,7 @@ TerreinGenerator::TerreinGenerator()
 
 TerreinGenerator::~TerreinGenerator()
 {
+	delete terreinTexture;
 }
 
 void TerreinGenerator::recalculateTerrein(const std::vector<GameObject*>& objs, bool clear)
