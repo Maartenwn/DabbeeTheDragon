@@ -4,7 +4,9 @@
 #include <string>
 #include <opencv2\features2d\features2d.hpp>
 #include "Debuginfo.h"
+#include <cmath>
 #include "MagicHands.h"
+#include "AudioPlayer.h"
 #include "Vec.h"
 #include "Texture.h"
 #include "Game.h"
@@ -104,7 +106,7 @@ void PlayingState::drawScore()
 		glPushMatrix();
 
 		glListBase(list_base);
-		string deathString = "You are dead";
+		string deathString = "Game over";
 		glTranslated(width / 2 - 70 * (deathString.length() / 2), height / 2  - 70/2, 0);
 		glScalef(70, 70, 70);
 		glCallLists(deathString.length(), GL_UNSIGNED_BYTE, deathString.c_str());
@@ -189,10 +191,14 @@ void PlayingState::update(float deltaTime)
 	hand_update(deltaTime,false);
 	if (flapspeed != 0.0 || keys[' ']) hasFlapped = true;
 	if (hasFlapped) {
-		total_score += playingGame->update(deltaTime);
+		int i = playingGame->update(deltaTime);
+		total_score += i;
+		if (i >  0)
+		PlaySoundOnce("PointGainSound.wav");
 	}
 	if (hasCollided && !isDead) {
 		isDead = true;
+		PlaySoundOnce("AUW-crashsound.wav");
 		timeSinceDeath = 0;
 	}
 	
@@ -207,6 +213,7 @@ void PlayingState::init()
 	hasCollided = false;
 	cameraOffset = { 0,0,0 };
 	playingGame->init();
+	PlaySoundOnce("FlapToStart.wav");
 }
 
 void PlayingState::deInit()
