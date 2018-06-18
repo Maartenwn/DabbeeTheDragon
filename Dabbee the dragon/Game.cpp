@@ -17,10 +17,13 @@
 #include "PointToHandComponent.h"
 #include "TerreinGenerator.h"
 #include <time.h>
+#include "color.h"
 
 
 GameObject* player;
 GameObject* skybox;
+
+hsv color;
 
 ObstacleGenerator* obstacleGenerator;
 
@@ -117,8 +120,9 @@ void Game::draw() {
 		0, 1, 0);
 
 	glPushMatrix();
-	GLfloat diffuse[] = { 1, 0, 1, 0 };
-	glLightfv(GL_LIGHT0, GL_POSITION, diffuse);
+	rgb rgbcolor = hsv2rgb(color);
+	GLfloat diffuse[] = { rgbcolor.r ,rgbcolor.g  , rgbcolor.b, 0 };
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
 	glTranslatef(player->position.x - 5, player->position.y + 5, player->position.z - 3);
 	GLfloat pos[] = { 0, 0, 0, 1 };
 	glLightfv(GL_LIGHT0, GL_POSITION, pos);
@@ -155,6 +159,9 @@ void Game::autoInput() {
 }
 
 float Game::update(float deltaTime) {
+	color.h += 2 * deltaTime;
+	if (color.h > 360) color.h = 0;
+
 	float point = 0;
 	for (auto &o : objects) {
 		o->update(deltaTime);
@@ -209,6 +216,7 @@ float Game::update(float deltaTime) {
 	return point;
 }
 void Game::init() {
+	color = { (float) (rand() % 360),0.9f,1.0f };
 	obstacleGenerator = new ObstacleGenerator();
 	tg = new TerreinGenerator();
 
